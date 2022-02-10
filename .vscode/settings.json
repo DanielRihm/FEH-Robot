@@ -2,10 +2,10 @@
 {
     // Hides the files excluded in gitignore in vscode
     "files.exclude": {
-        "*.aux": true,
-        "*.fdb_latexmk": true,
-        "*.fls": true,
-        "*.log": true,
-        "*.synctex.gz": true
+        "*/*.aux": true,
+        "*/*.fdb_latexmk": true,
+        "*/*.fls": true,
+        "*/*.log": true,
+        "*/*.synctex.gz": true
     }
 }
