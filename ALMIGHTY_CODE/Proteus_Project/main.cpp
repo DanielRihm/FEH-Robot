@@ -1,4 +1,5 @@
 #include <FEHLCD.h>
+#include <omnimotion.h>
 
 int main(void)
 {
