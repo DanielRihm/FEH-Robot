@@ -40,19 +40,8 @@ int detectLight() {
  * @param rightLine Whether the right sensor is on the line.
  */
 void readOpto(bool* leftLine, bool* middleLine, bool* rightLine) {
-    *leftLine = true;
-    *middleLine = true;
-    *rightLine = true;
 
-    if (leftOpt.Value() < LINE_CUTOFF) {
-        *leftLine = false;
-    }
-
-    if (middleOpt.Value() < LINE_CUTOFF) {
-        *middleLine = false;
-    }
-
-    if (rightOpt.Value() < LINE_CUTOFF) {
-        *rightLine = false;
-    }
+    *leftLine = leftOpt.Value() > LINE_CUTOFF;
+    *middleLine = middleOpt.Value() > LINE_CUTOFF;
+    *rightLine = rightOpt.Value() > LINE_CUTOFF;
 }
