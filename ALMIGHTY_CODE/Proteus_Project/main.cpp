@@ -1,5 +1,6 @@
 #include <FEHLCD.h>
-#include <omnimotion.h>
+#include <OmniMotion.h>
+#include <OmniSensors.h>
 
 int main(void)
 {
