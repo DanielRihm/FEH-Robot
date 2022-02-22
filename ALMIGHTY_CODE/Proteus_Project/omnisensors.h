@@ -5,10 +5,16 @@
 #define RED_LIGHT 1
 #define BLUE_LIGHT 2
 #define NO_LIGHT 0
+#define LINE_CUTOFF 2.0
 
 AnalogInputPin cds(FEHIO::P0_0);
+// left is on the actual left side of the robot (same side as left motor).
+AnalogInputPin leftOpt(FEHIO::P0_1);
+AnalogInputPin rightOpt(FEHIO::P0_2);
+AnalogInputPin middleOpt(FEHIO::P0_3);
 
 int detectLight();
+void readOpto(bool*, bool*, bool*);
 
 /**
  * @brief Detects the particular light color for a yellow filter.
@@ -23,5 +29,30 @@ int detectLight() {
         return BLUE_LIGHT;
     } else {
         return NO_LIGHT;
+    }
+}
+
+/**
+ * @brief Reads the optosensors and returns whether each optosensor is on a line or not. Left is actual left (same side as left motor).
+ * 
+ * @param leftLine Whether the left sensor is on the line.
+ * @param middleLine Whether the middle sensor is on the line.
+ * @param rightLine Whether the right sensor is on the line.
+ */
+void readOpto(bool* leftLine, bool* middleLine, bool* rightLine) {
+    *leftLine = true;
+    *middleLine = true;
+    *rightLine = true;
+
+    if (leftOpt.Value() < LINE_CUTOFF) {
+        *leftLine = false;
+    }
+
+    if (middleOpt.Value() < LINE_CUTOFF) {
+        *middleLine = false;
+    }
+
+    if (rightOpt.Value() < LINE_CUTOFF) {
+        *rightLine = false;
     }
 }

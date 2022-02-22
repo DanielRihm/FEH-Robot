@@ -24,6 +24,7 @@ class Robot {
         void move(float, float, int);
         void turn(float, int);
         void stop();
+        void moveUnbounded(float, int);
 };
 
 Robot::Robot() {
@@ -53,11 +54,24 @@ void Robot::turn(float time, int speed) {
  * @brief Moves the robot in the specified direction at the specified speed.
  * Requires time > 0 AND 0 < speed < 25 AND 0 < angle < 360.
  * 
- * @param angle 
- * @param time 
- * @param speed 
+ * @param angle The angle at which the robot moves at.
+ * @param time The amount of time the robot should move for.
+ * @param speed The speed at which the robot should move.
  */
 void Robot::move(float angle, float time, int speed) {
+    moveUnbounded(angle, speed);
+    Sleep(time);
+    stop();
+}
+
+/**
+ * @brief Moves the robot in the specified direction at the specified speed.
+ * Requires 0 < speed < 25 AND 0 < angle < 360.
+ * 
+ * @param angle The angle at which the robot moves at.
+ * @param speed The speed at which the robot should move.
+ */
+void Robot::moveUnbounded(float angle, float time, int speed) {
     float motorFS = speed * cos(MOTOR_FRONT_ANGLE * PI / 180.0 - angle * PI / 180.0);
     float motorLS = speed * cos(MOTOR_LEFT_ANGLE * PI / 180.0 - angle * PI / 180.0);
     float motorRS = speed * cos(MOTOR_RIGHT_ANGLE * PI / 180.0 - angle * PI / 180.0);
@@ -65,8 +79,6 @@ void Robot::move(float angle, float time, int speed) {
     frontM.SetPercent(motorFS);
     leftM.SetPercent(motorLS);
     rightM.SetPercent(motorRS);
-    Sleep(time);
-    stop();
 }
 
 /**
