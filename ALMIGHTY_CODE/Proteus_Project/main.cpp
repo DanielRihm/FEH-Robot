@@ -2,7 +2,6 @@
 #include <OmniMotion.h>
 #include <OmniSensors.h>
 
-// things
 #define RIGHT_ANGLE 90.0
 #define FRONT_ANGLE 0.0
 #define LEFT_ANGLE 270.0
@@ -80,9 +79,9 @@ void waitForLight() {
  * @param ips Inches per second.
  */
 void moveUpRamp(Robot wall_E6, float ips) {
-    wall_E6.move(LEFT_ANGLE, ips * 7.0, SPEED);
-    wall_E6.move(FRONT_ANGLE, ips * 31.0, SPEED);
-    wall_E6.move(BACK_ANGLE, ips * 20.0, SPEED);
+    wall_E6.move(LEFT_ANGLE, 7.0/ips, SPEED);
+    wall_E6.move(FRONT_ANGLE, 31.0/ips, SPEED);
+    wall_E6.move(BACK_ANGLE, 20.0/ips, SPEED);
 }
 
 /**
@@ -128,9 +127,9 @@ void goTillLight(Robot wall_E6, float ips) {
 
     int light = detectLight();
     if (light == 1) {
-        wall_E6.move(LEFT_ANGLE, ips * 3.5, SPEED);
+        wall_E6.move(LEFT_ANGLE, 3.5/ips, SPEED);
     } else {
-        wall_E6.move(RIGHT_ANGLE, ips * 3.5, SPEED);
+        wall_E6.move(RIGHT_ANGLE, 3.5/ips, SPEED);
     }
 }
 
