@@ -8,6 +8,7 @@
 #define BACK_ANGLE 180.0
 #define SPEED 45
 #define SLOW_SPEED 25
+#define FAST_SPEED 60
 #define IPS 3.9375
 
 void test(Robot);
@@ -79,8 +80,8 @@ void waitForLight() {
  * @param ips Inches per second.
  */
 void moveUpRamp(Robot wall_E6, float ips) {
-    wall_E6.move(LEFT_ANGLE, 7.0/ips, SPEED);
-    wall_E6.move(FRONT_ANGLE, 31.0/ips, SPEED);
+    wall_E6.move(LEFT_ANGLE, 6.5/ips, SPEED);
+    wall_E6.move(FRONT_ANGLE, 32.0/(ips * (SPEED / FAST_SPEED)), FAST_SPEED);
     wall_E6.move(BACK_ANGLE, 20.0/ips, SPEED);
 }
 
