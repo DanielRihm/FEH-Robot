@@ -5,9 +5,9 @@
 
 #define VOLTAGE 6.0
 #define PI 3.141592
-#define MOTOR_FRONT_ANGLE 90.0
-#define MOTOR_LEFT_ANGLE 330.0
-#define MOTOR_RIGHT_ANGLE 210.0
+#define MOTOR_FRONT_ANGLE 270.0
+#define MOTOR_LEFT_ANGLE 150.0
+#define MOTOR_RIGHT_ANGLE 30.0
 
 FEHMotor frontM(FEHMotor::Motor0, VOLTAGE);
 FEHMotor leftM(FEHMotor::Motor1, VOLTAGE);
@@ -71,7 +71,7 @@ void Robot::move(float angle, float time, int speed) {
  * @param angle The angle at which the robot moves at.
  * @param speed The speed at which the robot should move.
  */
-void Robot::moveUnbounded(float angle, float time, int speed) {
+void Robot::moveUnbounded(float angle, int speed) {
     float motorFS = speed * cos(MOTOR_FRONT_ANGLE * PI / 180.0 - angle * PI / 180.0);
     float motorLS = speed * cos(MOTOR_LEFT_ANGLE * PI / 180.0 - angle * PI / 180.0);
     float motorRS = speed * cos(MOTOR_RIGHT_ANGLE * PI / 180.0 - angle * PI / 180.0);

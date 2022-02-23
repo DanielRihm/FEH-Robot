@@ -6,8 +6,8 @@
 #define FRONT_ANGLE 0.0
 #define LEFT_ANGLE 270.0
 #define BACK_ANGLE 180.0
-#define SPEED 10
-#define SLOW_SPEED 5
+#define SPEED 45
+#define SLOW_SPEED 25
 
 void test(Robot);
 void waitForLight();
@@ -26,19 +26,24 @@ void test(Robot wall_E6) {
     LCD.Clear();
     wall_E6.turn(5.0, SPEED);
     for (int i = 0; i < 360; i++) {
-        wall_E6.move(i, 0.02, SPEED);
-        LCD.WriteLine("Moving at angle " + i);
+        wall_E6.moveUnbounded(i, SPEED);
+        if (i % 20 == 0) {
+            LCD.Clear();
+            LCD.WriteLine("Moving at angle " + i);
+        }
+        Sleep(0.01);
     }
 
+    Sleep(1.0);
     LCD.Clear();
-    wall_E6.move(FRONT_ANGLE, 1.0, SPEED);
     LCD.WriteLine("Moving forward.");
-    wall_E6.move(RIGHT_ANGLE, 1.0, SPEED);
+    wall_E6.move(FRONT_ANGLE, 1.0, SPEED);
     LCD.WriteLine("Moving right.");
-    wall_E6.move(LEFT_ANGLE, 1.0, SPEED);
+    wall_E6.move(RIGHT_ANGLE, 1.0, SPEED);
     LCD.WriteLine("Moving left.");
-    wall_E6.move(BACK_ANGLE, 1.0, SPEED);
+    wall_E6.move(LEFT_ANGLE, 1.0, SPEED);
     LCD.WriteLine("Moving backwards.");
+    wall_E6.move(BACK_ANGLE, 1.0, SPEED);
 
     LCD.WriteLine("Waiting...");
     float x, y;
