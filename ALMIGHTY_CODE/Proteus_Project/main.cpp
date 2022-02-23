@@ -15,11 +15,21 @@ void moveUpRamp(Robot, float);
 void goTillLight(Robot, float);
 void goTillLine(Robot);
 void lineFollowing(Robot);
+void testForward(Robot, float);
 
 int main(void)
 {
     Robot wall_E6(0);
-    test(wall_E6);
+    testForward(wall_E6, 4.0);
+}
+
+void testForward(Robot wall_E6, float time) {
+    LCD.Clear();
+    LCD.WriteLine("Waiting...");
+    float x, y;
+    while (!LCD.Touch(&x,&y));
+    wall_E6.move(FRONT_ANGLE, time, SPEED);
+    LCD.WriteLine("Yay! :)");
 }
 
 void test(Robot wall_E6) {
@@ -27,9 +37,10 @@ void test(Robot wall_E6) {
     wall_E6.turn(5.0, SPEED);
     for (int i = 0; i < 360; i++) {
         wall_E6.moveUnbounded(i, SPEED);
-        if (i % 20 == 0) {
+        if (i % 5 == 0) {
             LCD.Clear();
-            LCD.WriteLine("Moving at angle " + i);
+            LCD.Write("Moving at angle ");
+            LCD.WriteLine(i);
         }
         Sleep(0.01);
     }

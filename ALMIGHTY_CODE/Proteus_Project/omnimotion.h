@@ -8,6 +8,9 @@
 #define MOTOR_FRONT_ANGLE 270.0
 #define MOTOR_LEFT_ANGLE 150.0
 #define MOTOR_RIGHT_ANGLE 30.0
+#define FRONT_FACTOR 1.0
+#define LEFT_FACTOR 1.0
+#define RIGHT_FACTOR 0.9
 
 FEHMotor frontM(FEHMotor::Motor0, VOLTAGE);
 FEHMotor leftM(FEHMotor::Motor1, VOLTAGE);
@@ -18,6 +21,7 @@ class Robot;
 class Robot {
     private:
         int currAng;
+        void setMotorPercent(float, float, float);
     public:
         Robot();
         Robot(int);
@@ -43,9 +47,7 @@ Robot::Robot(int angle) {
  * @param speed The speed at which to turn. Negative values will turn the opposite direction.
  */
 void Robot::turn(float time, int speed) {
-    frontM.SetPercent(speed);
-    leftM.SetPercent(speed);
-    rightM.SetPercent(speed);
+    setMotorPercent(speed, speed, speed);
     Sleep(time);
     stop();
 }
@@ -76,9 +78,7 @@ void Robot::moveUnbounded(float angle, int speed) {
     float motorLS = speed * cos(MOTOR_LEFT_ANGLE * PI / 180.0 - angle * PI / 180.0);
     float motorRS = speed * cos(MOTOR_RIGHT_ANGLE * PI / 180.0 - angle * PI / 180.0);
 
-    frontM.SetPercent(motorFS);
-    leftM.SetPercent(motorLS);
-    rightM.SetPercent(motorRS);
+    setMotorPercent(motorFS, motorLS, motorRS);
 }
 
 /**
@@ -86,7 +86,18 @@ void Robot::moveUnbounded(float angle, int speed) {
  * 
  */
 void Robot::stop() {
-    frontM.SetPercent(0);
-    leftM.SetPercent(0);
-    rightM.SetPercent(0);
+    setMotorPercent(0,0,0);
+}
+
+/**
+ * @brief Sets all motors' percents to the specified amounts
+ * 
+ * @param fSpeed The front motor's speed
+ * @param lSpeed The left motor's speed
+ * @param rSpeed The right motor's speed
+ */
+void Robot::setMotorPercent(float fSpeed, float lSpeed, float rSpeed) {
+    frontM.SetPercent(fSpeed * FRONT_FACTOR);
+    leftM.SetPercent(lSpeed * LEFT_FACTOR);
+    rightM.SetPercent(rSpeed * RIGHT_FACTOR);
 }
