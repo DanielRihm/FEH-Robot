@@ -3,7 +3,7 @@
 #include <FEHUtility.h>
 #include <math.h>
 
-#define VOLTAGE 9.0
+#define VOLTAGE 6.0
 #define PI 3.141592
 #define MOTOR_FRONT_ANGLE 90.0
 #define MOTOR_LEFT_ANGLE 330.0
