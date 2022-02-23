@@ -2,12 +2,14 @@
 #include <OmniMotion.h>
 #include <OmniSensors.h>
 
+// things
 #define RIGHT_ANGLE 90.0
 #define FRONT_ANGLE 0.0
 #define LEFT_ANGLE 270.0
 #define BACK_ANGLE 180.0
 #define SPEED 45
 #define SLOW_SPEED 25
+#define IPS 3.9375
 
 void test(Robot);
 void waitForLight();
@@ -16,19 +18,20 @@ void goTillLight(Robot, float);
 void goTillLine(Robot);
 void lineFollowing(Robot);
 void testForward(Robot, float);
+void waitForTouch();
 
 int main(void)
 {
     Robot wall_E6(0);
-    testForward(wall_E6, 4.0);
+    waitForTouch();
+    moveUpRamp(wall_E6, IPS);
 }
 
 void testForward(Robot wall_E6, float time) {
     LCD.Clear();
     LCD.WriteLine("Waiting...");
     float x, y;
-    while (!LCD.Touch(&x,&y));
-    wall_E6.move(FRONT_ANGLE, time, SPEED);
+    waitForTouch();
     LCD.WriteLine("Yay! :)");
 }
 
@@ -57,8 +60,7 @@ void test(Robot wall_E6) {
     wall_E6.move(BACK_ANGLE, 1.0, SPEED);
 
     LCD.WriteLine("Waiting...");
-    float x, y;
-    while (!LCD.Touch(&x,&y));
+    waitForTouch();
     wall_E6.move(FRONT_ANGLE, 1.0, SPEED);
 }
 
@@ -150,4 +152,13 @@ void goTillLine(Robot wall_E6) {
     }
 
     wall_E6.stop();
+}
+
+/**
+ * @brief Just waits for a user touch lol
+ * 
+ */
+void waitForTouch() {
+    float x, y;
+    while (!LCD.Touch(&x,&y));
 }
