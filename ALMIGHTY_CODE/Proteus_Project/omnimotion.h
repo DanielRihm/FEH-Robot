@@ -10,7 +10,7 @@
 #define MOTOR_RIGHT_ANGLE 30.0
 #define FRONT_FACTOR 0.9
 #define LEFT_FACTOR 1.0
-#define RIGHT_FACTOR 0.9
+#define RIGHT_FACTOR 0.95
 
 FEHMotor frontM(FEHMotor::Motor0, VOLTAGE);
 FEHMotor leftM(FEHMotor::Motor1, VOLTAGE);
