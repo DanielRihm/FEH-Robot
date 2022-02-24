@@ -24,7 +24,7 @@ int main(void)
 {
     Robot wall_E6(0);
     waitForTouch();
-    // yooooolooooo
+    // yoooool
     moveUpRamp(wall_E6, IPS);
 }
 

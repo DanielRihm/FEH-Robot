@@ -8,9 +8,12 @@
 #define MOTOR_FRONT_ANGLE 270.0
 #define MOTOR_LEFT_ANGLE 150.0
 #define MOTOR_RIGHT_ANGLE 30.0
-#define FRONT_FACTOR 0.9
-#define LEFT_FACTOR 1.0
-#define RIGHT_FACTOR 0.96
+#define NEG_FRONT_FACTOR 0.9
+#define NEG_LEFT_FACTOR 1.0
+#define NEG_RIGHT_FACTOR 0.95
+#define POS_FRONT_FACTOR 0.9
+#define POS_LEFT_FACTOR 0.9
+#define POS_RIGHT_FACTOR 1.0
 
 FEHMotor frontM(FEHMotor::Motor0, VOLTAGE);
 FEHMotor leftM(FEHMotor::Motor1, VOLTAGE);
@@ -97,7 +100,21 @@ void Robot::stop() {
  * @param rSpeed The right motor's speed
  */
 void Robot::setMotorPercent(float fSpeed, float lSpeed, float rSpeed) {
-    frontM.SetPercent(fSpeed * FRONT_FACTOR);
-    leftM.SetPercent(lSpeed * LEFT_FACTOR);
-    rightM.SetPercent(rSpeed * RIGHT_FACTOR);
+    if (fSpeed < 0.0) {
+        frontM.SetPercent(fSpeed * NEG_FRONT_FACTOR);
+    } else {
+        frontM.SetPercent(fSpeed * POS_FRONT_FACTOR);
+    }
+
+    if (lSpeed < 0.0) {
+        leftM.SetPercent(lSpeed * NEG_LEFT_FACTOR);
+    } else {
+        leftM.SetPercent(lSpeed * POS_LEFT_FACTOR);
+    }
+
+    if (rSpeed < 0.0) {
+        rightM.SetPercent(rSpeed * NEG_RIGHT_FACTOR);
+    } else {
+        rightM.SetPercent(rSpeed * POS_RIGHT_FACTOR);
+    }
 }
