@@ -23,9 +23,10 @@ void waitForTouch();
 int main(void)
 {
     Robot wall_E6(0);
-    waitForTouch();
-    // yoooool
+    waitForLight();
     moveUpRamp(wall_E6, IPS);
+    goTillLine(wall_E6);
+    lineFollowing(wall_E6);
 }
 
 void testForward(Robot wall_E6, float time) {
