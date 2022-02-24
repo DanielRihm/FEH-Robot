@@ -24,6 +24,7 @@ int main(void)
 {
     Robot wall_E6(0);
     waitForTouch();
+    // yooooolooooo
     moveUpRamp(wall_E6, IPS);
 }
 
@@ -81,7 +82,7 @@ void waitForLight() {
  */
 void moveUpRamp(Robot wall_E6, float ips) {
     wall_E6.move(LEFT_ANGLE, 7.0/ips, SPEED);
-    wall_E6.move(FRONT_ANGLE, 32.0/(ips * (SPEED / FAST_SPEED)), FAST_SPEED);
+    wall_E6.move(FRONT_ANGLE, 28.0/(ips * (FAST_SPEED / SPEED)), FAST_SPEED);
     wall_E6.move(BACK_ANGLE, 20.0/ips, SPEED);
 }
 
