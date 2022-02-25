@@ -4,6 +4,11 @@
 #include <OmniCourse.h>
 #include <OmniUtility.h>
 
+// organization is vague and needs to be improved
+// utility, motion, and sensors are fine, however OmniCourse
+// is strange and what methods fall under it vs motion and sensors is
+// vague and needs to be clarified in the future
+
 void test(Robot);
 void testForward(Robot, float);
 void testSideToSide(Robot, float);
