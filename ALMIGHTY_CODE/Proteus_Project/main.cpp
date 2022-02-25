@@ -23,18 +23,25 @@ void waitForTouch();
 int main(void)
 {
     Robot wall_E6(0);
-    waitForLight();
-    moveUpRamp(wall_E6, IPS);
-    goTillLine(wall_E6);
-    lineFollowing(wall_E6);
+    // waitForLight();
+    // moveUpRamp(wall_E6, IPS);
+    // goTillLine(wall_E6);
+    // lineFollowing(wall_E6);
+    // goTillLight(wall_E6, IPS);
+    // lineFollowing(wall_E6);
+    testForward(wall_E6, 4.0);
 }
 
 void testForward(Robot wall_E6, float time) {
     LCD.Clear();
     LCD.WriteLine("Waiting...");
-    float x, y;
     waitForTouch();
+    wall_E6.move(FRONT_ANGLE, time, SPEED);
     LCD.WriteLine("Yay! :)");
+    LCD.WriteLine("Waiting...");
+    waitForTouch();
+    wall_E6.move(BACK_ANGLE, time, SPEED);
+    LCD.WriteLine("finished");
 }
 
 void test(Robot wall_E6) {
@@ -61,9 +68,7 @@ void test(Robot wall_E6) {
     LCD.WriteLine("Moving backwards.");
     wall_E6.move(BACK_ANGLE, 1.0, SPEED);
 
-    LCD.WriteLine("Waiting...");
-    waitForTouch();
-    wall_E6.move(FRONT_ANGLE, 1.0, SPEED);
+    testForward(wall_E6, 4.0);
 }
 
 void waitForLight() {
@@ -100,15 +105,16 @@ void lineFollowing(Robot wall_E6) {
     while (true) {
         readOpto(leftLine, middleLine, rightLine);
 
-        if (middleLine) {
-            wall_E6.moveUnbounded(BACK_ANGLE, SPEED);
+        if (middleLine && rightLine) {
+            // Prefers the right side
+            wall_E6.moveUnbounded(BACK_ANGLE - 20.0, SPEED);
             LCD.WriteLine("MIDDLE");
-        } else if (leftLine) {
-            wall_E6.moveUnbounded(LEFT_ANGLE, SPEED);
-            LCD.WriteLine("(ACTUAL) RIGHT OF LINE");
         } else if (rightLine) {
             wall_E6.moveUnbounded(RIGHT_ANGLE, SPEED);
             LCD.WriteLine("(ACTUAL) LEFT OF LINE");
+        } else if (middleLine) {
+            wall_E6.moveUnbounded(BACK_ANGLE + 10.0, SPEED);
+            LCD.WriteLine("UHH. MAYBE TO THE RIGHT");
         } else {
             wall_E6.stop();
             break;
@@ -125,7 +131,7 @@ void lineFollowing(Robot wall_E6) {
 void goTillLight(Robot wall_E6, float ips) {
     wall_E6.moveUnbounded(BACK_ANGLE, SLOW_SPEED);
 
-    while(detectLight() == 0);
+    waitForLight();
     wall_E6.stop();
 
     int light = detectLight();

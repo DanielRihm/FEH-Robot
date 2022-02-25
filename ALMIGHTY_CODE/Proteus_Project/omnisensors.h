@@ -9,9 +9,9 @@
 
 AnalogInputPin cds(FEHIO::P0_0);
 // left is on the actual left side of the robot (same side as left motor).
-AnalogInputPin leftOpt(FEHIO::P0_1);
-AnalogInputPin rightOpt(FEHIO::P0_2);
-AnalogInputPin middleOpt(FEHIO::P0_3);
+AnalogInputPin leftOpt(FEHIO::P1_0);
+AnalogInputPin rightOpt(FEHIO::P3_0);
+AnalogInputPin middleOpt(FEHIO::P2_0);
 
 int detectLight();
 void readOpto(bool*, bool*, bool*);
