@@ -12,12 +12,13 @@
 #define IPS 3.9375
 
 void test(Robot);
-void waitForLight();
+int waitForLight();
 void moveUpRamp(Robot, float);
 void goTillLight(Robot, float);
 void goTillLine(Robot);
 void lineFollowing(Robot);
 void testForward(Robot, float);
+void testSideToSide(Robot, float);
 void waitForTouch();
 void guessToLine(Robot, float);
 void guessToButton(Robot, float);
@@ -25,12 +26,22 @@ void guessToButton(Robot, float);
 int main(void)
 {
     Robot wall_E6(0);
+    LCD.Clear();
+    LCD.WriteLine("Waiting...");
+    waitForTouch();
     waitForLight();
     moveUpRamp(wall_E6, IPS);
     guessToLine(wall_E6, IPS);
+    goTillLight(wall_E6, IPS);
     guessToButton(wall_E6, IPS);
 }
 
+/**
+ * @brief Moves the robot forward and backwards.
+ * 
+ * @param wall_E6 The robot.
+ * @param time The amout of time to move for.
+ */
 void testForward(Robot wall_E6, float time) {
     LCD.Clear();
     LCD.WriteLine("Waiting...");
@@ -43,6 +54,29 @@ void testForward(Robot wall_E6, float time) {
     LCD.WriteLine("finished");
 }
 
+/**
+ * @brief Moves the robot to the left and then to the right.
+ * 
+ * @param wall_E6 The robot.
+ * @param time The amount of time to move for.
+ */
+void testSideToSide(Robot wall_E6, float time) {
+    LCD.Clear();
+    LCD.WriteLine("Waiting...");
+    waitForTouch();
+    wall_E6.move(LEFT_ANGLE, time, SPEED);
+    LCD.WriteLine("Yay! :)");
+    LCD.WriteLine("Waiting...");
+    waitForTouch();
+    wall_E6.move(RIGHT_ANGLE, time, SPEED);
+    LCD.WriteLine("finished");
+}
+
+/**
+ * @brief Tests the full range of motion of the robot.
+ * 
+ * @param wall_E6 The robot.
+ */
 void test(Robot wall_E6) {
     LCD.Clear();
     wall_E6.turn(5.0, SPEED);
@@ -68,23 +102,31 @@ void test(Robot wall_E6) {
     wall_E6.move(BACK_ANGLE, 1.0, SPEED);
 
     testForward(wall_E6, 4.0);
+    testSideToSide(wall_E6, 4.0);
 }
 
-void waitForLight() {
+/**
+ * @brief Sleeps until a light is detected.
+ * 
+ * @return The specific light detected.
+ */
+int waitForLight() {
     int light = 0;
-    LCD.Clear();
     LCD.WriteLine("Waiting for light.");
     while (light == 0) {
         light = detectLight();
         Sleep(0.5);
     }
+
+    return light;
 }
 
 void guessToLine(Robot wall_E6, float ips) {
-    wall_E6.move(LEFT_ANGLE, 7.9/ips, SPEED);
+    wall_E6.move(LEFT_ANGLE, 10.0/ips, SPEED);
 }
 
 void guessToButton(Robot wall_E6, float ips) {
+    LCD.WriteLine("Driving to the button.");
     wall_E6.move(BACK_ANGLE, 7.0/ips, SPEED);
 }
 
@@ -99,8 +141,9 @@ void moveUpRamp(Robot wall_E6, float ips) {
     LCD.Clear();
     LCD.WriteLine("Moving up the ramp.");
     wall_E6.move(LEFT_ANGLE, 7.0/ips, SPEED);
-    wall_E6.move(FRONT_ANGLE, 29.0/(ips * (FAST_SPEED / SPEED)), FAST_SPEED);
-    wall_E6.move(BACK_ANGLE, 20.0/ips, SPEED);
+    wall_E6.move(FRONT_ANGLE, 28.0/(ips * (FAST_SPEED / SPEED)), FAST_SPEED);
+    LCD.WriteLine("And back down the ramp.");
+    wall_E6.move(BACK_ANGLE, 22.0/ips, SPEED);
 }
 
 /**
@@ -144,15 +187,20 @@ void lineFollowing(Robot wall_E6) {
  * @param ips Inches per second.
  */
 void goTillLight(Robot wall_E6, float ips) {
+    LCD.Clear();
+    LCD.WriteLine("Seeking out light...");
     wall_E6.moveUnbounded(BACK_ANGLE, SLOW_SPEED);
 
     waitForLight();
+    Sleep(0.1);
     wall_E6.stop();
 
     int light = detectLight();
     if (light == 1) {
+        LCD.WriteLine("Red light!");
         wall_E6.move(LEFT_ANGLE, 3.5/ips, SPEED);
     } else {
+        LCD.WriteLine("Blue light!");
         wall_E6.move(RIGHT_ANGLE, 3.5/ips, SPEED);
     }
 }
