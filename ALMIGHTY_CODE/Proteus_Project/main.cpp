@@ -1,6 +1,4 @@
 #include <FEHLCD.h>
-#include <OmniMotion.h>
-#include <OmniSensors.h>
 #include <OmniCourse.h>
 #include <OmniUtility.h>
 
@@ -15,15 +13,16 @@ void testSideToSide(Robot, float);
 
 int main(void)
 {
+    // comment and shiteeeeeee
     Robot wall_E6(0);
     LCD.Clear();
     LCD.WriteLine("Waiting...");
     waitForTouch();
     waitForLight();
-    moveUpRamp(wall_E6, IPS);
-    guessToLine(wall_E6, IPS);
-    goTillLight(wall_E6, IPS);
+    goToLineFirst(wall_E6, IPS);
+    int light = goTillLight(wall_E6, IPS);
     guessToButton(wall_E6, IPS);
+    buttonToRamp(wall_E6, IPS, light);
 }
 
 /**
