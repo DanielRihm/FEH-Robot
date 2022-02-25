@@ -1,12 +1,6 @@
 #include <FEHIO.h>
 #include <FEHLCD.h>
-
-#define RED_LIGHT_CUTOFF 1.0
-#define BLUE_LIGHT_CUTOFF 2.5
-#define RED_LIGHT 1
-#define BLUE_LIGHT 2
-#define NO_LIGHT 0
-#define LINE_CUTOFF 2.0
+#include <OmniUtility.h>
 
 AnalogInputPin cds(FEHIO::P0_0);
 // left is on the actual left side of the robot (same side as left motor).

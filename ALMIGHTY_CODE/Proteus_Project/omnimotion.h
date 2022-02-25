@@ -3,18 +3,7 @@
 #include <FEHUtility.h>
 #include <math.h>
 #include <FEHLCD.h>
-
-#define VOLTAGE 6.0
-#define PI 3.141592
-#define MOTOR_FRONT_ANGLE 270.0
-#define MOTOR_LEFT_ANGLE 150.0
-#define MOTOR_RIGHT_ANGLE 30.0
-#define NEG_FRONT_FACTOR 1.0
-#define NEG_LEFT_FACTOR 1.0
-#define NEG_RIGHT_FACTOR 1.0
-#define POS_FRONT_FACTOR 1.0
-#define POS_LEFT_FACTOR 0.9
-#define POS_RIGHT_FACTOR 0.9
+#include <OmniUtility.h>
 
 FEHMotor frontM(FEHMotor::Motor0, VOLTAGE);
 FEHMotor leftM(FEHMotor::Motor1, VOLTAGE);
