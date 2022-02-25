@@ -25,7 +25,7 @@ void buttonToRamp(Robot wall_E6, float ips, int light) {
     LCD.WriteLine("Going to the Ramp");
     wall_E6.move(FRONT_ANGLE, 1.0/ips, SPEED);
     float distToRamp = 9.0;
-    if (light == 1) {
+    if (light == RED_LIGHT) {
         LCD.WriteLine("At red so go further.");
         wall_E6.move(RIGHT_ANGLE, (distToRamp + BUTTON_DISTANCE)/ips, SPEED);
     } else {
@@ -34,9 +34,9 @@ void buttonToRamp(Robot wall_E6, float ips, int light) {
     }
 
     LCD.WriteLine("Driving up.");
-    wall_E6.move(FRONT_ANGLE, 28.0/(ips * (FAST_SPEED / SPEED)), FAST_SPEED);
+    wall_E6.move(FRONT_ANGLE, 40.0/(ips), SPEED);
     LCD.WriteLine("Driving down.");
-    wall_E6.move(BACK_ANGLE, 34.0/ips, SPEED);
+    wall_E6.move(BACK_ANGLE, 28.0/ips, SPEED);
 }
 
 /**
@@ -69,7 +69,7 @@ void guessToLine(Robot wall_E6, float ips) {
  */
 void guessToButton(Robot wall_E6, float ips) {
     LCD.WriteLine("Driving to the button.");
-    wall_E6.move(BACK_ANGLE, 8.0/ips, SPEED);
+    wall_E6.move(BACK_ANGLE, 10.0/ips, SPEED);
 }
 
 /**
@@ -135,7 +135,7 @@ int goTillLight(Robot wall_E6, float ips) {
     wall_E6.moveUnbounded(BACK_ANGLE, SLOW_SPEED);
 
     waitForLight();
-    Sleep(0.1);
+    Sleep(0.2);
     wall_E6.stop();
 
     int light = detectLight();

@@ -13,7 +13,7 @@ void testSideToSide(Robot, float);
 
 int main(void)
 {
-    // comment and shiteeeeeee
+    // comment and ththththt
     Robot wall_E6(0);
     LCD.Clear();
     LCD.WriteLine("Waiting...");
