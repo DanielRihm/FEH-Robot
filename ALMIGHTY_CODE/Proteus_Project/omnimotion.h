@@ -2,6 +2,7 @@
 #include <FEHIO.h>
 #include <FEHUtility.h>
 #include <math.h>
+#include <FEHLCD.h>
 
 #define VOLTAGE 6.0
 #define PI 3.141592
@@ -12,8 +13,8 @@
 #define NEG_LEFT_FACTOR 1.0
 #define NEG_RIGHT_FACTOR 1.0
 #define POS_FRONT_FACTOR 1.0
-#define POS_LEFT_FACTOR 1.0
-#define POS_RIGHT_FACTOR 1.0
+#define POS_LEFT_FACTOR 0.9
+#define POS_RIGHT_FACTOR 0.9
 
 FEHMotor frontM(FEHMotor::Motor0, VOLTAGE);
 FEHMotor leftM(FEHMotor::Motor1, VOLTAGE);

@@ -1,7 +1,8 @@
 #include <FEHIO.h>
+#include <FEHLCD.h>
 
 #define RED_LIGHT_CUTOFF 1.0
-#define BLUE_LIGHT_CUTOFF 3.0
+#define BLUE_LIGHT_CUTOFF 2.5
 #define RED_LIGHT 1
 #define BLUE_LIGHT 2
 #define NO_LIGHT 0
@@ -9,7 +10,7 @@
 
 AnalogInputPin cds(FEHIO::P0_0);
 // left is on the actual left side of the robot (same side as left motor).
-AnalogInputPin leftOpt(FEHIO::P1_0);
+//AnalogInputPin leftOpt(FEHIO::P1_0);
 AnalogInputPin rightOpt(FEHIO::P3_0);
 AnalogInputPin middleOpt(FEHIO::P2_0);
 
@@ -41,7 +42,7 @@ int detectLight() {
  */
 void readOpto(bool* leftLine, bool* middleLine, bool* rightLine) {
 
-    *leftLine = leftOpt.Value() > LINE_CUTOFF;
-    *middleLine = middleOpt.Value() > LINE_CUTOFF;
-    *rightLine = rightOpt.Value() > LINE_CUTOFF;
+    //*leftLine = leftOpt.Value() > LINE_CUTOFF;
+    *middleLine = middleOpt.Value() < LINE_CUTOFF;
+    *rightLine = rightOpt.Value() < LINE_CUTOFF;
 }

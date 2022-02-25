@@ -19,17 +19,16 @@ void goTillLine(Robot);
 void lineFollowing(Robot);
 void testForward(Robot, float);
 void waitForTouch();
+void guessToLine(Robot, float);
+void guessToButton(Robot, float);
 
 int main(void)
 {
     Robot wall_E6(0);
-    // waitForLight();
-    // moveUpRamp(wall_E6, IPS);
-    // goTillLine(wall_E6);
-    // lineFollowing(wall_E6);
-    // goTillLight(wall_E6, IPS);
-    // lineFollowing(wall_E6);
-    testForward(wall_E6, 4.0);
+    waitForLight();
+    moveUpRamp(wall_E6, IPS);
+    guessToLine(wall_E6, IPS);
+    guessToButton(wall_E6, IPS);
 }
 
 void testForward(Robot wall_E6, float time) {
@@ -73,10 +72,20 @@ void test(Robot wall_E6) {
 
 void waitForLight() {
     int light = 0;
+    LCD.Clear();
+    LCD.WriteLine("Waiting for light.");
     while (light == 0) {
         light = detectLight();
         Sleep(0.5);
     }
+}
+
+void guessToLine(Robot wall_E6, float ips) {
+    wall_E6.move(LEFT_ANGLE, 7.9/ips, SPEED);
+}
+
+void guessToButton(Robot wall_E6, float ips) {
+    wall_E6.move(BACK_ANGLE, 7.0/ips, SPEED);
 }
 
 /**
@@ -87,8 +96,10 @@ void waitForLight() {
  * @param ips Inches per second.
  */
 void moveUpRamp(Robot wall_E6, float ips) {
+    LCD.Clear();
+    LCD.WriteLine("Moving up the ramp.");
     wall_E6.move(LEFT_ANGLE, 7.0/ips, SPEED);
-    wall_E6.move(FRONT_ANGLE, 28.0/(ips * (FAST_SPEED / SPEED)), FAST_SPEED);
+    wall_E6.move(FRONT_ANGLE, 29.0/(ips * (FAST_SPEED / SPEED)), FAST_SPEED);
     wall_E6.move(BACK_ANGLE, 20.0/ips, SPEED);
 }
 
@@ -98,12 +109,13 @@ void moveUpRamp(Robot wall_E6, float ips) {
  * @param wall_E6 The robot.
  */
 void lineFollowing(Robot wall_E6) {
-    bool* leftLine;
-    bool* rightLine;
-    bool* middleLine;
+    bool leftLine;
+    bool rightLine;
+    bool middleLine;
 
+    LCD.Clear();
     while (true) {
-        readOpto(leftLine, middleLine, rightLine);
+        readOpto(&leftLine, &middleLine, &rightLine);
 
         if (middleLine && rightLine) {
             // Prefers the right side
@@ -117,8 +129,11 @@ void lineFollowing(Robot wall_E6) {
             LCD.WriteLine("UHH. MAYBE TO THE RIGHT");
         } else {
             wall_E6.stop();
+            LCD.WriteLine("No Line Detected.");
             break;
         }
+
+        Sleep(0.05);
     }
 }
 
