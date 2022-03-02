@@ -4,10 +4,12 @@
 #include <math.h>
 #include <FEHLCD.h>
 #include <OmniUtility.h>
+#include <FEHServo.h>
 
 FEHMotor frontM(FEHMotor::Motor0, VOLTAGE);
 FEHMotor leftM(FEHMotor::Motor1, VOLTAGE);
 FEHMotor rightM(FEHMotor::Motor2, VOLTAGE);
+FEHServo rampDoor(FEHServo::Servo0);
 
 class Robot;
 
@@ -92,19 +94,25 @@ void Robot::stop() {
 void Robot::setMotorPercent(float fSpeed, float lSpeed, float rSpeed) {
     if (fSpeed < 0.0) {
         frontM.SetPercent(fSpeed * NEG_FRONT_FACTOR);
+        reportSpeed(LCD_FRONT_MOTOR, fSpeed * NEG_FRONT_FACTOR);
     } else {
         frontM.SetPercent(fSpeed * POS_FRONT_FACTOR);
+        reportSpeed(LCD_FRONT_MOTOR, fSpeed * POS_FRONT_FACTOR);
     }
 
     if (lSpeed < 0.0) {
         leftM.SetPercent(lSpeed * NEG_LEFT_FACTOR);
+        reportSpeed(LCD_LEFT_MOTOR, lSpeed * NEG_LEFT_FACTOR);
     } else {
         leftM.SetPercent(lSpeed * POS_LEFT_FACTOR);
+        reportSpeed(LCD_LEFT_MOTOR, lSpeed * POS_LEFT_FACTOR);
     }
 
     if (rSpeed < 0.0) {
         rightM.SetPercent(rSpeed * NEG_RIGHT_FACTOR);
+        reportSpeed(LCD_RIGHT_MOTOR, rSpeed * NEG_RIGHT_FACTOR);
     } else {
         rightM.SetPercent(rSpeed * POS_RIGHT_FACTOR);
+        reportSpeed(LCD_RIGHT_MOTOR, rSpeed * POS_RIGHT_FACTOR);
     }
 }

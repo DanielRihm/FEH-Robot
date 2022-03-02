@@ -9,8 +9,8 @@ void testSideToSide(Robot, float);
 int main(void)
 {
     Robot wall_E6(0);
-    LCD.Clear();
-    LCD.WriteLine("Waiting...");
+    setLCD();
+    reportMessage("Waiting...");
     waitForTouch();
     waitForLight();
     moveUpRamp(wall_E6);
@@ -27,14 +27,14 @@ int main(void)
  * @param time The amout of time to move for.
  */
 void testForward(Robot wall_E6, float time) {
-    LCD.WriteLine("Waiting...");
+    reportMessage("Waiting...");
     waitForTouch();
     wall_E6.move(FRONT_ANGLE, time, SPEED);
-    LCD.WriteLine("Yay! :)");
-    LCD.WriteLine("Waiting...");
+    reportMessage("Yay! :)");
+    reportMessage("Waiting...");
     waitForTouch();
     wall_E6.move(BACK_ANGLE, time, SPEED);
-    LCD.WriteLine("finished");
+    reportMessage("finished");
 }
 
 /**
@@ -44,14 +44,14 @@ void testForward(Robot wall_E6, float time) {
  * @param time The amount of time to move for.
  */
 void testSideToSide(Robot wall_E6, float time) {
-    LCD.WriteLine("Waiting...");
+    reportMessage("Waiting...");
     waitForTouch();
     wall_E6.move(LEFT_ANGLE, time, SPEED);
-    LCD.WriteLine("Yay! :)");
-    LCD.WriteLine("Waiting...");
+    reportMessage("Yay! :)");
+    reportMessage("Waiting...");
     waitForTouch();
     wall_E6.move(RIGHT_ANGLE, time, SPEED);
-    LCD.WriteLine("finished");
+    reportMessage("finished");
 }
 
 /**
@@ -72,14 +72,14 @@ void test(Robot wall_E6) {
     }
 
     Sleep(1.0);
-    LCD.Clear();
-    LCD.WriteLine("Moving forward.");
+    setLCD();
+    reportMessage("Moving forward.");
     wall_E6.move(FRONT_ANGLE, 1.0, SPEED);
-    LCD.WriteLine("Moving right.");
+    reportMessage("Moving right.");
     wall_E6.move(RIGHT_ANGLE, 1.0, SPEED);
-    LCD.WriteLine("Moving left.");
+    reportMessage("Moving left.");
     wall_E6.move(LEFT_ANGLE, 1.0, SPEED);
-    LCD.WriteLine("Moving backwards.");
+    reportMessage("Moving backwards.");
     wall_E6.move(BACK_ANGLE, 1.0, SPEED);
 
     testForward(wall_E6, 4.0);

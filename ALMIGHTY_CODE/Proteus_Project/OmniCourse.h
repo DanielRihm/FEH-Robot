@@ -19,20 +19,20 @@ void buttonToRamp(Robot, float, int); // not needed for test 2
  * @param light The light that was detected.
  */
 void buttonToRamp(Robot wall_E6, float ips, int light) {
-    LCD.WriteLine("Going to the Ramp");
+    reportMessage("Going to the Ramp");
     wall_E6.move(FRONT_ANGLE, 1.0/ips, SPEED);
     float distToRamp = 9.0;
     if (light == RED_LIGHT) {
-        LCD.WriteLine("At red so go further.");
+        reportMessage("At red so go further.");
         wall_E6.move(RIGHT_ANGLE, (distToRamp + BUTTON_DISTANCE)/ips, SPEED);
     } else {
-        LCD.WriteLine("At blue so go less.");
+        reportMessage("At blue so go less.");
         wall_E6.move(RIGHT_ANGLE, (distToRamp - BUTTON_DISTANCE)/ips, SPEED);
     }
 
-    LCD.WriteLine("Driving up.");
+    reportMessage("Driving up.");
     wall_E6.move(FRONT_ANGLE, 40.0/(ips), SPEED);
-    LCD.WriteLine("Driving down.");
+    reportMessage("Driving down.");
     wall_E6.move(BACK_ANGLE, 28.0/ips, SPEED);
 }
 
@@ -43,7 +43,7 @@ void buttonToRamp(Robot wall_E6, float ips, int light) {
  * @param ips Inches per second.
  */
 void goToLineFirst(Robot wall_E6, float ips) {
-    LCD.WriteLine("Going to the line.");
+    reportMessage("Going to the line.");
     wall_E6.move(FRONT_ANGLE, 10.0/ips, SPEED);
     wall_E6.move(LEFT_ANGLE, 17.0/ips, SPEED);
 }
@@ -55,7 +55,7 @@ void goToLineFirst(Robot wall_E6, float ips) {
  * @param ips Inches per second.
  */
 void guessToButton(Robot wall_E6, float ips) {
-    LCD.WriteLine("Driving to the button.");
+    reportMessage("Driving to the button.");
     wall_E6.move(BACK_ANGLE, 10.0/ips, SPEED);
 }
 
@@ -67,7 +67,7 @@ void guessToButton(Robot wall_E6, float ips) {
  * @param ips Inches per second.
  */
 void moveUpRamp(Robot wall_E6) {
-    LCD.WriteLine("Moving up the ramp.");
+    reportMessage("Moving up the ramp.");
     wall_E6.move(LEFT_ANGLE, 7.0/IPS_SPEED, SPEED);
     wall_E6.move(FRONT_ANGLE, 40.0/IPS_SPEED, SPEED);
 }
@@ -80,7 +80,7 @@ void moveUpRamp(Robot wall_E6) {
  * @return returns the light value detected.
  */
 int goTillLight(Robot wall_E6, float ips) {
-    LCD.WriteLine("Seeking out light...");
+    reportMessage("Seeking out light...");
     wall_E6.moveUnbounded(BACK_ANGLE, SLOW_SPEED);
 
     waitForLight();
@@ -89,10 +89,10 @@ int goTillLight(Robot wall_E6, float ips) {
 
     int light = detectLight();
     if (light == 1) {
-        LCD.WriteLine("Red light!");
+        reportMessage("Red light!");
         wall_E6.move(LEFT_ANGLE, BUTTON_DISTANCE/ips, SPEED);
     } else {
-        LCD.WriteLine("Blue light!");
+        reportMessage("Blue light!");
         wall_E6.move(RIGHT_ANGLE, BUTTON_DISTANCE/ips, SPEED);
     }
 
@@ -106,7 +106,7 @@ int goTillLight(Robot wall_E6, float ips) {
  */
 int waitForLight() {
     int light = 0;
-    LCD.WriteLine("Waiting for light.");
+    reportMessage("Waiting for light.");
     while (light == 0) {
         light = detectLight();
         Sleep(0.5);
