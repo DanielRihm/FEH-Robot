@@ -3,16 +3,13 @@
 #include <OmniSensors.h>
 #include <OmniUtility.h>
 
-void moveUpRamp(Robot, float);
-int goTillLight(Robot, float);
-void guessToLine(Robot, float);
-void guessToButton(Robot, float);
-void goTillLine(Robot);
-void lineFollowing(Robot);
 void waitForTouch();
 int waitForLight();
-void goToLineFirst(Robot, float);
-void buttonToRamp(Robot, float, int);
+void moveUpRamp(Robot);
+int goTillLight(Robot, float); // not needed for test 2
+void guessToButton(Robot, float); // not needed for test 2
+void goToLineFirst(Robot, float); // not needed for test 2
+void buttonToRamp(Robot, float, int); // not needed for test 2
 
 /**
  * @brief Drives the robot over from the button to the ramp.
@@ -52,16 +49,6 @@ void goToLineFirst(Robot wall_E6, float ips) {
 }
 
 /**
- * @brief Robot moves a set distance to where the line should be.
- * 
- * @param wall_E6 The robot.
- * @param ips Inches per second.
- */
-void guessToLine(Robot wall_E6, float ips) {
-    wall_E6.move(LEFT_ANGLE, 10.0/ips, SPEED);
-}
-
-/**
  * @brief The robot moves a set distance to where the button should be.
  * 
  * @param wall_E6 The robot.
@@ -79,47 +66,10 @@ void guessToButton(Robot wall_E6, float ips) {
  * @param wall_E6 The robot's motor configuration.
  * @param ips Inches per second.
  */
-void moveUpRamp(Robot wall_E6, float ips) {
-    LCD.Clear();
+void moveUpRamp(Robot wall_E6) {
     LCD.WriteLine("Moving up the ramp.");
-    wall_E6.move(LEFT_ANGLE, 7.0/ips, SPEED);
-    wall_E6.move(FRONT_ANGLE, 28.0/(ips * (FAST_SPEED / SPEED)), FAST_SPEED);
-    LCD.WriteLine("And back down the ramp.");
-    wall_E6.move(BACK_ANGLE, 22.0/ips, SPEED);
-}
-
-/**
- * @brief Follows a line until no sensors are on a line.
- * 
- * @param wall_E6 The robot.
- */
-void lineFollowing(Robot wall_E6) {
-    bool leftLine;
-    bool rightLine;
-    bool middleLine;
-
-    LCD.Clear();
-    while (true) {
-        readOpto(&leftLine, &middleLine, &rightLine);
-
-        if (middleLine && rightLine) {
-            // Prefers the right side
-            wall_E6.moveUnbounded(BACK_ANGLE - 20.0, SPEED);
-            LCD.WriteLine("MIDDLE");
-        } else if (rightLine) {
-            wall_E6.moveUnbounded(RIGHT_ANGLE, SPEED);
-            LCD.WriteLine("(ACTUAL) LEFT OF LINE");
-        } else if (middleLine) {
-            wall_E6.moveUnbounded(BACK_ANGLE + 10.0, SPEED);
-            LCD.WriteLine("UHH. MAYBE TO THE RIGHT");
-        } else {
-            wall_E6.stop();
-            LCD.WriteLine("No Line Detected.");
-            break;
-        }
-
-        Sleep(0.05);
-    }
+    wall_E6.move(LEFT_ANGLE, 7.0/IPS_SPEED, SPEED);
+    wall_E6.move(FRONT_ANGLE, 40.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -130,7 +80,6 @@ void lineFollowing(Robot wall_E6) {
  * @return returns the light value detected.
  */
 int goTillLight(Robot wall_E6, float ips) {
-    LCD.Clear();
     LCD.WriteLine("Seeking out light...");
     wall_E6.moveUnbounded(BACK_ANGLE, SLOW_SPEED);
 
@@ -148,26 +97,6 @@ int goTillLight(Robot wall_E6, float ips) {
     }
 
     return light;
-}
-
-/**
- * @brief Robot drives left until it meets a line.
- * 
- * @param wall_E6 The robot.
- */
-void goTillLine(Robot wall_E6) {
-    wall_E6.moveUnbounded(LEFT_ANGLE, SPEED);
-
-    bool* leftLine;
-    bool* rightLine;
-    bool* middleLine;
-
-    readOpto(leftLine, middleLine, rightLine);
-    while (!leftLine && !middleLine && !rightLine) {
-        readOpto(leftLine, middleLine, rightLine);
-    }
-
-    wall_E6.stop();
 }
 
 /**

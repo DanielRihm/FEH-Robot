@@ -2,27 +2,22 @@
 #include <OmniCourse.h>
 #include <OmniUtility.h>
 
-// organization is vague and needs to be improved
-// utility, motion, and sensors are fine, however OmniCourse
-// is strange and what methods fall under it vs motion and sensors is
-// vague and needs to be clarified in the future
-
 void test(Robot);
 void testForward(Robot, float);
 void testSideToSide(Robot, float);
 
 int main(void)
 {
-    // comment and ththththt
     Robot wall_E6(0);
     LCD.Clear();
     LCD.WriteLine("Waiting...");
     waitForTouch();
     waitForLight();
-    goToLineFirst(wall_E6, IPS);
-    int light = goTillLight(wall_E6, IPS);
-    guessToButton(wall_E6, IPS);
-    buttonToRamp(wall_E6, IPS, light);
+    moveUpRamp(wall_E6);
+    // goToLineFirst(wall_E6, IPS);
+    // int light = goTillLight(wall_E6, IPS);
+    // guessToButton(wall_E6, IPS);
+    // buttonToRamp(wall_E6, IPS, light);
 }
 
 /**
@@ -32,7 +27,6 @@ int main(void)
  * @param time The amout of time to move for.
  */
 void testForward(Robot wall_E6, float time) {
-    LCD.Clear();
     LCD.WriteLine("Waiting...");
     waitForTouch();
     wall_E6.move(FRONT_ANGLE, time, SPEED);
@@ -50,7 +44,6 @@ void testForward(Robot wall_E6, float time) {
  * @param time The amount of time to move for.
  */
 void testSideToSide(Robot wall_E6, float time) {
-    LCD.Clear();
     LCD.WriteLine("Waiting...");
     waitForTouch();
     wall_E6.move(LEFT_ANGLE, time, SPEED);
@@ -67,7 +60,6 @@ void testSideToSide(Robot wall_E6, float time) {
  * @param wall_E6 The robot.
  */
 void test(Robot wall_E6) {
-    LCD.Clear();
     wall_E6.turn(5.0, SPEED);
     for (int i = 0; i < 360; i++) {
         wall_E6.moveUnbounded(i, SPEED);

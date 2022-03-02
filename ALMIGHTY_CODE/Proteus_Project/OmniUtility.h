@@ -5,7 +5,7 @@
 #define SPEED 45
 #define SLOW_SPEED 25
 #define FAST_SPEED 60
-#define IPS 3.9375
+#define IPS_SPEED 3.9375
 #define BUTTON_DISTANCE 2.0
 
 // OmniMotor constants

@@ -3,13 +3,8 @@
 #include <OmniUtility.h>
 
 AnalogInputPin cds(FEHIO::P0_0);
-// left is on the actual left side of the robot (same side as left motor).
-//AnalogInputPin leftOpt(FEHIO::P1_0);
-AnalogInputPin rightOpt(FEHIO::P3_0);
-AnalogInputPin middleOpt(FEHIO::P2_0);
 
 int detectLight();
-void readOpto(bool*, bool*, bool*);
 
 /**
  * @brief Detects the particular light color for a yellow filter.
@@ -25,18 +20,4 @@ int detectLight() {
     } else {
         return NO_LIGHT;
     }
-}
-
-/**
- * @brief Reads the optosensors and returns whether each optosensor is on a line or not. Left is actual left (same side as left motor).
- * 
- * @param leftLine Whether the left sensor is on the line.
- * @param middleLine Whether the middle sensor is on the line.
- * @param rightLine Whether the right sensor is on the line.
- */
-void readOpto(bool* leftLine, bool* middleLine, bool* rightLine) {
-
-    //*leftLine = leftOpt.Value() > LINE_CUTOFF;
-    *middleLine = middleOpt.Value() < LINE_CUTOFF;
-    *rightLine = rightOpt.Value() < LINE_CUTOFF;
 }
