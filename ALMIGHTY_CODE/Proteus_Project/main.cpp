@@ -5,19 +5,48 @@
 void test(Robot);
 void testForward(Robot, float);
 void testSideToSide(Robot, float);
+void testSpin(Robot, float);
 
 int main(void)
 {
-    Robot wall_E6(0);
+    Robot wall_E6;
     setLCD();
     reportMessage("Waiting...");
     waitForTouch();
     waitForLight();
     moveUpRamp(wall_E6);
+    leftToSink(wall_E6);
+    flushWithSink(wall_E6);
+    wall_E6.toggleRamp();
+    Sleep(1.0);
+    sinkToBurger(wall_E6);
+    lineUpToTicket(wall_E6);
+    slideTicket(wall_E6);
+    wall_E6.move(LEFT_ANGLE, 5.0/IPS_SPEED, SPEED);
+    reportMessage("dab on the haters");
+    wall_E6.turn(360.0/DPS_SPEED, SPEED); // victory lap
+
+
     // goToLineFirst(wall_E6, IPS);
     // int light = goTillLight(wall_E6, IPS);
     // guessToButton(wall_E6, IPS);
     // buttonToRamp(wall_E6, IPS, light);
+}
+
+/**
+ * @brief Spins the robot clockwise and counterclockwise.
+ * 
+ * @param wall_E6 The robot.
+ * @param time The amount of time to spin for.
+ */
+void testSpin(Robot wall_E6, float time) {
+    reportMessage("Waiting...");
+    waitForTouch();
+    wall_E6.turn(time, SPEED);
+    reportMessage("Waiting again...");
+    waitForTouch();
+    wall_E6.turn(time, -SPEED);
+    reportMessage("Done");
 }
 
 /**

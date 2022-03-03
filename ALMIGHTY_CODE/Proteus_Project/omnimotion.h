@@ -15,28 +15,51 @@ class Robot;
 
 class Robot {
     private:
-        int currAng;
         void setMotorPercent(float, float, float);
+        bool rampClosed;
     public:
         Robot();
-        Robot(int);
         void move(float, float, int);
         void turn(float, int);
         void stop();
         void moveUnbounded(float, int);
+        void toggleRamp();
+        bool isRampClosed();
 };
 
 Robot::Robot() {
-    currAng = 0;
+    rampDoor.SetMin(RAMP_DOOR_MIN);
+    rampDoor.SetMax(RAMP_DOOR_MAX);
+    rampDoor.SetDegree(90.0);
+    rampClosed = true;
 }
 
-Robot::Robot(int angle) {
-    currAng = angle;
+/**
+ * @brief Toggles the state of the ramp.
+ * 
+ */
+void Robot::toggleRamp() {
+    if (rampClosed) {
+        rampDoor.SetDegree(0.0);
+        rampClosed = false;
+    } else {
+        rampDoor.SetDegree(90.0);
+        rampClosed = true;
+    }
+}
+
+/**
+ * @brief Tells whether the ramp is closed or not.
+ * 
+ * @return true if the ramp is closed. false otherwise.
+ */
+bool Robot::isRampClosed() {
+    return rampClosed;
 }
 
 /**
  * @brief Turns the robot for the specified amount of time at the specified speed.
- * Requires time > 0 AND -50 < speed < 50.
+ * Requires time > 0 AND -50 < speed < 50. Turns counterclockwise.
  * 
  * @param time The time to turn for.
  * @param speed The speed at which to turn. Negative values will turn the opposite direction.

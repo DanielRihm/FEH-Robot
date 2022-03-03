@@ -1,15 +1,80 @@
 #include <FEHLCD.h>
 #include <OmniMotion.h>
 #include <OmniSensors.h>
-#include <OmniUtility.h>
 
 void waitForTouch();
 int waitForLight();
 void moveUpRamp(Robot);
+void leftToSink(Robot);
+void flushWithSink(Robot);
+void sinkToBurger(Robot);
+void lineUpToTicket(Robot);
+void slideTicket(Robot);
 int goTillLight(Robot, float); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
 void goToLineFirst(Robot, float); // not needed for test 2
 void buttonToRamp(Robot, float, int); // not needed for test 2
+
+/**
+ * @brief Slides the ticket to the side.
+ * 
+ * @param wall_E6 The robot.
+ */
+void slideTicket(Robot wall_E6) {
+    wall_E6.move(RIGHT_ANGLE+80.0, 8.0/IPS_SPEED, SPEED);
+}
+
+/**
+ * @brief Lines the robot up for travel to the ticket.
+ * 
+ * @param wall_E6 The robot.
+ */
+void lineUpToTicket(Robot wall_E6) {
+    reportMessage("Lining up to the ticket.");
+    wall_E6.move(BACK_ANGLE, 1.0, SPEED);
+    wall_E6.turn(150.0/DPS_SPEED, -SPEED);
+    wall_E6.move(FRONT_ANGLE-60.0, 2.5, SPEED);
+    reportMessage("back to ticket angle.");
+    wall_E6.move(RIGHT_ANGLE+30.0, 0.5, SPEED);
+    wall_E6.turn(38.0/DPS_SPEED, SPEED);
+    reportMessage("Going to ticket.");
+    wall_E6.move(FRONT_ANGLE+60.0, 20.0/IPS_SPEED, SPEED);
+}
+
+/**
+ * @brief Drives the robot straight from the sink to the robot.
+ * 
+ * @param wall_E6 The robot.
+ */
+void sinkToBurger(Robot wall_E6) {
+    reportMessage("Going to burger.");
+    wall_E6.move(FRONT_ANGLE+60.0, 22.0/IPS_SPEED, SPEED);
+    wall_E6.move(FRONT_ANGLE, 1.5, SPEED);
+}
+
+/**
+ * @brief Lines the robot up with the sink.
+ * 
+ * @param wall_E6 The robot.
+ */
+void flushWithSink(Robot wall_E6) {
+    reportMessage("Lining up to sink v2.");
+    wall_E6.move(RIGHT_ANGLE+30.0, 0.5, SPEED);
+    wall_E6.turn(30.0/DPS_SPEED, -SPEED);
+    wall_E6.move(BACK_ANGLE, 1.0, SPEED);
+}
+
+/**
+ * @brief Lines up against the left wall of the sink.
+ * 
+ * @param wall_E6 The robot.
+ */
+void leftToSink(Robot wall_E6) {
+    reportMessage("Lining up to sink.");
+    wall_E6.turn(30.0/DPS_SPEED, SPEED);
+    wall_E6.move(LEFT_ANGLE+30.0, 12.0/IPS_SPEED, SPEED);
+    wall_E6.move(LEFT_ANGLE+30.0, 0.5, SPEED);
+}
 
 /**
  * @brief Drives the robot over from the button to the ramp.
@@ -68,7 +133,7 @@ void guessToButton(Robot wall_E6, float ips) {
  */
 void moveUpRamp(Robot wall_E6) {
     reportMessage("Moving up the ramp.");
-    wall_E6.move(LEFT_ANGLE, 7.0/IPS_SPEED, SPEED);
+    wall_E6.move(LEFT_ANGLE, 8.5/IPS_SPEED, SPEED);
     wall_E6.move(FRONT_ANGLE, 40.0/IPS_SPEED, SPEED);
 }
 
