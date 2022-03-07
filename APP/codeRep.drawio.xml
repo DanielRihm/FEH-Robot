@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-03-07T01:26:15.903Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 OPR/83.0.4254.70" etag="76u4rfLI2U0qjlGh_qhB" version="16.5.5" type="github">
+<mxfile host="app.diagrams.net" modified="2022-03-07T01:37:41.281Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 OPR/83.0.4254.70" etag="4T4ou_7ux3eedN0ReG5U" version="16.5.5" type="github">
   <diagram id="-UhQFhVhW470TDRJOBM7" name="Page-1">
     <mxGraphModel dx="997" dy="540" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -52,7 +52,7 @@
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-23" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-16" target="0FFUK2s8a2_ooEg7IwNj-21">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="0FFUK2s8a2_ooEg7IwNj-16" value="If given level is left lever:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-16" value="If given lever is left lever:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="115" y="760" width="130" height="110" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-24" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-18" target="0FFUK2s8a2_ooEg7IwNj-22">
@@ -66,7 +66,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="0FFUK2s8a2_ooEg7IwNj-18" value="If given level is right lever:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-18" value="If given lever is right lever:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="115" y="910" width="130" height="110" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-21" target="0FFUK2s8a2_ooEg7IwNj-25">
@@ -111,11 +111,176 @@
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-35" value="Drop tray in sink." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="300" y="560" width="120" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-37" target="0FFUK2s8a2_ooEg7IwNj-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-37" value="Drive up to and center on burger flip." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="300" y="460" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="0FFUK2s8a2_ooEg7IwNj-39" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-39" target="0FFUK2s8a2_ooEg7IwNj-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-39" value="Flip burger, returning tray to correct position." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="300" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-41" target="0FFUK2s8a2_ooEg7IwNj-53">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="220" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="360" y="40" />
+              <mxPoint x="515" y="40" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-41" value="Rotate and center on ice cream levers." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-51" value="False" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-53" target="0FFUK2s8a2_ooEg7IwNj-55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-52" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-53" target="0FFUK2s8a2_ooEg7IwNj-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-53" value="If given lever is left lever:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="60" width="130" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-54" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-55" target="0FFUK2s8a2_ooEg7IwNj-57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-59" value="False" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-55" target="0FFUK2s8a2_ooEg7IwNj-58">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="515" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-55" value="If given lever is right lever:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="210" width="130" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-56" target="0FFUK2s8a2_ooEg7IwNj-58">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="115" />
+              <mxPoint x="800" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-56" value="Drive left and center on left lever." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="85" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-57" target="0FFUK2s8a2_ooEg7IwNj-58">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="265" />
+              <mxPoint x="800" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-57" value="Drive right and center on right lever." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="235" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-58" target="0FFUK2s8a2_ooEg7IwNj-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-58" value="Drive forward to the lever." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-65" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-62" target="0FFUK2s8a2_ooEg7IwNj-64">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-62" value="Flip lever up." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-64" target="0FFUK2s8a2_ooEg7IwNj-66">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-64" value="Drive over to and line up for ticket slide." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-66" target="0FFUK2s8a2_ooEg7IwNj-68">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-66" value="Insert arm between ticket and wall." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-68" target="0FFUK2s8a2_ooEg7IwNj-70">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-68" value="Slide ticket." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="780" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-70" target="0FFUK2s8a2_ooEg7IwNj-72">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-70" value="Line up with ramp." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="880" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-75" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-72" target="0FFUK2s8a2_ooEg7IwNj-74">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-72" value="Drive down ramp." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-74" value="A" style="shape=offPageConnector;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="770" y="1050" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-76" target="0FFUK2s8a2_ooEg7IwNj-77">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-76" value="A" style="shape=offPageConnector;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1130" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-85" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-77" target="0FFUK2s8a2_ooEg7IwNj-81">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-77" value="Line up backwards over jukebox light." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-83" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-81" target="0FFUK2s8a2_ooEg7IwNj-82">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-87" value="False" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-81" target="0FFUK2s8a2_ooEg7IwNj-86">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-81" value="If light is red:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="1290" width="130" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-89" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-82" target="0FFUK2s8a2_ooEg7IwNj-88">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-82" value="Drive left to center on red button." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="1315" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-90" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-86" target="0FFUK2s8a2_ooEg7IwNj-88">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-86" value="Drive right to center on blue button." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-92" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-88" target="0FFUK2s8a2_ooEg7IwNj-91">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="1570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-88" value="Drive forward to push button." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="1440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-94" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-91" target="0FFUK2s8a2_ooEg7IwNj-93">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-91" value="Reverse and center on specific position." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-96" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-93" target="0FFUK2s8a2_ooEg7IwNj-95">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-93" value="Drive over to and line up on final button." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-95" value="Push final button." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1740" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
