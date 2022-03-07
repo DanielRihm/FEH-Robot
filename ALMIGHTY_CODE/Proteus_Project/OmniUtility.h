@@ -1,5 +1,6 @@
 #pragma once
 #include <FEHLCD.h>
+#include <FEHBattery.h>
 
 #define RIGHT_ANGLE 90.0
 #define FRONT_ANGLE 0.0
@@ -41,7 +42,7 @@
 #define LCD_FRONT_MOTOR 2
 
 // variable storing the current column that the actions are at.
-int currentRow = 4;
+int currentRow = 5;
 
 void setLCD();
 void reportSpeed(int, float);
@@ -56,11 +57,15 @@ void setLCD() {
     LCD.WriteRC(" Left Motor:",0,0);
     LCD.WriteRC("Right Motor:",1,0);
     LCD.WriteRC("Front Motor:",2,0);
-    LCD.WriteRC("Messages:",3,0);
+    LCD.WriteRC("    Battery:",3,0);
+    LCD.WriteRC("Messages:",4,0);
+
+    LCD.WriteRC(Battery.Voltage(), 3, 13);
 }
 
 /**
  * @brief Reports the specified speed for the specified motor to the screen.
+ * Also updates the battery voltage.
  * 
  * @param motor The motor: 0 is left, 1 is right, 2 is front.
  * @param speed The speed at which the motor is running.
@@ -68,6 +73,9 @@ void setLCD() {
 void reportSpeed(int motor, float speed) {
     LCD.WriteRC("             ", motor, 13);
     LCD.WriteRC(speed, motor, 13);
+
+    // updates the voltage
+    LCD.WriteRC(Battery.Voltage(), 3, 13);
 }
 
 /**
@@ -81,7 +89,7 @@ void reportMessage(char const * message) {
         LCD.WriteRC(message, currentRow, 0);
         currentRow++;
     } else {
-        currentRow = 4;
+        currentRow = 5;
         reportMessage(message);
     }
 }
