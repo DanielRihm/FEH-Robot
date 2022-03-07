@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-03-07T01:17:46.491Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 OPR/83.0.4254.70" etag="vTEsiE4A1dqXKPBNOQI-" version="16.5.5" type="github">
+<mxfile host="app.diagrams.net" modified="2022-03-07T01:26:15.903Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 OPR/83.0.4254.70" etag="76u4rfLI2U0qjlGh_qhB" version="16.5.5" type="github">
   <diagram id="-UhQFhVhW470TDRJOBM7" name="Page-1">
     <mxGraphModel dx="997" dy="540" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -8,34 +8,114 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="43" y="30" width="120" height="80" as="geometry" />
+          <mxGeometry x="123" y="30" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=72.5;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-2" target="0FFUK2s8a2_ooEg7IwNj-6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="0FFUK2s8a2_ooEg7IwNj-2" value="Initialize the robot to its initial state" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="43" y="160" width="120" height="60" as="geometry" />
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-2" value="Initialize the robot to its initial state." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="123" y="160" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-6" target="0FFUK2s8a2_ooEg7IwNj-8">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-6" value="Set the screen up for debug messages." style="shape=display;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="30" y="260" width="140" height="60" as="geometry" />
+          <mxGeometry x="110" y="260" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-8" target="0FFUK2s8a2_ooEg7IwNj-10">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-8" value="Wait for touch." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="360" width="120" height="60" as="geometry" />
+          <mxGeometry x="120" y="360" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-10" target="0FFUK2s8a2_ooEg7IwNj-12">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-10" value="Wait for light." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="460" width="120" height="60" as="geometry" />
+          <mxGeometry x="120" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-12" target="0FFUK2s8a2_ooEg7IwNj-14">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="0FFUK2s8a2_ooEg7IwNj-12" value="Drive up the ramp." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="560" width="120" height="60" as="geometry" />
+          <mxGeometry x="120" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-14" target="0FFUK2s8a2_ooEg7IwNj-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-14" value="Drive to the center of the ice cream levels." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-20" value="False" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-16" target="0FFUK2s8a2_ooEg7IwNj-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-23" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-16" target="0FFUK2s8a2_ooEg7IwNj-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-16" value="If given level is left lever:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="115" y="760" width="130" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-24" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-18" target="0FFUK2s8a2_ooEg7IwNj-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-28" value="False" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-18" target="0FFUK2s8a2_ooEg7IwNj-25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="1070" />
+              <mxPoint x="540" y="1070" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-18" value="If given level is right lever:" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="115" y="910" width="130" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-21" target="0FFUK2s8a2_ooEg7IwNj-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-21" value="Drive left and center on left lever." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="785" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-22" target="0FFUK2s8a2_ooEg7IwNj-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-22" value="Drive right and center on right lever." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="935" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-25" target="0FFUK2s8a2_ooEg7IwNj-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-25" value="Drive forward to the lever." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="860" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-29" target="0FFUK2s8a2_ooEg7IwNj-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-29" value="Flip lever down." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="760" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-31" target="0FFUK2s8a2_ooEg7IwNj-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-31" value="Rotate and center on sink." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-33" target="0FFUK2s8a2_ooEg7IwNj-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-33" value="Drive up to and press back wall against sink." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="0FFUK2s8a2_ooEg7IwNj-35" target="0FFUK2s8a2_ooEg7IwNj-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-35" value="Drop tray in sink." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-37" value="Drive up to and center on burger flip." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0FFUK2s8a2_ooEg7IwNj-39" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="360" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
