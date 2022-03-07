@@ -21,7 +21,8 @@ void buttonToRamp(Robot, float, int); // not needed for test 2
  * @param wall_E6 The robot.
  */
 void slideTicket(Robot wall_E6) {
-    wall_E6.move(RIGHT_ANGLE+80.0, 8.0/IPS_SPEED, SPEED);
+    wall_E6.move(RIGHT_ANGLE+60.0, 5.0/IPS_SPEED, SPEED);
+    wall_E6.turn(30.0/DPS_SPEED, -SPEED);
 }
 
 /**

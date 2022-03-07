@@ -22,9 +22,7 @@ int main(void)
     sinkToBurger(wall_E6);
     lineUpToTicket(wall_E6);
     slideTicket(wall_E6);
-    wall_E6.move(LEFT_ANGLE, 5.0/IPS_SPEED, SPEED);
-    reportMessage("dab on the haters");
-    wall_E6.turn(360.0/DPS_SPEED, SPEED); // victory lap
+    wall_E6.move(BACK_ANGLE, 5.0/IPS_SPEED, SPEED);
 
 
     // goToLineFirst(wall_E6, IPS);
