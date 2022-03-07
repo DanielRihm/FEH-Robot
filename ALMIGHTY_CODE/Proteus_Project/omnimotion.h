@@ -86,10 +86,10 @@ void Robot::move(float angle, float time, int speed) {
 
 /**
  * @brief Moves the robot in the specified direction at the specified speed.
- * Requires 0 < speed < 25 AND 0 < angle < 360.
+ * Requires 0 < speed < 100 AND 0 < angle < 360.
  * 
- * @param angle The angle at which the robot moves at.
- * @param speed The speed at which the robot should move.
+ * @param angle The angle at which the robot moves at in degrees.
+ * @param speed The speed at which the robot should move as a percent of the max motor speed.
  */
 void Robot::moveUnbounded(float angle, int speed) {
     float motorFS = speed * cos(MOTOR_FRONT_ANGLE * PI / 180.0 - angle * PI / 180.0);
