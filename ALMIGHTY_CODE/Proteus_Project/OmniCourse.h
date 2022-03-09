@@ -1,9 +1,18 @@
 #include <FEHLCD.h>
 #include <FEHRPS.h>
+#include <exception>
+#include <iostream>
 #include <OmniMotion.h>
 #include <OmniSensors.h>
+using namespace std;
 
-int moveToSetPos(Robot, float, float, float);
+class noRPSData: public exception {
+    virtual const char* what() const throw() {
+        return "Invalid data from RPS";
+    }
+} bad_rps;
+
+void moveToSetPos(Robot, float, float, float);
 float getRPS(float, float);
 void waitForTouch();
 int waitForLight();
@@ -29,14 +38,12 @@ void buttonToRamp(Robot, float, int); // not needed for test 2
  * @param angle The final angle of the robot.
  * @return Negative if failed.
  */
-int moveToSetPos(Robot wall_E6, float x, float y, float angle) {
+void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float xCurr;
     float yCurr;
     float heading = getRPS(&xCurr, &yCurr);
-    if (heading < 0) {
-        return (int) heading;
-    }
 
+    // makes heading angle in the same frame of reference as all other angles in the code.
     heading = 360.0 - (heading - RPS_FRONT_ANGLE);
     float dX = x - xCurr;
     float dY = x - yCurr;
@@ -44,10 +51,8 @@ int moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float moveAngle = atan(dY/dX);
     wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED);
 
+    // robot now needs to fix any drift/go to desired angle.
     heading = getRPS(&xCurr, &yCurr);
-    if (heading < 0) {
-        return (int) heading;
-    }
     // makes sure that it turns in an optimal direction.
     float dHeading = abs(heading - angle);
     if (dHeading > 0 && dHeading < 180.0) {
@@ -56,17 +61,14 @@ int moveToSetPos(Robot wall_E6, float x, float y, float angle) {
         wall_E6.turn((360-dHeading)/DPS_SPEED, SPEED);
     }
 
-    // a recursive call could be added here to ensure that the robot is within certain error.
+    // a recursive call to ensure that the robot is within certain error.
     float error = 1.0;
-    int errorCode = -1;
     if (xCurr - error > x || xCurr + error < x ||
         yCurr - error > y || yCurr + error < y ||
         heading - error > angle || heading + error < angle) {
         // this ensures that all distances and angles are within the specified error.
-        errorCode = moveToSetPos(wall_E6, x, y, angle);
+        moveToSetPos(wall_E6, x, y, angle);
     }
-
-    return errorCode;
 }
 
 /**
@@ -89,10 +91,16 @@ void moveToBurger(Robot wall_E6) {
     float xDest = 28.9;
     float yDest = 60.0;
     float angleDest = 0.0;
-    int debug = moveToSetPos(wall_E6, xDest, yDest, angleDest);
-    if (debug < 0) {
-        reportMessage("Bad RPS data.");
-        throw debug;
+    try {
+        moveToSetPos(wall_E6, xDest, yDest, angleDest);
+    } catch (exception& e) {
+        /*
+         * This should be handled in moveToSetPos unless it fails on the very first getRPS call.
+         * For now, however, I am lazy and assume that RPS is perfect and these lines will never run!
+         * What could go wrong?
+         */
+        reportMessage(e.what());
+        throw;
     }
 }
 
@@ -290,11 +298,13 @@ float getRPS(float *x, float *y) {
             *x = RPS.X();
             *y = RPS.Y();
             head = RPS.Heading();
+            counter++;
         }
     } else {
-        *x = -2.0;
-        *y = -2.0;
-        head = -2.0;
+        throw bad_rps;
+    }
+    if (counter == limit) {
+        throw bad_rps;
     }
     return head;
 }
