@@ -13,7 +13,7 @@ class noRPSData: public exception {
 } bad_rps;
 
 void moveToSetPos(Robot, float, float, float);
-float getRPS(float, float);
+float getRPS(float*, float*);
 void waitForTouch();
 int waitForLight();
 void moveUpRamp(Robot);
