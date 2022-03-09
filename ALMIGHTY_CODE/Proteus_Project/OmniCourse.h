@@ -36,33 +36,42 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float xCurr;
     float yCurr;
     float heading = getRPS(&xCurr, &yCurr);
+    LCD.Clear();
+    while (true) {
+        // makes heading angle in the same frame of reference as all other angles in the code.
+        heading = getRPS(&xCurr, &yCurr);
+        heading = 360.0 - (heading - RPS_FRONT_ANGLE);
+        float dX = x - xCurr;
+        float dY = y - yCurr;
+        float dist = sqrt(dX*dX + dY*dY);
+        float moveAngle = atan(dY/dX) * 180.0 / PI;
+        moveAngle = 90.0 - moveAngle;
+        if (dX < 0.0) {
+            moveAngle += 180.0;
+        }
+        LCD.WriteRC("dX: ", 0, 0);
+        LCD.WriteRC(dX, 0, 4);
+        LCD.WriteRC("dY: ", 1, 0);
+        LCD.WriteRC(dY, 1, 4);
+        LCD.WriteRC("moveAngle: ", 2, 0);
+        LCD.WriteRC(moveAngle, 2, 11);
+        LCD.WriteRC("Heading: ", 3, 0);
+        LCD.WriteRC(heading, 3, 9);
+        LCD.WriteRC("Direction: ", 4, 0);
+        LCD.WriteRC(heading + moveAngle, 4, 11);
 
-    // makes heading angle in the same frame of reference as all other angles in the code.
-    heading = 360.0 - (heading - RPS_FRONT_ANGLE);
-    float dX = x - xCurr;
-    float dY = y - yCurr;
-    float dist = sqrt(dX*dX + dY*dY);
-    float moveAngle = atan(dY/dX) * 180.0 / PI;
-    moveAngle = 90.0 - moveAngle;
-    if (dX < 0.0) {
-        moveAngle += 180.0;
+        // robot now needs to fix any drift/go to desired angle.
+        heading = getRPS(&xCurr, &yCurr);
+        heading = 360.0 - (heading - RPS_FRONT_ANGLE);
+        // makes sure that it turns in an optimal direction.
+        float dHeading = abs(heading - angle);
+        LCD.WriteRC("Heading: ", 5, 0);
+        LCD.WriteRC(heading, 5, 9);
+        LCD.WriteRC("dHeading: ", 6, 0);
+        LCD.WriteRC(dHeading, 6, 10);
+        Sleep(0.1);
     }
-    // reportMessage("Degrees:");
-    // char buffer[25];
-    // snprintf(buffer, sizeof buffer, "%f", heading+moveAngle);
-    // reportMessage(buffer);
-    wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED); // I'm sure this is correct /s
-
-    // robot now needs to fix any drift/go to desired angle.
-    heading = getRPS(&xCurr, &yCurr);
-    heading = 360.0 - (heading - RPS_FRONT_ANGLE);
-    // makes sure that it turns in an optimal direction.
-    float dHeading = abs(heading - angle);
-    if (dHeading > 0 && dHeading < 180.0) {
-        wall_E6.turn(dHeading/DPS_SPEED, -SPEED);
-    } else if (dHeading > 0) {
-        wall_E6.turn((360-dHeading)/DPS_SPEED, SPEED);
-    }
+    
 
     // a recursive call to ensure that the robot is within certain error.
     float error = 1.0;
