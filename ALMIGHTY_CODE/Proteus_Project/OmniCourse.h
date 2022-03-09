@@ -49,7 +49,7 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float dY = x - yCurr;
     float dist = sqrt(dX*dX + dY*dY);
     float moveAngle = atan(dY/dX);
-    wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED);
+    wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED); // I'm sure this is correct /s
 
     // robot now needs to fix any drift/go to desired angle.
     heading = getRPS(&xCurr, &yCurr);

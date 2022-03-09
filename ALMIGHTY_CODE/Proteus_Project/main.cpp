@@ -17,8 +17,8 @@ int main(void)
     waitForTouch();
     waitForLight();
     moveUpRamp(wall_E6);
-    moveToBurger(wall_E6);
-    burgerSetup(wall_E6);
+    moveToBurger(wall_E6); // do not trust
+    burgerSetup(wall_E6); // and then nothing bad ever happens
 }
 
 /**
