@@ -12,14 +12,12 @@ int main(void)
 {
     Robot wall_E6;
     RPS.InitializeTouchMenu();
-    displayRPS();
     setLCD();
     reportMessage("Waiting...");
     waitForTouch();
     waitForLight();
     moveUpRamp(wall_E6);
-    moveToBurger(wall_E6); // do not trust
-    burgerSetup(wall_E6); // and then nothing bad ever happens
+    moveToBurger(wall_E6);
 }
 
 /**

@@ -6,12 +6,6 @@
 #include <OmniSensors.h>
 using namespace std;
 
-class noRPSData: public exception {
-    virtual const char* what() const throw() {
-        return "Invalid data from RPS";
-    }
-} bad_rps;
-
 void moveToSetPos(Robot, float, float, float);
 float getRPS(float*, float*);
 void waitForTouch();
@@ -46,14 +40,22 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     // makes heading angle in the same frame of reference as all other angles in the code.
     heading = 360.0 - (heading - RPS_FRONT_ANGLE);
     float dX = x - xCurr;
-    float dY = x - yCurr;
+    float dY = y - yCurr;
     float dist = sqrt(dX*dX + dY*dY);
     float moveAngle = atan(dY/dX) * 180.0 / PI;
     moveAngle = 90.0 - moveAngle;
+    if (dX < 0.0) {
+        moveAngle += 180.0;
+    }
+    // reportMessage("Degrees:");
+    // char buffer[25];
+    // snprintf(buffer, sizeof buffer, "%f", heading+moveAngle);
+    // reportMessage(buffer);
     wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED); // I'm sure this is correct /s
 
     // robot now needs to fix any drift/go to desired angle.
     heading = getRPS(&xCurr, &yCurr);
+    heading = 360.0 - (heading - RPS_FRONT_ANGLE);
     // makes sure that it turns in an optimal direction.
     float dHeading = abs(heading - angle);
     if (dHeading > 0 && dHeading < 180.0) {
@@ -92,17 +94,10 @@ void moveToBurger(Robot wall_E6) {
     float xDest = 28.9;
     float yDest = 60.0;
     float angleDest = 0.0;
-    try {
-        moveToSetPos(wall_E6, xDest, yDest, angleDest);
-    } catch (exception& e) {
-        /*
-         * This should be handled in moveToSetPos unless it fails on the very first getRPS call.
-         * For now, however, I am lazy and assume that RPS is perfect and these lines will never run!
-         * What could go wrong?
-         */
-        reportMessage(e.what());
-        throw;
-    }
+
+    wall_E6.move(FRONT_ANGLE + 30.0, 16.0/IPS_SPEED, SPEED);
+
+    moveToSetPos(wall_E6, xDest, yDest, angleDest);
 }
 
 /**
@@ -288,6 +283,7 @@ void waitForTouch() {
  * @return The heading of the robot.
  */
 float getRPS(float *x, float *y) {
+    Sleep(0.1);
     float head = RPS.Heading();
     *x = RPS.X();
     *y = RPS.Y();
@@ -301,11 +297,6 @@ float getRPS(float *x, float *y) {
             head = RPS.Heading();
             counter++;
         }
-    } else {
-        throw bad_rps;
-    }
-    if (counter == limit) {
-        throw bad_rps;
     }
     return head;
 }
