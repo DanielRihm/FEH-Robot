@@ -2,6 +2,7 @@
 #include <FEHLCD.h>
 #include <FEHBattery.h>
 
+#define RPS_FRONT_ANGLE 0.0
 #define RIGHT_ANGLE 90.0
 #define FRONT_ANGLE 0.0
 #define LEFT_ANGLE 270.0

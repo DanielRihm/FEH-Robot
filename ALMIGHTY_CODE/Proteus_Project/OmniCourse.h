@@ -3,10 +3,13 @@
 #include <OmniMotion.h>
 #include <OmniSensors.h>
 
+int moveToSetPos(Robot, float, float, float);
+float getRPS(float, float);
 void waitForTouch();
 int waitForLight();
 void moveUpRamp(Robot);
 void moveToBurger(Robot);
+void burgerSetup(Robot);
 void leftToSink(Robot); // not needed for test 3
 void flushWithSink(Robot); // not needed for test 3
 void sinkToBurger(Robot); // not needed for test 3
@@ -18,6 +21,56 @@ void goToLineFirst(Robot, float); // not needed for test 2
 void buttonToRamp(Robot, float, int); // not needed for test 2
 
 /**
+ * @brief Moves the robot to the specified position.
+ * 
+ * @param wall_E6 The robot.
+ * @param x The x position.
+ * @param y The y position.
+ * @param angle The final angle of the robot.
+ * @return Negative if failed.
+ */
+int moveToSetPos(Robot wall_E6, float x, float y, float angle) {
+    float xCurr;
+    float yCurr;
+    float heading = getRPS(&xCurr, &yCurr);
+    if (heading < 0) {
+        return heading;
+    }
+
+    heading = 360.0 - (heading - RPS_FRONT_ANGLE);
+    float dX = x - xCurr;
+    float dY = x - yCurr;
+    float dist = sqrt(dX*dX + dY*dY);
+    float moveAngle = atan(dY/dX);
+    wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED);
+
+    heading = getRPS(&xCurr, &yCurr);
+    if (heading < 0) {
+        return heading;
+    }
+    // makes sure that it turns in an optimal direction.
+    float dHeading = abs(heading - angle);
+    if (dHeading > 0 && dHeading < 180.0) {
+        wall_E6.turn(dHeading/DPS_SPEED, -SPEED);
+    } else if (dHeading > 0) {
+        wall_E6.turn((360-dHeading)/DPS_SPEED, SPEED);
+    }
+
+    return 1;
+    // a recursive call could be added here to ensure that the robot is within certain error.
+}
+
+/**
+ * @brief Moves the robot into position to flip the burger.
+ * 
+ * @param wall_E6 The robot.
+ */
+void burgerSetup(Robot wall_E6) {
+    wall_E6.turn(60.0/DPS_SPEED, SPEED);
+    wall_E6.moveArm(45.0);
+}
+
+/**
  * @brief Moves the robot from the top of the ramp to the burger flip.
  * 
  * @param wall_E6 The robot.
@@ -26,11 +79,11 @@ void moveToBurger(Robot wall_E6) {
     reportMessage("Moving to burger.");
     float xDest = 28.9;
     float yDest = 60.0;
-    float dX = xDest - RPS.X();
-    float dY = yDest - RPS.Y();
-    float dist = sqrt(dX*dX + dY*dY);
-    float ang = atan(dY/dX);
-    wall_E6.move(ang, dist/IPS_SPEED, SPEED);
+    float angleDest = 0.0;
+    int debug = moveToSetPos(wall_E6, xDest, yDest, angleDest);
+    if (debug < 0) {
+        reportMessage("Bad RPS data.");
+    }
 }
 
 /**
@@ -206,4 +259,32 @@ int waitForLight() {
 void waitForTouch() {
     float x, y;
     while (!LCD.Touch(&x,&y));
+}
+
+/**
+ * @brief Returns the recorded RPS values.
+ * 
+ * @param x The x value of the robot's position,
+ * @param y The y value of the robot's position,
+ * @return The heading of the robot.
+ */
+float getRPS(float *x, float *y) {
+    float head = RPS.Heading();
+    *x = RPS.X();
+    *y = RPS.Y();
+    int counter = 0;
+    const int limit = 20;
+    if (*x > -1.5 && *y > -1.5 && head > -1.5) {
+        while ((*x < 0.0 || *y < 0.0 || head < 0.0) && counter < limit) {
+            Sleep(0.05);
+            *x = RPS.X();
+            *y = RPS.Y();
+            head = RPS.Heading();
+        }
+    } else {
+        *x = -2.0;
+        *y = -2.0;
+        head = -2.0;
+    }
+    return head;
 }

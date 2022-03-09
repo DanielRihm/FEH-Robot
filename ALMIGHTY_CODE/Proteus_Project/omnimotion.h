@@ -26,6 +26,7 @@ class Robot {
         void moveUnbounded(float, int);
         void toggleRamp();
         bool isRampClosed();
+        void moveArm(float);
 };
 
 Robot::Robot() {
@@ -36,6 +37,15 @@ Robot::Robot() {
     roboArm.SetMin(ROBOARM_MIN);
     roboArm.SetMax(ROBOARM_MAX);
     roboArm.SetDegree(150.0);
+}
+
+/**
+ * @brief Moves the roboArm into the specified position.
+ * 
+ * @param angle The angle of the roboArm from its minimum angle.
+ */
+void Robot::moveArm(float angle) {
+    roboArm.SetDegree(angle);
 }
 
 /**
