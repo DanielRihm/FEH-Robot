@@ -9,6 +9,9 @@
         "*/*.synctex.gz": true
     },
     "files.associations": {
-        "exception": "cpp"
+        "exception": "cpp",
+        "cmath": "cpp",
+        "random": "cpp",
+        "*.tcc": "cpp"
     }
 }

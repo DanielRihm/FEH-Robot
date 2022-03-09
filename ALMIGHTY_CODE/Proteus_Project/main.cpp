@@ -12,6 +12,7 @@ int main(void)
 {
     Robot wall_E6;
     RPS.InitializeTouchMenu();
+    displayRPS();
     setLCD();
     reportMessage("Waiting...");
     waitForTouch();
@@ -30,6 +31,7 @@ void displayRPS() {
     while(true) {
         LCD.WriteRC(RPS.X(), 0, 0);
         LCD.WriteRC(RPS.Y(), 1, 0);
+        LCD.WriteRC(RPS.Heading(), 2, 0);
         Sleep(0.1);
     }
 }
