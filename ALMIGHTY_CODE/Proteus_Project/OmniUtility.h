@@ -27,6 +27,8 @@
 #define POS_RIGHT_FACTOR 0.9
 #define RAMP_DOOR_MIN 500
 #define RAMP_DOOR_MAX 2300
+#define ROBOARM_MIN 500
+#define ROBOARM_MAX 2300
 
 //OmniSensors constants
 #define RED_LIGHT_CUTOFF 0.5

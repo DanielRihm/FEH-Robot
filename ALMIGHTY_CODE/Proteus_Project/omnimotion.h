@@ -10,6 +10,7 @@ FEHMotor frontM(FEHMotor::Motor0, VOLTAGE);
 FEHMotor leftM(FEHMotor::Motor1, VOLTAGE);
 FEHMotor rightM(FEHMotor::Motor2, VOLTAGE);
 FEHServo rampDoor(FEHServo::Servo0);
+FEHServo roboArm(FEHServo::Servo1);
 
 class Robot;
 
@@ -32,6 +33,9 @@ Robot::Robot() {
     rampDoor.SetMax(RAMP_DOOR_MAX);
     rampDoor.SetDegree(90.0);
     rampClosed = true;
+    roboArm.SetMin(ROBOARM_MIN);
+    roboArm.SetMax(ROBOARM_MAX);
+    roboArm.SetDegree(150.0);
 }
 
 /**
