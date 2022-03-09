@@ -34,7 +34,7 @@ int moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float yCurr;
     float heading = getRPS(&xCurr, &yCurr);
     if (heading < 0) {
-        return heading;
+        return (int) heading;
     }
 
     heading = 360.0 - (heading - RPS_FRONT_ANGLE);
@@ -46,7 +46,7 @@ int moveToSetPos(Robot wall_E6, float x, float y, float angle) {
 
     heading = getRPS(&xCurr, &yCurr);
     if (heading < 0) {
-        return heading;
+        return (int) heading;
     }
     // makes sure that it turns in an optimal direction.
     float dHeading = abs(heading - angle);
@@ -92,6 +92,7 @@ void moveToBurger(Robot wall_E6) {
     int debug = moveToSetPos(wall_E6, xDest, yDest, angleDest);
     if (debug < 0) {
         reportMessage("Bad RPS data.");
+        throw debug;
     }
 }
 
