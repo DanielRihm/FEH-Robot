@@ -56,8 +56,17 @@ int moveToSetPos(Robot wall_E6, float x, float y, float angle) {
         wall_E6.turn((360-dHeading)/DPS_SPEED, SPEED);
     }
 
-    return 1;
     // a recursive call could be added here to ensure that the robot is within certain error.
+    float error = 1.0;
+    int errorCode = -1;
+    if (xCurr - error > x || xCurr + error < x ||
+        yCurr - error > y || yCurr + error < y ||
+        heading - error > angle || heading + error < angle) {
+        // this ensures that all distances and angles are within the specified error.
+        errorCode = moveToSetPos(wall_E6, x, y, angle);
+    }
+
+    return errorCode;
 }
 
 /**
