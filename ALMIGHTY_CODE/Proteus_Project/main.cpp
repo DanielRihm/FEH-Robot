@@ -6,29 +6,31 @@ void test(Robot);
 void testForward(Robot, float);
 void testSideToSide(Robot, float);
 void testSpin(Robot, float);
+void displayRPS();
 
 int main(void)
 {
     Robot wall_E6;
+    RPS.InitializeTouchMenu();
     setLCD();
     reportMessage("Waiting...");
     waitForTouch();
     waitForLight();
     moveUpRamp(wall_E6);
-    leftToSink(wall_E6);
-    flushWithSink(wall_E6);
-    wall_E6.toggleRamp();
-    Sleep(1.0);
-    sinkToBurger(wall_E6);
-    lineUpToTicket(wall_E6);
-    slideTicket(wall_E6);
-    wall_E6.move(BACK_ANGLE, 5.0/IPS_SPEED, SPEED);
+    moveToBurger(wall_E6);
+}
 
-
-    // goToLineFirst(wall_E6, IPS);
-    // int light = goTillLight(wall_E6, IPS);
-    // guessToButton(wall_E6, IPS);
-    // buttonToRamp(wall_E6, IPS, light);
+/**
+ * @brief Constantly writes the current position to the screen.
+ * 
+ */
+void displayRPS() {
+    LCD.Clear();
+    while(true) {
+        LCD.WriteRC(RPS.X(), 0, 0);
+        LCD.WriteRC(RPS.Y(), 1, 0);
+        Sleep(0.1);
+    }
 }
 
 /**

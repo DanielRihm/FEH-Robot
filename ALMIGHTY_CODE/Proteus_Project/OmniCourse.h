@@ -1,19 +1,37 @@
 #include <FEHLCD.h>
+#include <FEHRPS.h>
 #include <OmniMotion.h>
 #include <OmniSensors.h>
 
 void waitForTouch();
 int waitForLight();
 void moveUpRamp(Robot);
-void leftToSink(Robot);
-void flushWithSink(Robot);
-void sinkToBurger(Robot);
-void lineUpToTicket(Robot);
-void slideTicket(Robot);
+void moveToBurger(Robot);
+void leftToSink(Robot); // not needed for test 3
+void flushWithSink(Robot); // not needed for test 3
+void sinkToBurger(Robot); // not needed for test 3
+void lineUpToTicket(Robot); // not needed for test 3
+void slideTicket(Robot); // not needed for test 3
 int goTillLight(Robot, float); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
 void goToLineFirst(Robot, float); // not needed for test 2
 void buttonToRamp(Robot, float, int); // not needed for test 2
+
+/**
+ * @brief Moves the robot from the top of the ramp to the burger flip.
+ * 
+ * @param wall_E6 The robot.
+ */
+void moveToBurger(Robot wall_E6) {
+    reportMessage("Moving to burger.");
+    float xDest = 28.9;
+    float yDest = 60.0;
+    float dX = xDest - RPS.X();
+    float dY = yDest - RPS.Y();
+    float dist = sqrt(dX*dX + dY*dY);
+    float ang = atan(dY/dX);
+    wall_E6.move(ang, dist/IPS_SPEED, SPEED);
+}
 
 /**
  * @brief Slides the ticket to the side.
