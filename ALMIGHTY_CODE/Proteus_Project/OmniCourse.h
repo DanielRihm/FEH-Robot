@@ -13,6 +13,7 @@ int waitForLight();
 void moveUpRamp(Robot);
 void moveToBurger(Robot);
 void burgerSetup(Robot);
+void flipBurger(Robot);
 void leftToSink(Robot); // not needed for test 3
 void flushWithSink(Robot); // not needed for test 3
 void sinkToBurger(Robot); // not needed for test 3
@@ -22,6 +23,19 @@ int goTillLight(Robot, float); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
 void goToLineFirst(Robot, float); // not needed for test 2
 void buttonToRamp(Robot, float, int); // not needed for test 2
+
+/**
+ * @brief Moves forward and flips the burger.
+ * 
+ * @param wall_E6 The robot.
+ */
+void flipBurger(Robot wall_E6) {
+    wall_E6.move(LEFT_ANGLE + 30.0, 0.4, SPEED);
+    Sleep(0.5);
+    wall_E6.moveArm(120.0);
+    Sleep(5.0);
+    wall_E6.move(RIGHT_ANGLE+30.0, 0.5, SPEED);
+}
 
 /**
  * @brief Moves the robot to the specified position.
@@ -36,7 +50,7 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float xCurr;
     float yCurr;
     float heading;
-    const float error = 1.0;
+    const float error = 0.5;
 
     do {
         // makes heading angle in the same frame of reference as all other angles in the code.
@@ -81,8 +95,9 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
  * @param wall_E6 The robot.
  */
 void burgerSetup(Robot wall_E6) {
-    wall_E6.turn(60.0/DPS_SPEED, SPEED);
-    wall_E6.moveArm(45.0);
+    wall_E6.turn(60.0/DPS_SPEED, -SPEED);
+    wall_E6.moveArm(35.0);
+    Sleep(0.5);
 }
 
 /**
@@ -92,7 +107,7 @@ void burgerSetup(Robot wall_E6) {
  */
 void moveToBurger(Robot wall_E6) {
     reportMessage("Moving to burger.");
-    float xDest = 28.9;
+    float xDest = 27.3;
     float yDest = 60.0;
     float angleDest = 0.0;
 

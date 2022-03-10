@@ -18,6 +18,8 @@ int main(void)
     waitForLight();
     moveUpRamp(wall_E6);
     moveToBurger(wall_E6);
+    burgerSetup(wall_E6);
+    flipBurger(wall_E6);
 }
 
 /**
