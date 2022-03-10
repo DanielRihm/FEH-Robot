@@ -36,43 +36,43 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float xCurr;
     float yCurr;
     float heading;
+    const float error = 1.0;
 
-    // makes heading angle in the same frame of reference as all other angles in the code.
-    heading = getRPS(&xCurr, &yCurr);
-    heading = 360.0 - (heading - RPS_FRONT_ANGLE);
-    float dX = x - xCurr;
-    float dY = y - yCurr;
-    float dist = sqrt(dX*dX + dY*dY);
-    float moveAngle = atan(dY/dX) * 180.0 / PI;
-    moveAngle = 90.0 - moveAngle;
-    if (dX < 0.0) {
-        moveAngle += 180.0;
-    }
-    wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED); // I'm sure this is correct /s
+    do {
+        // makes heading angle in the same frame of reference as all other angles in the code.
+        heading = getRPS(&xCurr, &yCurr);
+        heading = 360.0 - (heading - RPS_FRONT_ANGLE);
+        float dX = x - xCurr;
+        float dY = y - yCurr;
+        float dist = sqrt(dX*dX + dY*dY);
+        float moveAngle = atan(dY/dX) * 180.0 / PI;
+        moveAngle = 90.0 - moveAngle;
+        if (dX < 0.0) {
+            moveAngle += 180.0;
+        }
+        wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED); // I'm sure this is correct /s
 
-    // robot now needs to fix any drift/go to desired angle.
-    heading = getRPS(&xCurr, &yCurr);
-    heading = 360.0 - (heading - RPS_FRONT_ANGLE);
-    // makes sure that it turns in an optimal direction.
-    float dHeading = abs(heading - angle);
-    if (dHeading >= 360.0) {
-        dHeading -= 360.0;
-    }
+        // robot now needs to fix any drift/go to desired angle.
+        heading = getRPS(&xCurr, &yCurr);
+        heading = 360.0 - (heading - RPS_FRONT_ANGLE);
+        // makes sure that it turns in an optimal direction.
+        float dHeading = abs(heading - angle);
+        if (dHeading >= 360.0) {
+            dHeading -= 360.0;
+        }
 
-    if (dHeading > 0 && dHeading < 180.0) {
-        wall_E6.turn(dHeading/DPS_SPEED, -SPEED);
-    } else {
-        wall_E6.turn((360-dHeading)/DPS_SPEED, SPEED);
-    }
+        if (dHeading > 0 && dHeading < 180.0) {
+            wall_E6.turn(dHeading/DPS_SPEED, SPEED);
+        } else {
+            wall_E6.turn((360-dHeading)/DPS_SPEED, -SPEED);
+        }
 
-    // a recursive call to ensure that the robot is within certain error.
-    float error = 1.0;
-    if (xCurr < x - error || xCurr > x + error ||
-        yCurr  < y - error || yCurr > y + error ||
-        heading < angle - error || heading > angle + error) {
-        // this ensures that all distances and angles are within the specified error.
-        moveToSetPos(wall_E6, x, y, angle);
-    }
+        heading = getRPS(&xCurr, &yCurr);
+        heading = 360.0 - (heading - RPS_FRONT_ANGLE);
+
+    } while (xCurr < x - error || xCurr > x + error ||
+        yCurr  < y - error || yCurr > y + error /*||
+        heading < angle - error || heading > angle + error*/);
 }
 
 /**
@@ -97,7 +97,6 @@ void moveToBurger(Robot wall_E6) {
     float angleDest = 0.0;
 
     wall_E6.move(FRONT_ANGLE + 30.0, 16.0/IPS_SPEED, SPEED);
-
     moveToSetPos(wall_E6, xDest, yDest, angleDest);
 }
 
@@ -284,7 +283,7 @@ void waitForTouch() {
  * @return The heading of the robot.
  */
 float getRPS(float *x, float *y) {
-    Sleep(0.1);
+    Sleep(0.5);
     float head = RPS.Heading();
     *x = RPS.X();
     *y = RPS.Y();
@@ -292,7 +291,7 @@ float getRPS(float *x, float *y) {
     const int limit = 20;
     if (*x > -1.5 && *y > -1.5 && head > -1.5) {
         while ((*x < 0.0 || *y < 0.0 || head < 0.0) && counter < limit) {
-            Sleep(0.05);
+            Sleep(0.5);
             *x = RPS.X();
             *y = RPS.Y();
             head = RPS.Heading();
