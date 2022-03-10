@@ -35,9 +35,10 @@ void buttonToRamp(Robot, float, int); // not needed for test 2
 void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float xCurr;
     float yCurr;
-    float heading = getRPS(&xCurr, &yCurr);
+    float heading;
 
     // makes heading angle in the same frame of reference as all other angles in the code.
+    heading = getRPS(&xCurr, &yCurr);
     heading = 360.0 - (heading - RPS_FRONT_ANGLE);
     float dX = x - xCurr;
     float dY = y - yCurr;
@@ -47,10 +48,6 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     if (dX < 0.0) {
         moveAngle += 180.0;
     }
-    // reportMessage("Degrees:");
-    // char buffer[25];
-    // snprintf(buffer, sizeof buffer, "%f", heading+moveAngle);
-    // reportMessage(buffer);
     wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED); // I'm sure this is correct /s
 
     // robot now needs to fix any drift/go to desired angle.
@@ -58,17 +55,21 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     heading = 360.0 - (heading - RPS_FRONT_ANGLE);
     // makes sure that it turns in an optimal direction.
     float dHeading = abs(heading - angle);
+    if (dHeading >= 360.0) {
+        dHeading -= 360.0;
+    }
+
     if (dHeading > 0 && dHeading < 180.0) {
         wall_E6.turn(dHeading/DPS_SPEED, -SPEED);
-    } else if (dHeading > 0) {
+    } else {
         wall_E6.turn((360-dHeading)/DPS_SPEED, SPEED);
     }
 
     // a recursive call to ensure that the robot is within certain error.
     float error = 1.0;
-    if (xCurr - error > x || xCurr + error < x ||
-        yCurr - error > y || yCurr + error < y ||
-        heading - error > angle || heading + error < angle) {
+    if (xCurr < x - error || xCurr > x + error ||
+        yCurr  < y - error || yCurr > y + error ||
+        heading < angle - error || heading > angle + error) {
         // this ensures that all distances and angles are within the specified error.
         moveToSetPos(wall_E6, x, y, angle);
     }
