@@ -33,8 +33,11 @@ void flipBurger(Robot wall_E6) {
     wall_E6.move(LEFT_ANGLE + 30.0, 0.4, SPEED);
     Sleep(0.5);
     wall_E6.moveArm(120.0);
-    Sleep(5.0);
-    wall_E6.move(RIGHT_ANGLE+30.0, 0.5, SPEED);
+    Sleep(2.0);
+    wall_E6.move(BACK_ANGLE + 30.0, 0.5, SPEED);
+    wall_E6.moveArm(160.0);
+    Sleep(1.5);
+    wall_E6.move(RIGHT_ANGLE + 30.0, 0.5, SPEED);
 }
 
 /**
@@ -50,7 +53,8 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float xCurr;
     float yCurr;
     float heading;
-    const float error = 0.5;
+    int speed = SPEED;
+    const float error = 0.1;
 
     do {
         // makes heading angle in the same frame of reference as all other angles in the code.
@@ -64,7 +68,7 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
         if (dX < 0.0) {
             moveAngle += 180.0;
         }
-        wall_E6.move(heading + moveAngle, dist/IPS_SPEED, SPEED); // I'm sure this is correct /s
+        wall_E6.move(heading + moveAngle, dist/IPS_SPEED, speed); // I'm sure this is correct /s
 
         // robot now needs to fix any drift/go to desired angle.
         heading = getRPS(&xCurr, &yCurr);
@@ -84,9 +88,10 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
         heading = getRPS(&xCurr, &yCurr);
         heading = 360.0 - (heading - RPS_FRONT_ANGLE);
 
-    } while (xCurr < x - error || xCurr > x + error ||
+        speed -= 5;
+    } while ((xCurr < x - error || xCurr > x + error ||
         yCurr  < y - error || yCurr > y + error /*||
-        heading < angle - error || heading > angle + error*/);
+        heading < angle - error || heading > angle + error*/) && speed > 10);
 }
 
 /**
@@ -302,16 +307,29 @@ float getRPS(float *x, float *y) {
     float head = RPS.Heading();
     *x = RPS.X();
     *y = RPS.Y();
-    int counter = 0;
-    const int limit = 20;
+    float xSum = 0.0;
+    float ySum = 0.0;
+    float headSum = 0.0;
+    const int limit = 10;
+    int count = 0;
     if (*x > -1.5 && *y > -1.5 && head > -1.5) {
-        while ((*x < 0.0 || *y < 0.0 || head < 0.0) && counter < limit) {
-            Sleep(0.5);
+        for (int i = 0; i < limit; i++) {
+            Sleep(0.01);
+            head = RPS.Heading();
             *x = RPS.X();
             *y = RPS.Y();
-            head = RPS.Heading();
-            counter++;
+            if (*x > -0.1 && *y > -0.1 && head > -0.1) {
+                xSum += *x;
+                ySum += *y;
+                headSum += head;
+                count++;
+            }
         }
     }
+
+    *x = xSum / count;
+    *y = ySum / count;
+    head = headSum / count;
+
     return head;
 }
