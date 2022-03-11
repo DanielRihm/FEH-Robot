@@ -6,6 +6,10 @@
 #include <OmniSensors.h>
 using namespace std;
 
+void fixBurger(Robot);
+bool checkHeading(float, float);
+void twistFlip(Robot);
+void moveToTwist(Robot);
 void moveToSetPos(Robot, float, float, float);
 float getRPS(float*, float*);
 void waitForTouch();
@@ -13,6 +17,7 @@ int waitForLight();
 void moveUpRamp(Robot);
 void moveToBurger(Robot);
 void burgerSetup(Robot);
+void flipBurger(Robot);
 void leftToSink(Robot); // not needed for test 3
 void flushWithSink(Robot); // not needed for test 3
 void sinkToBurger(Robot); // not needed for test 3
@@ -22,6 +27,85 @@ int goTillLight(Robot, float); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
 void goToLineFirst(Robot, float); // not needed for test 2
 void buttonToRamp(Robot, float, int); // not needed for test 2
+
+/**
+ * @brief Flips the burger tray back to its starting position.
+ * 
+ * @param wall_E6 The robot.
+ */
+void fixBurger(Robot wall_E6) {
+    wall_E6.moveArm(180.0);
+    wall_E6.move(FRONT_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
+    wall_E6.move(LEFT_ANGLE + 30.0, 0.7, SPEED);
+    wall_E6.moveArm(120.0);
+    Sleep(1.0);
+    wall_E6.move(RIGHT_ANGLE + 30.0, 0.5, SPEED);
+}
+
+/**
+ * @brief Moves the robot up to the lever for the twist and flips it.
+ * 
+ * @param wall_E6 The robot.
+ */
+void twistFlip(Robot wall_E6) {
+    wall_E6.move(FRONT_ANGLE + 285.0, 1.0, SPEED);
+}
+
+/**
+ * @brief Moves the robot in position for that epic twist ice cream.
+ * 
+ * @param wall_E6 The robot.
+ */
+void moveToTwist(Robot wall_E6) {
+    reportMessage("Going to ice cream.");
+    wall_E6.move(BACK_ANGLE - 30.0, 6.0 / IPS_SPEED, SPEED);
+    wall_E6.turn(45.0/DPS_SPEED, -SPEED);
+
+    float xDest = 12.5;
+    float yDest = 25.4;
+    float angleDest = 15.0;
+
+    moveToSetPos(wall_E6, xDest, yDest, angleDest);
+}
+
+/**
+ * @brief Moves forward and flips the burger.
+ * 
+ * @param wall_E6 The robot.
+ */
+void flipBurger(Robot wall_E6) {
+    reportMessage("Fliping tray back.");
+    wall_E6.move(LEFT_ANGLE + 30.0, 0.4, SPEED);
+    Sleep(0.5);
+    wall_E6.moveArm(120.0);
+    Sleep(2.0);
+    wall_E6.move(BACK_ANGLE + 30.0, 0.5, SPEED);
+    wall_E6.moveArm(160.0);
+    Sleep(1.5);
+    wall_E6.move(RIGHT_ANGLE + 30.0, 0.5, SPEED);
+}
+
+/**
+ * @brief Checks whether the given angle is within the given error from the destination angle.
+ * 
+ * @param angle The current angle.
+ * @param destAngle The desired angle.
+ * @param error The allowed error.
+ * @return true if the given angle is within the allowed error, false otherwise.
+ */
+bool checkHeading(float angle, float destAngle, float error) {
+    double dAngle = fmod(destAngle - angle, 360.0);
+    if (dAngle < -180.0) {
+        dAngle += 360.0;
+    }else if (dAngle >= 180.0) {
+        dAngle -= 360.0;
+    }
+
+    if (dAngle < error && dAngle > -error) {
+        return true;
+    }
+    return false;
+}
 
 /**
  * @brief Moves the robot to the specified position.
@@ -35,9 +119,12 @@ void buttonToRamp(Robot, float, int); // not needed for test 2
 void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float xCurr;
     float yCurr;
-    float heading = getRPS(&xCurr, &yCurr);
-    LCD.Clear();
-    while (true) {
+    float heading;
+    int speed = SPEED;
+    const float error = 0.1;
+    bool headInError;
+
+    do {
         // makes heading angle in the same frame of reference as all other angles in the code.
         heading = getRPS(&xCurr, &yCurr);
         heading = 360.0 - (heading - RPS_FRONT_ANGLE);
@@ -65,22 +152,19 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
         heading = 360.0 - (heading - RPS_FRONT_ANGLE);
         // makes sure that it turns in an optimal direction.
         float dHeading = abs(heading - angle);
+        if (dHeading >= 360.0) {
+            dHeading -= 360.0;
+        }
+        
         LCD.WriteRC("Heading: ", 5, 0);
         LCD.WriteRC(heading, 5, 9);
         LCD.WriteRC("dHeading: ", 6, 0);
         LCD.WriteRC(dHeading, 6, 10);
         Sleep(0.1);
-    }
-    
 
-    // a recursive call to ensure that the robot is within certain error.
-    float error = 1.0;
-    if (xCurr - error > x || xCurr + error < x ||
-        yCurr - error > y || yCurr + error < y ||
-        heading - error > angle || heading + error < angle) {
-        // this ensures that all distances and angles are within the specified error.
-        moveToSetPos(wall_E6, x, y, angle);
-    }
+        heading = getRPS(&xCurr, &yCurr);
+        heading = 360.0 - (heading - RPS_FRONT_ANGLE);
+    } while (true);
 }
 
 /**
@@ -89,8 +173,9 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
  * @param wall_E6 The robot.
  */
 void burgerSetup(Robot wall_E6) {
-    wall_E6.turn(60.0/DPS_SPEED, SPEED);
-    wall_E6.moveArm(45.0);
+    wall_E6.turn(60.0/DPS_SPEED, -SPEED);
+    wall_E6.moveArm(35.0);
+    Sleep(0.5);
 }
 
 /**
@@ -100,12 +185,11 @@ void burgerSetup(Robot wall_E6) {
  */
 void moveToBurger(Robot wall_E6) {
     reportMessage("Moving to burger.");
-    float xDest = 28.9;
+    float xDest = 27.3;
     float yDest = 60.0;
     float angleDest = 0.0;
 
     wall_E6.move(FRONT_ANGLE + 30.0, 16.0/IPS_SPEED, SPEED);
-
     moveToSetPos(wall_E6, xDest, yDest, angleDest);
 }
 
@@ -292,20 +376,33 @@ void waitForTouch() {
  * @return The heading of the robot.
  */
 float getRPS(float *x, float *y) {
-    Sleep(0.1);
+    Sleep(0.5);
     float head = RPS.Heading();
     *x = RPS.X();
     *y = RPS.Y();
-    int counter = 0;
-    const int limit = 20;
+    float xSum = 0.0;
+    float ySum = 0.0;
+    float headSum = 0.0;
+    const int limit = 10;
+    int count = 0;
     if (*x > -1.5 && *y > -1.5 && head > -1.5) {
-        while ((*x < 0.0 || *y < 0.0 || head < 0.0) && counter < limit) {
-            Sleep(0.05);
+        for (int i = 0; i < limit; i++) {
+            Sleep(0.01);
+            head = RPS.Heading();
             *x = RPS.X();
             *y = RPS.Y();
-            head = RPS.Heading();
-            counter++;
+            if (*x > -0.1 && *y > -0.1 && head > -0.1) {
+                xSum += *x;
+                ySum += *y;
+                headSum += head;
+                count++;
+            }
         }
     }
+
+    *x = xSum / count;
+    *y = ySum / count;
+    head = headSum / count;
+
     return head;
 }
