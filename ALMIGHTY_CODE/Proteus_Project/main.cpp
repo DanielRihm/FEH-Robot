@@ -15,12 +15,13 @@ int main(void)
     setLCD();
     reportMessage("Waiting...");
     waitForTouch();
-    waitForLight();
-    moveUpRamp(wall_E6);
-    moveToBurger(wall_E6);
-    burgerSetup(wall_E6);
-    flipBurger(wall_E6);
-    fixBurger(wall_E6);
+    displayRPS();
+    // waitForLight();
+    // moveUpRamp(wall_E6);
+    // moveToBurger(wall_E6);
+    // burgerSetup(wall_E6);
+    // flipBurger(wall_E6);
+    // fixBurger(wall_E6);
     moveToTwist(wall_E6);
     twistFlip(wall_E6);
 }
