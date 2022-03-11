@@ -2476,51 +2476,51 @@ LOAD c:/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb
                 0x0000c824                Robot::stop()
  *fill*         0x0000c846        0x2 
  .text._ZN5Robot15setMotorPercentEfff
-                0x0000c848      0x174 ../main.o
+                0x0000c848      0x144 ../main.o
                 0x0000c848                Robot::setMotorPercent(float, float, float)
  .text._Z11detectLightv
-                0x0000c9bc       0x44 ../main.o
-                0x0000c9bc                detectLight()
+                0x0000c98c       0x44 ../main.o
+                0x0000c98c                detectLight()
  .text._Z9fixBurger5Robot
-                0x0000ca00       0x70 ../main.o
-                0x0000ca00                fixBurger(Robot)
+                0x0000c9d0       0x74 ../main.o
+                0x0000c9d0                fixBurger(Robot)
  .text._Z9twistFlip5Robot
-                0x0000ca70       0x68 ../main.o
-                0x0000ca70                twistFlip(Robot)
+                0x0000ca44       0x68 ../main.o
+                0x0000ca44                twistFlip(Robot)
  .text._Z11moveToTwist5Robot
-                0x0000cad8       0x64 ../main.o
-                0x0000cad8                moveToTwist(Robot)
+                0x0000caac       0x64 ../main.o
+                0x0000caac                moveToTwist(Robot)
  .text._Z10flipBurger5Robot
-                0x0000cb3c       0x94 ../main.o
-                0x0000cb3c                flipBurger(Robot)
+                0x0000cb10       0x94 ../main.o
+                0x0000cb10                flipBurger(Robot)
  .text._ZSt4fmodIfdEN9__gnu_cxx11__promote_2IT_T0_NS0_9__promoteIS2_XsrSt12__is_integerIS2_E7__valueEE6__typeENS4_IS3_XsrS5_IS3_E7__valueEE6__typeEE6__typeES2_S3_
-                0x0000cbd0       0x28 ../main.o
-                0x0000cbd0                __gnu_cxx::__promote_2<float, double, __gnu_cxx::__promote<float, std::__is_integer<float>::__value>::__type, __gnu_cxx::__promote<double, std::__is_integer<double>::__value>::__type>::__type std::fmod<float, double>(float, double)
+                0x0000cba4       0x28 ../main.o
+                0x0000cba4                __gnu_cxx::__promote_2<float, double, __gnu_cxx::__promote<float, std::__is_integer<float>::__value>::__type, __gnu_cxx::__promote<double, std::__is_integer<double>::__value>::__type>::__type std::fmod<float, double>(float, double)
  .text._Z15angleDifferenceff
-                0x0000cbf8       0x9c ../main.o
-                0x0000cbf8                angleDifference(float, float)
+                0x0000cbcc       0x9c ../main.o
+                0x0000cbcc                angleDifference(float, float)
  .text._Z12checkHeadingfff
-                0x0000cc94       0x68 ../main.o
-                0x0000cc94                checkHeading(float, float, float)
- *fill*         0x0000ccfc        0x4 
+                0x0000cc68       0x68 ../main.o
+                0x0000cc68                checkHeading(float, float, float)
  .text._Z12moveToSetPos5Robotfff
-                0x0000cd00      0x320 ../main.o
-                0x0000cd00                moveToSetPos(Robot, float, float, float)
+                0x0000ccd0      0x34c ../main.o
+                0x0000ccd0                moveToSetPos(Robot, float, float, float)
  .text._Z11burgerSetup5Robot
-                0x0000d020       0x40 ../main.o
-                0x0000d020                burgerSetup(Robot)
+                0x0000d01c       0x40 ../main.o
+                0x0000d01c                burgerSetup(Robot)
  .text._Z12moveToBurger5Robot
-                0x0000d060       0x50 ../main.o
-                0x0000d060                moveToBurger(Robot)
+                0x0000d05c       0x50 ../main.o
+                0x0000d05c                moveToBurger(Robot)
  .text._Z10moveUpRamp5Robot
-                0x0000d0b0       0x40 ../main.o
-                0x0000d0b0                moveUpRamp(Robot)
+                0x0000d0ac       0x40 ../main.o
+                0x0000d0ac                moveUpRamp(Robot)
  .text._Z12waitForLightv
-                0x0000d0f0       0x3c ../main.o
-                0x0000d0f0                waitForLight()
+                0x0000d0ec       0x3c ../main.o
+                0x0000d0ec                waitForLight()
  .text._Z12waitForTouchv
-                0x0000d12c       0x34 ../main.o
-                0x0000d12c                waitForTouch()
+                0x0000d128       0x34 ../main.o
+                0x0000d128                waitForTouch()
+ *fill*         0x0000d15c        0x4 
  .text._Z6getRPSPfS_
                 0x0000d160      0x1a8 ../main.o
                 0x0000d160                getRPS(float*, float*)
@@ -4465,78 +4465,78 @@ LOAD linker stubs
  .debug_aranges
                 0x00001018       0x30 Libraries/FEHRandom.o
 
-.debug_macinfo  0x00000000   0x8c889f
+.debug_macinfo  0x00000000   0x8c88a0
  .debug_macinfo
-                0x00000000    0x6b0c9 ../main.o
+                0x00000000    0x6b0ca ../main.o
  .debug_macinfo
-                0x0006b0c9    0x6bf3b Startup/startup_mk60d10.o
+                0x0006b0ca    0x6bf3b Startup/startup_mk60d10.o
  .debug_macinfo
-                0x000d7004    0x63f77 Libraries/FEHMotor.o
+                0x000d7005    0x63f77 Libraries/FEHMotor.o
  .debug_macinfo
-                0x0013af7b    0x64058 Drivers/i2c.o
+                0x0013af7c    0x64058 Drivers/i2c.o
  .debug_macinfo
-                0x0019efd3    0x63ef1 Drivers/spi.o
+                0x0019efd4    0x63ef1 Drivers/spi.o
  .debug_macinfo
-                0x00202ec4    0x63ee2 Drivers/uart.o
+                0x00202ec5    0x63ee2 Drivers/uart.o
  .debug_macinfo
-                0x00266da6     0x44f5 Drivers/ff.o
+                0x00266da7     0x44f5 Drivers/ff.o
  .debug_macinfo
-                0x0026b29b    0x65446 Drivers/SDHC.o
+                0x0026b29c    0x65446 Drivers/SDHC.o
  .debug_macinfo
-                0x002d06e1    0x63f51 Drivers/lptmr.o
+                0x002d06e2    0x63f51 Drivers/lptmr.o
  .debug_macinfo
-                0x00334632    0x63ef7 FEHProteus.o
+                0x00334633    0x63ef7 FEHProteus.o
  .debug_macinfo
-                0x00398529    0x63fa0 Drivers/FEHPropeller.o
+                0x0039852a    0x63fa0 Drivers/FEHPropeller.o
  .debug_macinfo
-                0x003fc4c9    0x63f0c Libraries/FEHUtility.o
+                0x003fc4ca    0x63f0c Libraries/FEHUtility.o
  .debug_macinfo
-                0x004603d5    0x645b0 Libraries/FEHIO.o
+                0x004603d6    0x645b0 Libraries/FEHIO.o
  .debug_macinfo
-                0x004c4985    0x64593 Drivers/adc16.o
+                0x004c4986    0x64593 Drivers/adc16.o
  .debug_macinfo
-                0x00528f18    0x63f39 Libraries/FEHBuzzer.o
+                0x00528f19    0x63f39 Libraries/FEHBuzzer.o
  .debug_macinfo
-                0x0058ce51    0x65391 Libraries/FEHServo.o
+                0x0058ce52    0x65391 Libraries/FEHServo.o
  .debug_macinfo
-                0x005f21e2    0x69483 Libraries/FEHLCD.o
+                0x005f21e3    0x69483 Libraries/FEHLCD.o
  .debug_macinfo
-                0x0065b665    0x64087 Libraries/FEHAccel.o
+                0x0065b666    0x64087 Libraries/FEHAccel.o
  .debug_macinfo
-                0x006bf6ec    0x645ba Libraries/FEHBattery.o
+                0x006bf6ed    0x645ba Libraries/FEHBattery.o
  .debug_macinfo
-                0x00723ca6    0x64c78 Drivers/FEHXBee.o
+                0x00723ca7    0x64c78 Drivers/FEHXBee.o
  .debug_macinfo
-                0x0078891e    0x6a05f Libraries/FEHRPS.o
+                0x0078891f    0x6a05f Libraries/FEHRPS.o
  .debug_macinfo
-                0x007f297d    0x6c799 Libraries/FEHSD.o
+                0x007f297e    0x6c799 Libraries/FEHSD.o
  .debug_macinfo
-                0x0085f116    0x69789 Libraries/FEHRandom.o
+                0x0085f117    0x69789 Libraries/FEHRandom.o
 
-.debug_line     0x00000000     0xae72
- .debug_line    0x00000000      0xd8d ../main.o
- .debug_line    0x00000d8d      0xf49 Startup/startup_mk60d10.o
- .debug_line    0x00001cd6      0x2c1 Libraries/FEHMotor.o
- .debug_line    0x00001f97      0x2ec Drivers/i2c.o
- .debug_line    0x00002283      0x339 Drivers/spi.o
- .debug_line    0x000025bc      0x298 Drivers/uart.o
- .debug_line    0x00002854     0x1d5b Drivers/ff.o
- .debug_line    0x000045af      0xd9b Drivers/SDHC.o
- .debug_line    0x0000534a      0x1fd Drivers/lptmr.o
- .debug_line    0x00005547      0x20c FEHProteus.o
- .debug_line    0x00005753      0x2b3 Drivers/FEHPropeller.o
- .debug_line    0x00005a06      0x322 Libraries/FEHUtility.o
- .debug_line    0x00005d28      0xc96 Libraries/FEHIO.o
- .debug_line    0x000069be      0x326 Drivers/adc16.o
- .debug_line    0x00006ce4      0x360 Libraries/FEHBuzzer.o
- .debug_line    0x00007044      0x6b8 Libraries/FEHServo.o
- .debug_line    0x000076fc     0x1796 Libraries/FEHLCD.o
- .debug_line    0x00008e92      0x2fd Libraries/FEHAccel.o
- .debug_line    0x0000918f      0x255 Libraries/FEHBattery.o
- .debug_line    0x000093e4      0x42a Drivers/FEHXBee.o
- .debug_line    0x0000980e      0x9e6 Libraries/FEHRPS.o
- .debug_line    0x0000a1f4      0x7f9 Libraries/FEHSD.o
- .debug_line    0x0000a9ed      0x485 Libraries/FEHRandom.o
+.debug_line     0x00000000     0xae6f
+ .debug_line    0x00000000      0xd8a ../main.o
+ .debug_line    0x00000d8a      0xf49 Startup/startup_mk60d10.o
+ .debug_line    0x00001cd3      0x2c1 Libraries/FEHMotor.o
+ .debug_line    0x00001f94      0x2ec Drivers/i2c.o
+ .debug_line    0x00002280      0x339 Drivers/spi.o
+ .debug_line    0x000025b9      0x298 Drivers/uart.o
+ .debug_line    0x00002851     0x1d5b Drivers/ff.o
+ .debug_line    0x000045ac      0xd9b Drivers/SDHC.o
+ .debug_line    0x00005347      0x1fd Drivers/lptmr.o
+ .debug_line    0x00005544      0x20c FEHProteus.o
+ .debug_line    0x00005750      0x2b3 Drivers/FEHPropeller.o
+ .debug_line    0x00005a03      0x322 Libraries/FEHUtility.o
+ .debug_line    0x00005d25      0xc96 Libraries/FEHIO.o
+ .debug_line    0x000069bb      0x326 Drivers/adc16.o
+ .debug_line    0x00006ce1      0x360 Libraries/FEHBuzzer.o
+ .debug_line    0x00007041      0x6b8 Libraries/FEHServo.o
+ .debug_line    0x000076f9     0x1796 Libraries/FEHLCD.o
+ .debug_line    0x00008e8f      0x2fd Libraries/FEHAccel.o
+ .debug_line    0x0000918c      0x255 Libraries/FEHBattery.o
+ .debug_line    0x000093e1      0x42a Drivers/FEHXBee.o
+ .debug_line    0x0000980b      0x9e6 Libraries/FEHRPS.o
+ .debug_line    0x0000a1f1      0x7f9 Libraries/FEHSD.o
+ .debug_line    0x0000a9ea      0x485 Libraries/FEHRandom.o
 
 .debug_str      0x00000000     0x62a4
  .debug_str     0x00000000     0x24f2 ../main.o

@@ -37,7 +37,7 @@ void fixBurger(Robot wall_E6) {
     wall_E6.move(LEFT_ANGLE + 30.0, 0.7, SPEED);
     wall_E6.moveArm(120.0);
     Sleep(1.0);
-    wall_E6.move(RIGHT_ANGLE + 30.0, 0.5, SPEED);
+    wall_E6.move(RIGHT_ANGLE + 30.0, 1.66/IPS_SPEED, SPEED);
 }
 
 /**
@@ -46,7 +46,7 @@ void fixBurger(Robot wall_E6) {
  * @param wall_E6 The robot.
  */
 void twistFlip(Robot wall_E6) {
-    wall_E6.move(BACK_ANGLE + 30.0, 2.2, SPEED);
+    wall_E6.move(BACK_ANGLE + 30.0, 7.32/IPS_SPEED, SPEED);
     while (true) {
         wall_E6.turn(10.0/DPS_SPEED, SPEED);
         wall_E6.moveArm(70.0);
@@ -80,14 +80,14 @@ void moveToTwist(Robot wall_E6) {
  */
 void flipBurger(Robot wall_E6) {
     reportMessage("Fliping tray back.");
-    wall_E6.move(LEFT_ANGLE + 30.0, 0.4, SPEED);
+    wall_E6.move(LEFT_ANGLE + 30.0, 1.6/IPS_SPEED, SPEED);
     Sleep(0.5);
-    wall_E6.moveArm(120.0);
+    wall_E6.moveArm(150.0);
     Sleep(2.0);
-    wall_E6.move(BACK_ANGLE + 30.0, 0.5, SPEED);
+    wall_E6.move(BACK_ANGLE + 30.0, 1.66/IPS_SPEED, SPEED);
     wall_E6.moveArm(160.0);
     Sleep(1.5);
-    wall_E6.move(RIGHT_ANGLE + 30.0, 0.5, SPEED);
+    wall_E6.move(RIGHT_ANGLE + 30.0, 1.66/IPS_SPEED, SPEED);
 }
 
 /**
@@ -185,7 +185,7 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
  */
 void burgerSetup(Robot wall_E6) {
     wall_E6.turn(60.0/DPS_SPEED, -SPEED);
-    wall_E6.moveArm(35.0);
+    wall_E6.moveArm(25.0);
     Sleep(0.5);
 }
 

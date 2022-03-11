@@ -7,11 +7,11 @@
 #define FRONT_ANGLE 0.0
 #define LEFT_ANGLE 270.0
 #define BACK_ANGLE 180.0
-#define SPEED 45
+#define SPEED 60
 #define SLOW_SPEED 25
 #define FAST_SPEED 60
-#define IPS_SPEED 3.9375
-#define DPS_SPEED 72.0
+#define IPS_SPEED 5.75
+#define DPS_SPEED 105.88
 #define BUTTON_DISTANCE 2.0
 
 // OmniMotor constants
@@ -24,8 +24,8 @@
 #define NEG_LEFT_FACTOR 1.0
 #define NEG_RIGHT_FACTOR 1.0
 #define POS_FRONT_FACTOR 0.9
-#define POS_LEFT_FACTOR 0.9
-#define POS_RIGHT_FACTOR 0.9
+#define POS_LEFT_FACTOR 1.0
+#define POS_RIGHT_FACTOR 0.95
 #define RAMP_DOOR_MIN 500
 #define RAMP_DOOR_MAX 2300
 #define ROBOARM_MIN 500
