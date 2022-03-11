@@ -6,6 +6,7 @@
 #include <OmniSensors.h>
 using namespace std;
 
+float angleDifference(float, float);
 void fixBurger(Robot);
 bool checkHeading(float, float);
 void twistFlip(Robot);
@@ -48,7 +49,7 @@ void fixBurger(Robot wall_E6) {
  * @param wall_E6 The robot.
  */
 void twistFlip(Robot wall_E6) {
-    wall_E6.move(FRONT_ANGLE + 285.0, 1.0, SPEED);
+    wall_E6.move(FRONT_ANGLE + 225.0, 1.0, SPEED);
 }
 
 /**
@@ -61,9 +62,9 @@ void moveToTwist(Robot wall_E6) {
     wall_E6.move(BACK_ANGLE - 30.0, 6.0 / IPS_SPEED, SPEED);
     wall_E6.turn(45.0/DPS_SPEED, -SPEED);
 
-    float xDest = 12.5;
-    float yDest = 25.4;
-    float angleDest = 15.0;
+    float xDest = 13.0;
+    float yDest = 51.0;
+    float angleDest = 105.0;
 
     moveToSetPos(wall_E6, xDest, yDest, angleDest);
 }
@@ -86,6 +87,23 @@ void flipBurger(Robot wall_E6) {
 }
 
 /**
+ * @brief Finds the difference between two angles.
+ * 
+ * @param angle The angle.
+ * @param destAngle The other angle.
+ * @return The difference (destAngle - angle)
+ */
+float angleDifference(float angle, float destAngle) {
+    double dAngle = fmod(destAngle - angle, 360.0);
+    if (dAngle < -180.0) {
+        dAngle += 360.0;
+    }else if (dAngle >= 180.0) {
+        dAngle -= 360.0;
+    }
+    return dAngle;
+}
+
+/**
  * @brief Checks whether the given angle is within the given error from the destination angle.
  * 
  * @param angle The current angle.
@@ -94,12 +112,7 @@ void flipBurger(Robot wall_E6) {
  * @return true if the given angle is within the allowed error, false otherwise.
  */
 bool checkHeading(float angle, float destAngle, float error) {
-    double dAngle = fmod(destAngle - angle, 360.0);
-    if (dAngle < -180.0) {
-        dAngle += 360.0;
-    }else if (dAngle >= 180.0) {
-        dAngle -= 360.0;
-    }
+    double dAngle = angleDifference(angle, destAngle);
 
     if (dAngle < error && dAngle > -error) {
         return true;
@@ -136,21 +149,18 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
         if (dX < 0.0) {
             moveAngle += 180.0;
         }
-        wall_E6.move(moveAngle - heading, dist/IPS_SPEED, speed); // I'm sure this is correct /s
+        wall_E6.move(angleDifference(heading, moveAngle), dist/IPS_SPEED, speed); // I'm sure this is correct /s
 
         // robot now needs to fix any drift/go to desired angle.
         heading = getRPS(&xCurr, &yCurr);
         heading = 360.0 - (heading - RPS_FRONT_ANGLE);
         // makes sure that it turns in an optimal direction.
-        float dHeading = abs(heading - angle);
-        if (dHeading >= 360.0) {
-            dHeading -= 360.0;
-        }
+        float dHeading = angleDifference(heading, angle);
 
-        if (dHeading > 0 && dHeading < 180.0) {
-            wall_E6.turn(dHeading/DPS_SPEED, speed);
+        if (dHeading > 0) {
+            wall_E6.turn(dHeading/DPS_SPEED, -speed);
         } else {
-            wall_E6.turn((360-dHeading)/DPS_SPEED, -speed);
+            wall_E6.turn((-dHeading)/DPS_SPEED, speed);
         }
 
         heading = getRPS(&xCurr, &yCurr);
