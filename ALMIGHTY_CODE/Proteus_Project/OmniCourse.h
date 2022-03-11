@@ -6,6 +6,10 @@
 #include <OmniSensors.h>
 using namespace std;
 
+void fixBurger(Robot);
+bool checkHeading(float, float);
+void twistFlip(Robot);
+void moveToTwist(Robot);
 void moveToSetPos(Robot, float, float, float);
 float getRPS(float*, float*);
 void waitForTouch();
@@ -25,11 +29,52 @@ void goToLineFirst(Robot, float); // not needed for test 2
 void buttonToRamp(Robot, float, int); // not needed for test 2
 
 /**
+ * @brief Flips the burger tray back to its starting position.
+ * 
+ * @param wall_E6 The robot.
+ */
+void fixBurger(Robot wall_E6) {
+    wall_E6.moveArm(180.0);
+    wall_E6.move(FRONT_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
+    wall_E6.move(LEFT_ANGLE + 30.0, 0.7, SPEED);
+    wall_E6.moveArm(120.0);
+    Sleep(1.0);
+    wall_E6.move(RIGHT_ANGLE + 30.0, 0.5, SPEED);
+}
+
+/**
+ * @brief Moves the robot up to the lever for the twist and flips it.
+ * 
+ * @param wall_E6 The robot.
+ */
+void twistFlip(Robot wall_E6) {
+    wall_E6.move(FRONT_ANGLE + 285.0, 1.0, SPEED);
+}
+
+/**
+ * @brief Moves the robot in position for that epic twist ice cream.
+ * 
+ * @param wall_E6 The robot.
+ */
+void moveToTwist(Robot wall_E6) {
+    reportMessage("Going to ice cream.");
+    wall_E6.move(BACK_ANGLE - 30.0, 6.0 / IPS_SPEED, SPEED);
+    wall_E6.turn(45.0/DPS_SPEED, -SPEED);
+
+    float xDest = 12.5;
+    float yDest = 25.4;
+    float angleDest = 15.0;
+
+    moveToSetPos(wall_E6, xDest, yDest, angleDest);
+}
+
+/**
  * @brief Moves forward and flips the burger.
  * 
  * @param wall_E6 The robot.
  */
 void flipBurger(Robot wall_E6) {
+    reportMessage("Fliping tray back.");
     wall_E6.move(LEFT_ANGLE + 30.0, 0.4, SPEED);
     Sleep(0.5);
     wall_E6.moveArm(120.0);
@@ -38,6 +83,28 @@ void flipBurger(Robot wall_E6) {
     wall_E6.moveArm(160.0);
     Sleep(1.5);
     wall_E6.move(RIGHT_ANGLE + 30.0, 0.5, SPEED);
+}
+
+/**
+ * @brief Checks whether the given angle is within the given error from the destination angle.
+ * 
+ * @param angle The current angle.
+ * @param destAngle The desired angle.
+ * @param error The allowed error.
+ * @return true if the given angle is within the allowed error, false otherwise.
+ */
+bool checkHeading(float angle, float destAngle, float error) {
+    double dAngle = fmod(destAngle - angle, 360.0);
+    if (dAngle < -180.0) {
+        dAngle += 360.0;
+    }else if (dAngle >= 180.0) {
+        dAngle -= 360.0;
+    }
+
+    if (dAngle < error && dAngle > -error) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -55,6 +122,7 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
     float heading;
     int speed = SPEED;
     const float error = 0.1;
+    bool headInError;
 
     do {
         // makes heading angle in the same frame of reference as all other angles in the code.
@@ -68,7 +136,7 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
         if (dX < 0.0) {
             moveAngle += 180.0;
         }
-        wall_E6.move(heading + moveAngle, dist/IPS_SPEED, speed); // I'm sure this is correct /s
+        wall_E6.move(moveAngle - heading, dist/IPS_SPEED, speed); // I'm sure this is correct /s
 
         // robot now needs to fix any drift/go to desired angle.
         heading = getRPS(&xCurr, &yCurr);
@@ -80,18 +148,20 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
         }
 
         if (dHeading > 0 && dHeading < 180.0) {
-            wall_E6.turn(dHeading/DPS_SPEED, SPEED);
+            wall_E6.turn(dHeading/DPS_SPEED, speed);
         } else {
-            wall_E6.turn((360-dHeading)/DPS_SPEED, -SPEED);
+            wall_E6.turn((360-dHeading)/DPS_SPEED, -speed);
         }
 
         heading = getRPS(&xCurr, &yCurr);
         heading = 360.0 - (heading - RPS_FRONT_ANGLE);
 
+        headInError = checkHeading(heading, angle, error);
+
         speed -= 5;
     } while ((xCurr < x - error || xCurr > x + error ||
-        yCurr  < y - error || yCurr > y + error /*||
-        heading < angle - error || heading > angle + error*/) && speed > 10);
+        yCurr  < y - error || yCurr > y + error ||
+        !headInError) && speed > 10);
 }
 
 /**

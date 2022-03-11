@@ -20,6 +20,9 @@ int main(void)
     moveToBurger(wall_E6);
     burgerSetup(wall_E6);
     flipBurger(wall_E6);
+    fixBurger(wall_E6);
+    moveToTwist(wall_E6);
+    twistFlip(wall_E6);
 }
 
 /**
