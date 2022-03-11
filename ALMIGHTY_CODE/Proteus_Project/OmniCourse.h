@@ -1,10 +1,7 @@
 #include <FEHLCD.h>
 #include <FEHRPS.h>
-#include <exception>
-#include <iostream>
 #include <OmniMotion.h>
 #include <OmniSensors.h>
-using namespace std;
 
 float angleDifference(float, float);
 void fixBurger(Robot);
@@ -49,7 +46,14 @@ void fixBurger(Robot wall_E6) {
  * @param wall_E6 The robot.
  */
 void twistFlip(Robot wall_E6) {
-    wall_E6.move(FRONT_ANGLE + 225.0, 1.0, SPEED);
+    wall_E6.move(BACK_ANGLE + 30.0, 2.2, SPEED);
+    while (true) {
+        wall_E6.turn(10.0/DPS_SPEED, SPEED);
+        wall_E6.moveArm(70.0);
+        Sleep(1.0);
+        wall_E6.moveArm(150.0);
+        Sleep(0.5);
+    }
 }
 
 /**
@@ -168,7 +172,7 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
 
         headInError = checkHeading(heading, angle, error);
 
-        speed -= 5;
+        speed -= 2;
     } while ((xCurr < x - error || xCurr > x + error ||
         yCurr  < y - error || yCurr > y + error ||
         !headInError) && speed > 10);
@@ -372,6 +376,7 @@ int waitForLight() {
  */
 void waitForTouch() {
     float x, y;
+    LCD.ClearBuffer();
     while (!LCD.Touch(&x,&y));
 }
 
@@ -383,7 +388,7 @@ void waitForTouch() {
  * @return The heading of the robot.
  */
 float getRPS(float *x, float *y) {
-    Sleep(0.5);
+    Sleep(0.4);
     float head = RPS.Heading();
     *x = RPS.X();
     *y = RPS.Y();
