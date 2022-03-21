@@ -4,7 +4,6 @@
 #include <OmniSensors.h>
 
 float angleDifference(float, float);
-void fixBurger(Robot);
 bool checkHeading(float, float);
 void twistFlip(Robot);
 void moveToTwist(Robot);
@@ -13,9 +12,10 @@ float getRPS(float*, float*);
 void waitForTouch();
 int waitForLight();
 void moveUpRamp(Robot);
-void moveToBurger(Robot);
-void burgerSetup(Robot);
-void flipBurger(Robot);
+void fixBurger(Robot); // not needed for test 4
+void moveToBurger(Robot); // not needed for test 4
+void burgerSetup(Robot); // not needed for test 4
+void flipBurger(Robot); // not needed for test 4
 void leftToSink(Robot); // not needed for test 3
 void flushWithSink(Robot); // not needed for test 3
 void sinkToBurger(Robot); // not needed for test 3
@@ -46,7 +46,7 @@ void fixBurger(Robot wall_E6) {
  * @param wall_E6 The robot.
  */
 void twistFlip(Robot wall_E6) {
-    wall_E6.move(BACK_ANGLE + 30.0, 7.32/IPS_SPEED, SPEED);
+    wall_E6.move(BACK_ANGLE + 30.0, 8.5/IPS_SPEED, SPEED);
     while (true) {
         wall_E6.turn(10.0/DPS_SPEED, SPEED);
         wall_E6.moveArm(70.0);
@@ -63,8 +63,8 @@ void twistFlip(Robot wall_E6) {
  */
 void moveToTwist(Robot wall_E6) {
     reportMessage("Going to ice cream.");
-    wall_E6.move(BACK_ANGLE - 30.0, 6.0 / IPS_SPEED, SPEED);
-    wall_E6.turn(45.0/DPS_SPEED, -SPEED);
+    wall_E6.move(FRONT_ANGLE - 30.0, 5.0 / IPS_SPEED, SPEED);
+    // wall_E6.turn(45.0/DPS_SPEED, -SPEED);
 
     float xDest = 13.0;
     float yDest = 51.0;
@@ -101,7 +101,7 @@ float angleDifference(float angle, float destAngle) {
     double dAngle = fmod(destAngle - angle, 360.0);
     if (dAngle < -180.0) {
         dAngle += 360.0;
-    }else if (dAngle >= 180.0) {
+    } else if (dAngle >= 180.0) {
         dAngle -= 360.0;
     }
     return dAngle;
@@ -144,6 +144,10 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle, float error) {
     do {
         // makes heading angle in the same frame of reference as all other angles in the code.
         heading = getRPS(&xCurr, &yCurr);
+        if (xCurr < 0 || yCurr < 0 || heading < 0) {
+            break;
+        }
+
         heading = 360.0 - (heading - RPS_FRONT_ANGLE);
         float dX = x - xCurr;
         float dY = y - yCurr;
@@ -157,6 +161,10 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle, float error) {
 
         // robot now needs to fix any drift/go to desired angle.
         heading = getRPS(&xCurr, &yCurr);
+        if (xCurr < 0 || yCurr < 0 || heading < 0) {
+            break;
+        }
+        
         heading = 360.0 - (heading - RPS_FRONT_ANGLE);
         // makes sure that it turns in an optimal direction.
         float dHeading = angleDifference(heading, angle);
@@ -170,12 +178,16 @@ void moveToSetPos(Robot wall_E6, float x, float y, float angle, float error) {
         heading = getRPS(&xCurr, &yCurr);
         heading = 360.0 - (heading - RPS_FRONT_ANGLE);
 
-        headInError = checkHeading(heading, angle, error);
+        headInError = checkHeading(heading, angle, 1.0);
 
-        speed -= 2;
+        if (speed > 40) {
+            speed -= 2;
+        } else if (speed > 20) {
+            speed -= 1;
+        }
     } while ((xCurr < x - error || xCurr > x + error ||
         yCurr  < y - error || yCurr > y + error ||
-        !headInError) && speed > 10);
+        !headInError)/* && speed > 10 */);
 }
 
 /**
@@ -388,7 +400,7 @@ void waitForTouch() {
  * @return The heading of the robot.
  */
 float getRPS(float *x, float *y) {
-    Sleep(0.4);
+    Sleep(0.3);
     float head = RPS.Heading();
     *x = RPS.X();
     *y = RPS.Y();
