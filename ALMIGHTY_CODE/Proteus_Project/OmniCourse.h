@@ -8,7 +8,7 @@ void fixBurger(Robot);
 bool checkHeading(float, float);
 void twistFlip(Robot);
 void moveToTwist(Robot);
-void moveToSetPos(Robot, float, float, float);
+void moveToSetPos(Robot, float, float, float, float);
 float getRPS(float*, float*);
 void waitForTouch();
 int waitForLight();
@@ -70,7 +70,7 @@ void moveToTwist(Robot wall_E6) {
     float yDest = 51.0;
     float angleDest = 105.0;
 
-    moveToSetPos(wall_E6, xDest, yDest, angleDest);
+    moveToSetPos(wall_E6, xDest, yDest, angleDest, 0.1);
 }
 
 /**
@@ -131,14 +131,14 @@ bool checkHeading(float angle, float destAngle, float error) {
  * @param x The x position.
  * @param y The y position.
  * @param angle The final angle of the robot.
+ * @param error The allowed error in the final position.
  * @return Negative if failed.
  */
-void moveToSetPos(Robot wall_E6, float x, float y, float angle) {
+void moveToSetPos(Robot wall_E6, float x, float y, float angle, float error) {
     float xCurr;
     float yCurr;
     float heading;
     int speed = SPEED;
-    const float error = 0.1;
     bool headInError;
 
     do {
@@ -201,7 +201,7 @@ void moveToBurger(Robot wall_E6) {
     float angleDest = 0.0;
 
     wall_E6.move(FRONT_ANGLE + 30.0, 16.0/IPS_SPEED, SPEED);
-    moveToSetPos(wall_E6, xDest, yDest, angleDest);
+    moveToSetPos(wall_E6, xDest, yDest, angleDest, 0.1);
 }
 
 /**
