@@ -10,15 +10,28 @@ void displayRPS();
 
 int main(void)
 {
-    Robot wall_E6;
+    Robot hankette;
     RPS.InitializeTouchMenu();
     setLCD();
+    beginDebug();
     reportMessage("Waiting...");
     waitForTouch();
     waitForLight();
-    moveUpRamp(wall_E6);
-    moveToTwist(wall_E6);
-    twistFlip(wall_E6);
+    moveUpRamp(hankette);
+    int iceCream = RPS.GetIceCream();
+    if (iceCream == 0) {
+        moveToVanil(hankette);
+    } else if (iceCream == 1) {
+        moveToTwist(hankette);
+    } else {
+        moveToChoco(hankette);
+    }
+    iceCreamFlip(hankette);
+    unFlipLever(hankette);
+    goToTopRamp(hankette);
+    moveDownRamp(hankette);
+    pushFinalButton(hankette);
+    ceaseDebug();
 }
 
 /**
@@ -38,62 +51,62 @@ void displayRPS() {
 /**
  * @brief Spins the robot clockwise and counterclockwise.
  * 
- * @param wall_E6 The robot.
+ * @param hankette The robot.
  * @param time The amount of time to spin for.
  */
-void testSpin(Robot wall_E6, float time) {
+void testSpin(Robot hankette, float time) {
     reportMessage("Waiting...");
     waitForTouch();
-    wall_E6.turn(time, SPEED);
+    hankette.turn(time, SPEED);
     reportMessage("Waiting again...");
     waitForTouch();
-    wall_E6.turn(time, -SPEED);
+    hankette.turn(time, -SPEED);
     reportMessage("Done");
 }
 
 /**
  * @brief Moves the robot forward and backwards.
  * 
- * @param wall_E6 The robot.
+ * @param hankette The robot.
  * @param time The amout of time to move for.
  */
-void testForward(Robot wall_E6, float time) {
+void testForward(Robot hankette, float time) {
     reportMessage("Waiting...");
     waitForTouch();
-    wall_E6.move(FRONT_ANGLE, time, SPEED);
+    hankette.move(FRONT_ANGLE, time, SPEED);
     reportMessage("Yay! :)");
     reportMessage("Waiting...");
     waitForTouch();
-    wall_E6.move(BACK_ANGLE, time, SPEED);
+    hankette.move(BACK_ANGLE, time, SPEED);
     reportMessage("finished");
 }
 
 /**
  * @brief Moves the robot to the left and then to the right.
  * 
- * @param wall_E6 The robot.
+ * @param hankette The robot.
  * @param time The amount of time to move for.
  */
-void testSideToSide(Robot wall_E6, float time) {
+void testSideToSide(Robot hankette, float time) {
     reportMessage("Waiting...");
     waitForTouch();
-    wall_E6.move(LEFT_ANGLE, time, SPEED);
+    hankette.move(LEFT_ANGLE, time, SPEED);
     reportMessage("Yay! :)");
     reportMessage("Waiting...");
     waitForTouch();
-    wall_E6.move(RIGHT_ANGLE, time, SPEED);
+    hankette.move(RIGHT_ANGLE, time, SPEED);
     reportMessage("finished");
 }
 
 /**
  * @brief Tests the full range of motion of the robot.
  * 
- * @param wall_E6 The robot.
+ * @param hankette The robot.
  */
-void test(Robot wall_E6) {
-    wall_E6.turn(5.0, SPEED);
+void test(Robot hankette) {
+    hankette.turn(5.0, SPEED);
     for (int i = 0; i < 360; i++) {
-        wall_E6.moveUnbounded(i, SPEED);
+        hankette.moveUnbounded(i, SPEED);
         if (i % 5 == 0) {
             LCD.Clear();
             LCD.Write("Moving at angle ");
@@ -105,14 +118,14 @@ void test(Robot wall_E6) {
     Sleep(1.0);
     setLCD();
     reportMessage("Moving forward.");
-    wall_E6.move(FRONT_ANGLE, 1.0, SPEED);
+    hankette.move(FRONT_ANGLE, 1.0, SPEED);
     reportMessage("Moving right.");
-    wall_E6.move(RIGHT_ANGLE, 1.0, SPEED);
+    hankette.move(RIGHT_ANGLE, 1.0, SPEED);
     reportMessage("Moving left.");
-    wall_E6.move(LEFT_ANGLE, 1.0, SPEED);
+    hankette.move(LEFT_ANGLE, 1.0, SPEED);
     reportMessage("Moving backwards.");
-    wall_E6.move(BACK_ANGLE, 1.0, SPEED);
+    hankette.move(BACK_ANGLE, 1.0, SPEED);
 
-    testForward(wall_E6, 4.0);
-    testSideToSide(wall_E6, 4.0);
+    testForward(hankette, 4.0);
+    testSideToSide(hankette, 4.0);
 }

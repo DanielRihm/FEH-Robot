@@ -1,6 +1,7 @@
 #pragma once
 #include <FEHLCD.h>
 #include <FEHBattery.h>
+#include <FEHSD.h>
 
 #define RPS_FRONT_ANGLE 90.0
 #define RIGHT_ANGLE 90.0
@@ -46,10 +47,25 @@
 
 // variable storing the current column that the actions are at.
 int currentRow = 5;
+FEHFile *fptr;
 
 void setLCD();
 void reportSpeed(int, float);
 void reportMessage(char const *);
+void beginDebug();
+void ceaseDebug();
+
+/**
+ * @brief Opens file for debug output.
+ * 
+ */
+void beginDebug() {
+    fptr = SD.FOpen("debug.txt", "w");
+}
+
+void ceaseDebug() {
+    SD.FClose(fptr);
+}
 
 /**
  * @brief Sets the inital screen.
@@ -90,6 +106,10 @@ void reportMessage(char const * message) {
     if (currentRow < 27) {
         LCD.WriteRC("                          ", currentRow, 0);
         LCD.WriteRC(message, currentRow, 0);
+        if (fptr != NULL) {
+            SD.FPrintf(fptr, message);
+            SD.FPrintf(fptr, "\n");
+        }
         currentRow++;
     } else {
         currentRow = 5;
