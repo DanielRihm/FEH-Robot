@@ -12,8 +12,9 @@ int main(void)
 {
     Robot hankette;
     RPS.InitializeTouchMenu();
-    setLCD();
     beginDebug();
+    setLCD();
+    calibrate();
     reportMessage("Waiting...");
     waitForTouch();
     waitForLight();

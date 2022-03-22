@@ -2,7 +2,12 @@
 #include <FEHRPS.h>
 #include <OmniMotion.h>
 #include <OmniSensors.h>
+#include <stdio.h>
 
+float xOffset = 0.0;
+float yOffset = 0.0;
+
+void calibrate();
 void pushFinalButton(Robot);
 void moveDownRamp(Robot);
 void goToTopRamp(Robot);
@@ -31,6 +36,24 @@ int goTillLight(Robot, float); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
 void goToLineFirst(Robot, float); // not needed for test 2
 void buttonToRamp(Robot, float, int); // not needed for test 2
+
+void calibrate() {
+    reportMessage("Touch while at bot left");
+    waitForTouch();
+
+    float botLeftX;
+    float botLeftY;
+
+    getRPS(&botLeftX, &botLeftY);
+
+    xOffset = DEFAULT_BOT_X - botLeftX;
+    yOffset = DEFAULT_BOT_Y - botLeftY;
+    char buffer[64];
+    snprintf(buffer, sizeof buffer, "X Offset: %f", botLeftX);
+    reportMessage(buffer);
+    snprintf(buffer, sizeof buffer, "Y Offset: %f", botLeftY);
+    reportMessage(buffer);
+}
 
 /**
  * @brief Pushes the final button.
@@ -223,6 +246,8 @@ bool checkHeading(float angle, float destAngle, float error) {
  * @return Negative if failed.
  */
 void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
+    x += xOffset;
+    y += yOffset;
     float xCurr;
     float yCurr;
     float heading;
