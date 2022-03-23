@@ -304,7 +304,7 @@ void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
         headInError = checkHeading(heading, angle, error);
 
         if (speed > 40) {
-            speed -= 5;
+            speed = 40;
         } else if (speed > 20) {
             speed -= 2;
         }
