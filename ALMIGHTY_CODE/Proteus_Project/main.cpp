@@ -19,6 +19,8 @@ int main(void)
     waitForTouch();
     waitForLight();
     moveUpRamp(hankette);
+    goToSink(hankette);
+    dropTray(hankette);
     int iceCream = RPS.GetIceCream();
     if (iceCream == 0) {
         moveToVanil(hankette);
@@ -27,11 +29,13 @@ int main(void)
     } else {
         moveToChoco(hankette);
     }
+
     iceCreamFlip(hankette);
     unFlipLever(hankette);
-    goToTopRamp(hankette);
-    moveDownRamp(hankette);
-    pushFinalButton(hankette);
+    moveToBurger(hankette);
+    burgerSetup(hankette);
+    flipBurger(hankette);
+    fixBurger(hankette);
     ceaseDebug();
 }
 

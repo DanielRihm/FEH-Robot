@@ -23,19 +23,17 @@ float getRPS(float*, float*);
 void waitForTouch();
 int waitForLight();
 void moveUpRamp(Robot);
-void fixBurger(Robot); // not needed for test 4
-void moveToBurger(Robot); // not needed for test 4
-void burgerSetup(Robot); // not needed for test 4
-void flipBurger(Robot); // not needed for test 4
-void leftToSink(Robot); // not needed for test 3
-void flushWithSink(Robot); // not needed for test 3
+void fixBurger(Robot);
+void moveToBurger(Robot);
+void burgerSetup(Robot);
+void flipBurger(Robot);
+void goToSink(Robot);
+void dropTray(Robot);
 void sinkToBurger(Robot); // not needed for test 3
 void lineUpToTicket(Robot); // not needed for test 3
 void slideTicket(Robot); // not needed for test 3
 int goTillLight(Robot, float); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
-void goToLineFirst(Robot, float); // not needed for test 2
-void buttonToRamp(Robot, float, int); // not needed for test 2
 
 void calibrate() {
     reportMessage("Touch for calibration");
@@ -98,7 +96,7 @@ void goToTopRamp(Robot hankette) {
  */
 void moveToChoco(Robot hankette) {
     reportMessage("Going to chocolate.");
-    hankette.move(FRONT_ANGLE - 30.0, 5.0 / IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
     float xDest = 17.0;
@@ -115,7 +113,7 @@ void moveToChoco(Robot hankette) {
  */
 void moveToVanil(Robot hankette) {
     reportMessage("Going to vanilla.");
-    hankette.move(FRONT_ANGLE - 30.0, 5.0 / IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
     float xDest = 11.0;
@@ -174,7 +172,7 @@ void iceCreamFlip(Robot hankette) {
  */
 void moveToTwist(Robot hankette) {
     reportMessage("Going to twist.");
-    hankette.move(FRONT_ANGLE - 30.0, 5.0 / IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
     float xDest = 14.0;
@@ -193,11 +191,8 @@ void flipBurger(Robot hankette) {
     reportMessage("Fliping tray back.");
     hankette.move(LEFT_ANGLE + 30.0, 1.6/IPS_SPEED, SPEED);
     Sleep(0.5);
-    hankette.moveArm(150.0);
-    Sleep(2.0);
-    hankette.move(BACK_ANGLE + 30.0, 1.66/IPS_SPEED, SPEED);
     hankette.moveArm(160.0);
-    Sleep(1.5);
+    Sleep(2.0);
     hankette.move(RIGHT_ANGLE + 30.0, 1.66/IPS_SPEED, SPEED);
 }
 
@@ -325,12 +320,14 @@ void burgerSetup(Robot hankette) {
 }
 
 /**
- * @brief Moves the robot from the top of the ramp to the burger flip.
+ * @brief Moves the robot from the ice cream levers to the burger flip.
  * 
  * @param hankette The robot.
  */
 void moveToBurger(Robot hankette) {
     reportMessage("Moving to burger.");
+    hankette.move(FRONT_ANGLE + 30.0, 10.0/IPS_SPEED, SPEED);
+    hankette.turn(105.0/DPS_SPEED, SPEED);
     float xDest = 27.3;
     float yDest = 60.0;
     float angleDest = 0.0;
@@ -378,64 +375,30 @@ void sinkToBurger(Robot hankette) {
 }
 
 /**
- * @brief Lines the robot up with the sink.
+ * @brief Drops the tray into the sink.
  * 
  * @param hankette The robot.
  */
-void flushWithSink(Robot hankette) {
-    reportMessage("Lining up to sink v2.");
-    hankette.move(RIGHT_ANGLE+30.0, 0.5, SPEED);
-    hankette.turn(30.0/DPS_SPEED, -SPEED);
-    hankette.move(BACK_ANGLE, 1.0, SPEED);
+void dropTray(Robot hankette) {
+    reportMessage("Dropping the tray into the sink.");
+    hankette.move(BACK_ANGLE, 2.0/IPS_SPEED, SPEED);
+    hankette.toggleRamp();
+    Sleep(0.2);
 }
 
 /**
- * @brief Lines up against the left wall of the sink.
+ * @brief Lines up to the sink from the top of the ramp.
  * 
  * @param hankette The robot.
  */
-void leftToSink(Robot hankette) {
+void goToSink(Robot hankette) {
     reportMessage("Lining up to sink.");
-    hankette.turn(30.0/DPS_SPEED, SPEED);
-    hankette.move(LEFT_ANGLE+30.0, 12.0/IPS_SPEED, SPEED);
-    hankette.move(LEFT_ANGLE+30.0, 0.5, SPEED);
-}
+    hankette.move(LEFT_ANGLE, 12.0/IPS_SPEED, SPEED);
 
-/**
- * @brief Drives the robot over from the button to the ramp.
- * 
- * @param hankette The robot.
- * @param ips inches per second.
- * @param light The light that was detected.
- */
-void buttonToRamp(Robot hankette, float ips, int light) {
-    reportMessage("Going to the Ramp");
-    hankette.move(FRONT_ANGLE, 1.0/ips, SPEED);
-    float distToRamp = 9.0;
-    if (light == RED_LIGHT) {
-        reportMessage("At red so go further.");
-        hankette.move(RIGHT_ANGLE, (distToRamp + BUTTON_DISTANCE)/ips, SPEED);
-    } else {
-        reportMessage("At blue so go less.");
-        hankette.move(RIGHT_ANGLE, (distToRamp - BUTTON_DISTANCE)/ips, SPEED);
-    }
-
-    reportMessage("Driving up.");
-    hankette.move(FRONT_ANGLE, 40.0/(ips), SPEED);
-    reportMessage("Driving down.");
-    hankette.move(BACK_ANGLE, 28.0/ips, SPEED);
-}
-
-/**
- * @brief Drives the robot straight over to the light.
- * 
- * @param hankette The robot.
- * @param ips Inches per second.
- */
-void goToLineFirst(Robot hankette, float ips) {
-    reportMessage("Going to the line.");
-    hankette.move(FRONT_ANGLE, 10.0/ips, SPEED);
-    hankette.move(LEFT_ANGLE, 17.0/ips, SPEED);
+    float xDest = 7.0;
+    float yDest = 45.5;
+    float angleDest = 0.0;
+    moveToSetPos(hankette, xDest, yDest, angleDest, 0.5);
 }
 
 /**
@@ -547,9 +510,16 @@ float getRPS(float *x, float *y) {
         }
     }
 
-    *x = xSum / count;
-    *y = ySum / count;
-    head = headSum / count;
+    if (count != 0) {
+        *x = xSum / count;
+        *y = ySum / count;
+        head = headSum / count;
+    } else {
+        *x = -2.0;
+        *y = -2.0;
+        head = -2.0;
+    }
+    
 
     return head;
 }
