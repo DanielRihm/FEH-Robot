@@ -38,7 +38,7 @@ void goToLineFirst(Robot, float); // not needed for test 2
 void buttonToRamp(Robot, float, int); // not needed for test 2
 
 void calibrate() {
-    reportMessage("Touch while at bot left");
+    reportMessage("Touch for calibration");
     waitForTouch();
 
     float botLeftX;
