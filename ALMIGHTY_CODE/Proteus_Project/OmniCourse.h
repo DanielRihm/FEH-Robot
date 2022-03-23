@@ -49,9 +49,9 @@ void calibrate() {
     xOffset = DEFAULT_BOT_X - botLeftX;
     yOffset = DEFAULT_BOT_Y - botLeftY;
     char buffer[64];
-    snprintf(buffer, sizeof buffer, "X Offset: %f", botLeftX);
+    snprintf(buffer, sizeof buffer, "X Offset: %f", xOffset);
     reportMessage(buffer);
-    snprintf(buffer, sizeof buffer, "Y Offset: %f", botLeftY);
+    snprintf(buffer, sizeof buffer, "Y Offset: %f", yOffset);
     reportMessage(buffer);
 }
 
@@ -246,8 +246,8 @@ bool checkHeading(float angle, float destAngle, float error) {
  * @return Negative if failed.
  */
 void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
-    x += xOffset;
-    y += yOffset;
+    x -= xOffset;
+    y -= yOffset;
     float xCurr;
     float yCurr;
     float heading;
@@ -270,6 +270,16 @@ void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
         if (dX < 0.0) {
             moveAngle += 180.0;
         }
+
+        char buffer[27];
+        snprintf(buffer, sizeof buffer, "Moving dist: %.2f", dist);
+        reportMessage(buffer);
+        snprintf(buffer, sizeof buffer, "   At angle: %.2f", moveAngle);
+        reportMessage(buffer);
+        snprintf(buffer, sizeof buffer, "   From: (%.1f, %.1f)", xCurr, yCurr);
+        reportMessage(buffer);
+        snprintf(buffer, sizeof buffer, "   To: (%.1f, %.1f)", x, y);
+        reportMessage(buffer);
         hankette.move(angleDifference(heading, moveAngle), dist/IPS_SPEED, speed); // I'm sure this is correct /s
 
         // robot now needs to fix any drift/go to desired angle.
