@@ -48,7 +48,7 @@ void moveToJukeboxLight(Robot hankette) {
     float xDest = 9.0;
     float yDest = 14.0;
     float angleDest = 0.0;
-    moveToSetPos(hankette, xDest, yDest, angleDest, 1.0);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 0.5);
 }
 
 void calibrate() {
@@ -115,8 +115,8 @@ void moveToChoco(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 17.0;
-    float yDest = 54.0;
+    float xDest = 17.2; // 17
+    float yDest = 53.8; // 54
     float angleDest = 105.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
@@ -317,7 +317,7 @@ void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
         if (speed > 40) {
             speed = 40;
         } else if (speed > 20) {
-            speed -= 2;
+            speed -= 5;
         }
     } while ((xCurr < x - error || xCurr > x + error ||
         yCurr  < y - error || yCurr > y + error ||
@@ -344,12 +344,12 @@ void moveToBurger(Robot hankette) {
     reportMessage("Moving to burger.");
     hankette.move(FRONT_ANGLE + 30.0, 10.0/IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, SPEED);
-    float xDest = 26.5;
+    float xDest = 26.0;
     float yDest = 60.0;
     float angleDest = 0.0;
 
-    hankette.move(FRONT_ANGLE + 60.0, 12.0/IPS_SPEED, SPEED);
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
+    hankette.move(FRONT_ANGLE + 60.0, 10.0/IPS_SPEED, SPEED);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 0.4);
 }
 
 /**
@@ -412,7 +412,7 @@ void goToSink(Robot hankette) {
     hankette.move(LEFT_ANGLE, 11.0/IPS_SPEED, SPEED);
 
     float xDest = 7.0;
-    float yDest = 45.5;
+    float yDest = 46.0;
     float angleDest = 0.0;
     moveToSetPos(hankette, xDest, yDest, angleDest, 1.0);
 }
@@ -438,7 +438,7 @@ void guessToButton(Robot hankette, float ips) {
 void moveUpRamp(Robot hankette) {
     reportMessage("Moving up the ramp.");
     hankette.move(LEFT_ANGLE, 8.5/IPS_SPEED, SPEED);
-    hankette.move(FRONT_ANGLE, 42.0/IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE, 44.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -448,6 +448,7 @@ void moveUpRamp(Robot hankette) {
  * @return returns the light value detected.
  */
 void pushJukeButton(Robot hankette) {
+    Sleep(0.5);
     int light = detectLight();
     if (light == 1) {
         reportMessage("Red light!");
@@ -458,6 +459,7 @@ void pushJukeButton(Robot hankette) {
     }
 
     hankette.move(BACK_ANGLE, 10.0/IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE, 1.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -508,12 +510,12 @@ float getRPS(float *x, float *y) {
         head = RPS.Heading();
         *x = RPS.X();
         *y = RPS.Y();
-        if (*x > 0.0 && *y > 0.0 && head > 0.0 || 
+        if (*x > 0.0 && *y > 0.0 && head > 0.0 && 
             *x < 36.0 && *y < 72.0) { // for 0.06 seconds RPS can give a value outside the course
             // char buffer[27];
-            // snprintf(buffer, sizeof buffer, "RPS X: %.2f", mx);
+            // snprintf(buffer, sizeof buffer, "RPS X: %.2f", *x);
             // reportMessage(buffer);
-            // snprintf(buffer, sizeof buffer, "RPS Y: %.2f", my);
+            // snprintf(buffer, sizeof buffer, "RPS Y: %.2f", *y);
             // reportMessage(buffer);
             xSum += *x;
             ySum += *y;

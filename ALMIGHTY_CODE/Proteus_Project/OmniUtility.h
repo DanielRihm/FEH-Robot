@@ -14,12 +14,8 @@
 #define IPS_SPEED 5.75
 #define DPS_SPEED 105.88
 #define BUTTON_DISTANCE 2.0
-#define DEFAULT_BOT_X 3.9
-#define DEFAULT_BOT_Y 45.7
-// #define DEFAULT_BOT_X 2.5
-// #define DEFAULT_BOT_Y 8.5
-// #define DEFAULT_TOP_X 34.1
-// #define DEFAULT_TOP_Y 64.8
+#define DEFAULT_BOT_X 4.4
+#define DEFAULT_BOT_Y 45.8
 
 // OmniMotor constants
 #define VOLTAGE 6.0
