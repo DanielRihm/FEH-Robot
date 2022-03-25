@@ -39,6 +39,7 @@ int main(void)
     goToTopRamp(hankette);
     moveDownRamp(hankette);
     moveToJukeboxLight(hankette);
+    pushJukeButton(hankette);
     ceaseDebug();
 }
 
