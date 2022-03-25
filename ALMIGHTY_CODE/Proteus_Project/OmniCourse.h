@@ -33,7 +33,7 @@ void dropTray(Robot);
 void sinkToBurger(Robot); // not needed for test 3
 void lineUpToTicket(Robot); // not needed for test 3
 void slideTicket(Robot); // not needed for test 3
-int goTillLight(Robot, float); // not needed for test 2
+void pushJukeButton(Robot); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
 
 /**
@@ -42,12 +42,13 @@ void guessToButton(Robot, float); // not needed for test 2
  * @param hankette The robot.
  */
 void moveToJukeboxLight(Robot hankette) {
+    reportMessage("Going to jukebox light.");
     hankette.move(LEFT_ANGLE, 7.0/IPS_SPEED, SPEED);
 
     float xDest = 9.0;
     float yDest = 14.0;
     float angleDest = 0.0;
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.5);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 1.0);
 }
 
 void calibrate() {
@@ -348,7 +349,7 @@ void moveToBurger(Robot hankette) {
     float angleDest = 0.0;
 
     hankette.move(FRONT_ANGLE + 60.0, 12.0/IPS_SPEED, SPEED);
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.1);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
 }
 
 /**
@@ -413,7 +414,7 @@ void goToSink(Robot hankette) {
     float xDest = 7.0;
     float yDest = 45.5;
     float angleDest = 0.0;
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.5);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 1.0);
 }
 
 /**
@@ -444,27 +445,19 @@ void moveUpRamp(Robot hankette) {
  * @brief Moves the robot forward until it detects a light and the aligns with the respective button.
  * 
  * @param hankette The robot.
- * @param ips Inches per second.
  * @return returns the light value detected.
  */
-int goTillLight(Robot hankette, float ips) {
-    reportMessage("Seeking out light...");
-    hankette.moveUnbounded(BACK_ANGLE, SLOW_SPEED);
-
-    waitForLight();
-    Sleep(0.2);
-    hankette.stop();
-
+void pushJukeButton(Robot hankette) {
     int light = detectLight();
     if (light == 1) {
         reportMessage("Red light!");
-        hankette.move(LEFT_ANGLE, BUTTON_DISTANCE/ips, SPEED);
+        hankette.move(LEFT_ANGLE, BUTTON_DISTANCE/IPS_SPEED, SPEED);
     } else {
         reportMessage("Blue light!");
-        hankette.move(RIGHT_ANGLE, BUTTON_DISTANCE/ips, SPEED);
+        hankette.move(RIGHT_ANGLE, BUTTON_DISTANCE/IPS_SPEED, SPEED);
     }
 
-    return light;
+    hankette.move(BACK_ANGLE, 10.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -501,7 +494,7 @@ void waitForTouch() {
  * @return The heading of the robot.
  */
 float getRPS(float *x, float *y) {
-    Sleep(0.5);
+    Sleep(0.3);
     float head = RPS.Heading();
     *x = RPS.X();
     *y = RPS.Y();
