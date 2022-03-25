@@ -8,6 +8,7 @@ float xOffset = 0.0;
 float yOffset = 0.0;
 
 void calibrate();
+void moveToJukeboxLight(Robot);
 void pushFinalButton(Robot);
 void moveDownRamp(Robot);
 void goToTopRamp(Robot);
@@ -34,6 +35,20 @@ void lineUpToTicket(Robot); // not needed for test 3
 void slideTicket(Robot); // not needed for test 3
 int goTillLight(Robot, float); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
+
+/**
+ * @brief Moves the robot from the bottom of the ramp to the jukebox light.
+ * 
+ * @param hankette The robot.
+ */
+void moveToJukeboxLight(Robot hankette) {
+    hankette.move(LEFT_ANGLE, 7.0/IPS_SPEED, SPEED);
+
+    float xDest = 9.0;
+    float yDest = 14.0;
+    float angleDest = 0.0;
+    moveToSetPos(hankette, xDest, yDest, angleDest, 0.5);
+}
 
 void calibrate() {
     reportMessage("Touch for calibration");
@@ -275,7 +290,7 @@ void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
         reportMessage(buffer);
         snprintf(buffer, sizeof buffer, "   To: (%.1f, %.1f)", x, y);
         reportMessage(buffer);
-        hankette.move(angleDifference(heading, moveAngle), dist/IPS_SPEED, speed); // I'm sure this is correct /s
+        hankette.move(angleDifference(heading, moveAngle), dist/IPS_SPEED, speed);
 
         // robot now needs to fix any drift/go to desired angle.
         heading = getRPS(&xCurr, &yCurr);
@@ -488,9 +503,8 @@ void waitForTouch() {
 float getRPS(float *x, float *y) {
     Sleep(0.5);
     float head = RPS.Heading();
-    float mx, my;
-    // *x = RPS.X();
-    // *y = RPS.Y();
+    *x = RPS.X();
+    *y = RPS.Y();
     float xSum = 0.0;
     float ySum = 0.0;
     float headSum = 0.0;
@@ -499,18 +513,17 @@ float getRPS(float *x, float *y) {
     for (int i = 0; i < limit; i++) {
         Sleep(0.01);
         head = RPS.Heading();
-        // *x = RPS.X();
-        // *y = RPS.Y();
-        mx = RPS.X();
-        my = RPS.Y();
-        if (mx > 0.0 && my > 0.0 && head > 0.0) {
-            char buffer[27];
-            snprintf(buffer, sizeof buffer, "RPS X: %.2f", mx);
-            reportMessage(buffer);
-            snprintf(buffer, sizeof buffer, "RPS Y: %.2f", my);
-            reportMessage(buffer);
-            xSum += mx;
-            ySum += my;
+        *x = RPS.X();
+        *y = RPS.Y();
+        if (*x > 0.0 && *y > 0.0 && head > 0.0 || 
+            *x < 36.0 && *y < 72.0) { // for 0.06 seconds RPS can give a value outside the course
+            // char buffer[27];
+            // snprintf(buffer, sizeof buffer, "RPS X: %.2f", mx);
+            // reportMessage(buffer);
+            // snprintf(buffer, sizeof buffer, "RPS Y: %.2f", my);
+            // reportMessage(buffer);
+            xSum += *x;
+            ySum += *y;
             headSum += head;
             count++;
         }

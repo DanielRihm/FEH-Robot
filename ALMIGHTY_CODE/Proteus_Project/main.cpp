@@ -38,6 +38,7 @@ int main(void)
     fixBurger(hankette);
     goToTopRamp(hankette);
     moveDownRamp(hankette);
+    moveToJukeboxLight(hankette);
     ceaseDebug();
 }
 
