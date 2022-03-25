@@ -36,6 +36,8 @@ int main(void)
     burgerSetup(hankette);
     flipBurger(hankette);
     fixBurger(hankette);
+    goToTopRamp(hankette);
+    moveDownRamp(hankette);
     ceaseDebug();
 }
 

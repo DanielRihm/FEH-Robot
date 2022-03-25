@@ -74,14 +74,14 @@ void moveDownRamp(Robot hankette) {
 }
 
 /**
- * @brief Drives the robot back to the top of the ramp
+ * @brief Drives the robot back to the top of the ramp from the burger flip.
  * 
  * @param hankette The robot.
  */
 void goToTopRamp(Robot hankette) {
     reportMessage("Returning to ramp.");
-    hankette.move(FRONT_ANGLE + 30.0, 6.0/IPS_SPEED, SPEED);
-    hankette.turn(105.0/DPS_SPEED, SPEED);
+    hankette.turn(60.0/DPS_SPEED, SPEED);
+    hankette.move(BACK_ANGLE + 30.0, 10.0/IPS_SPEED, SPEED);
 
     float xDest = 18.4;
     float yDest = 45.5;
@@ -145,7 +145,7 @@ void unFlipLever(Robot hankette) {
 void fixBurger(Robot hankette) {
     hankette.moveArm(180.0);
     hankette.move(FRONT_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
-    hankette.move(LEFT_ANGLE + 30.0, 0.7, SPEED);
+    hankette.move(LEFT_ANGLE + 30.0, 1.0, SPEED);
     hankette.moveArm(120.0);
     Sleep(1.0);
     hankette.move(RIGHT_ANGLE + 30.0, 1.66/IPS_SPEED, SPEED);
@@ -175,8 +175,8 @@ void moveToTwist(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 14.0;
-    float yDest = 51.0;
+    float xDest = 14.2; // 14
+    float yDest = 50.8; // 51
     float angleDest = 105.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
@@ -189,11 +189,11 @@ void moveToTwist(Robot hankette) {
  */
 void flipBurger(Robot hankette) {
     reportMessage("Fliping tray back.");
-    hankette.move(LEFT_ANGLE + 30.0, 1.6/IPS_SPEED, SPEED);
+    hankette.move(LEFT_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
     Sleep(0.5);
     hankette.moveArm(160.0);
     Sleep(2.0);
-    hankette.move(RIGHT_ANGLE + 30.0, 1.66/IPS_SPEED, SPEED);
+    hankette.move(RIGHT_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -328,11 +328,11 @@ void moveToBurger(Robot hankette) {
     reportMessage("Moving to burger.");
     hankette.move(FRONT_ANGLE + 30.0, 10.0/IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, SPEED);
-    float xDest = 27.3;
+    float xDest = 26.5;
     float yDest = 60.0;
     float angleDest = 0.0;
 
-    hankette.move(FRONT_ANGLE + 30.0, 16.0/IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE + 60.0, 12.0/IPS_SPEED, SPEED);
     moveToSetPos(hankette, xDest, yDest, angleDest, 0.1);
 }
 
@@ -383,7 +383,7 @@ void dropTray(Robot hankette) {
     reportMessage("Dropping the tray into the sink.");
     hankette.move(BACK_ANGLE, 2.0/IPS_SPEED, SPEED);
     hankette.toggleRamp();
-    Sleep(0.2);
+    Sleep(0.5);
 }
 
 /**
@@ -393,7 +393,7 @@ void dropTray(Robot hankette) {
  */
 void goToSink(Robot hankette) {
     reportMessage("Lining up to sink.");
-    hankette.move(LEFT_ANGLE, 12.0/IPS_SPEED, SPEED);
+    hankette.move(LEFT_ANGLE, 11.0/IPS_SPEED, SPEED);
 
     float xDest = 7.0;
     float yDest = 45.5;
@@ -422,7 +422,7 @@ void guessToButton(Robot hankette, float ips) {
 void moveUpRamp(Robot hankette) {
     reportMessage("Moving up the ramp.");
     hankette.move(LEFT_ANGLE, 8.5/IPS_SPEED, SPEED);
-    hankette.move(FRONT_ANGLE, 40.0/IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE, 42.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -486,27 +486,33 @@ void waitForTouch() {
  * @return The heading of the robot.
  */
 float getRPS(float *x, float *y) {
-    Sleep(0.3);
+    Sleep(0.5);
     float head = RPS.Heading();
-    *x = RPS.X();
-    *y = RPS.Y();
+    float mx, my;
+    // *x = RPS.X();
+    // *y = RPS.Y();
     float xSum = 0.0;
     float ySum = 0.0;
     float headSum = 0.0;
     const int limit = 10;
     int count = 0;
-    if (*x > -1.5 && *y > -1.5 && head > -1.5) {
-        for (int i = 0; i < limit; i++) {
-            Sleep(0.01);
-            head = RPS.Heading();
-            *x = RPS.X();
-            *y = RPS.Y();
-            if (*x > -0.1 && *y > -0.1 && head > -0.1) {
-                xSum += *x;
-                ySum += *y;
-                headSum += head;
-                count++;
-            }
+    for (int i = 0; i < limit; i++) {
+        Sleep(0.01);
+        head = RPS.Heading();
+        // *x = RPS.X();
+        // *y = RPS.Y();
+        mx = RPS.X();
+        my = RPS.Y();
+        if (mx > 0.0 && my > 0.0 && head > 0.0) {
+            char buffer[27];
+            snprintf(buffer, sizeof buffer, "RPS X: %.2f", mx);
+            reportMessage(buffer);
+            snprintf(buffer, sizeof buffer, "RPS Y: %.2f", my);
+            reportMessage(buffer);
+            xSum += mx;
+            ySum += my;
+            headSum += head;
+            count++;
         }
     }
 
