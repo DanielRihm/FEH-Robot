@@ -75,8 +75,12 @@ void calibrate() {
  * @param hankette The robot.
  */
 void pushFinalButton(Robot hankette) {
-    hankette.turn(40.0/DPS_SPEED, SPEED);
-    hankette.move(BACK_ANGLE, 20.0/IPS_SPEED, SPEED);
+    float xDest = 22.0;
+    float yDest = 16.0;
+    float angleDest = 315.0;
+
+    moveToSetPos(hankette, xDest, yDest, angleDest, 2.0);
+    hankette.moveUnbounded(BACK_ANGLE, SPEED);
 }
 
 /**
@@ -132,7 +136,7 @@ void moveToVanil(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 11.6; // 11
+    float xDest = 12.0; // 11
     float yDest = 47.8; // 48
     float angleDest = 105.0;
 
@@ -191,8 +195,8 @@ void moveToTwist(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 14.8; // 14
-    float yDest = 50.4; // 51
+    float xDest = 16.0; // 14
+    float yDest = 51.0; // 51
     float angleDest = 105.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
@@ -358,8 +362,11 @@ void moveToBurger(Robot hankette) {
  * @param hankette The robot.
  */
 void slideTicket(Robot hankette) {
-    hankette.moveArm(70.0);
+    hankette.moveArm(60.0);
     hankette.move(BACK_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
+    hankette.turn(150.0/DPS_SPEED, SPEED);
+    hankette.turn(30.0/DPS_SPEED, -SPEED);
+    hankette.move(RIGHT_ANGLE - 60.0, 2.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -372,7 +379,7 @@ void goToTicket(Robot hankette) {
     hankette.move(FRONT_ANGLE+75.0, 18.0/IPS_SPEED, SPEED);
     hankette.turn(150.0/DPS_SPEED, -SPEED);
 
-    float xDest = 29.1;
+    float xDest = 28.9;
     float yDest = 26.3;
     float angleDest = 150.0;
 
@@ -438,7 +445,7 @@ void guessToButton(Robot hankette, float ips) {
 void moveUpRamp(Robot hankette) {
     reportMessage("Moving up the ramp.");
     hankette.move(LEFT_ANGLE, 8.5/IPS_SPEED, SPEED);
-    hankette.move(FRONT_ANGLE, 44.0/IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE, 42.0/IPS_SPEED, SPEED);
 }
 
 /**

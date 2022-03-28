@@ -42,6 +42,8 @@ int main(void)
     moveToJukeboxLight(hankette);
     pushJukeButton(hankette);
     goToTicket(hankette);
+    slideTicket(hankette);
+    pushFinalButton(hankette);
     ceaseDebug();
 }
 
