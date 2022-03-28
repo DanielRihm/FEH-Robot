@@ -36,7 +36,7 @@ Robot::Robot() {
     rampClosed = true;
     roboArm.SetMin(ROBOARM_MIN);
     roboArm.SetMax(ROBOARM_MAX);
-    roboArm.SetDegree(150.0);
+    roboArm.SetDegree(120.0);
 }
 
 /**

@@ -18,6 +18,7 @@ int main(void)
     reportMessage("Waiting...");
     waitForTouch();
     waitForLight();
+    hankette.moveArm(150.0);
     moveUpRamp(hankette);
     goToSink(hankette);
     dropTray(hankette);
@@ -40,6 +41,7 @@ int main(void)
     moveDownRamp(hankette);
     moveToJukeboxLight(hankette);
     pushJukeButton(hankette);
+    goToTicket(hankette);
     ceaseDebug();
 }
 

@@ -31,8 +31,8 @@ void flipBurger(Robot);
 void goToSink(Robot);
 void dropTray(Robot);
 void sinkToBurger(Robot); // not needed for test 3
-void lineUpToTicket(Robot); // not needed for test 3
-void slideTicket(Robot); // not needed for test 3
+void goToTicket(Robot);
+void slideTicket(Robot);
 void pushJukeButton(Robot); // not needed for test 2
 void guessToButton(Robot, float); // not needed for test 2
 
@@ -132,8 +132,8 @@ void moveToVanil(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 11.0;
-    float yDest = 48.0;
+    float xDest = 11.6; // 11
+    float yDest = 47.8; // 48
     float angleDest = 105.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
@@ -160,11 +160,11 @@ void unFlipLever(Robot hankette) {
  */
 void fixBurger(Robot hankette) {
     hankette.moveArm(180.0);
-    hankette.move(FRONT_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
-    hankette.move(LEFT_ANGLE + 30.0, 1.0, SPEED);
+    hankette.move(FRONT_ANGLE + 30.0, 2.5/IPS_SPEED, SPEED);
+    hankette.move(LEFT_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
     hankette.moveArm(120.0);
     Sleep(1.0);
-    hankette.move(RIGHT_ANGLE + 30.0, 1.66/IPS_SPEED, SPEED);
+    hankette.move(RIGHT_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -191,8 +191,8 @@ void moveToTwist(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 14.2; // 14
-    float yDest = 50.8; // 51
+    float xDest = 14.8; // 14
+    float yDest = 50.4; // 51
     float angleDest = 105.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
@@ -252,7 +252,7 @@ bool checkHeading(float angle, float destAngle, float error) {
  * @param hankette The robot.
  * @param x The x position.
  * @param y The y position.
- * @param angle The final angle of the robot.
+ * @param angle The final angle of the robot in the counterclockwise.
  * @param error The allowed error in the final position.
  * @return Negative if failed.
  */
@@ -358,8 +358,8 @@ void moveToBurger(Robot hankette) {
  * @param hankette The robot.
  */
 void slideTicket(Robot hankette) {
-    hankette.move(RIGHT_ANGLE+60.0, 5.0/IPS_SPEED, SPEED);
-    hankette.turn(30.0/DPS_SPEED, -SPEED);
+    hankette.moveArm(70.0);
+    hankette.move(BACK_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -367,16 +367,16 @@ void slideTicket(Robot hankette) {
  * 
  * @param hankette The robot.
  */
-void lineUpToTicket(Robot hankette) {
-    reportMessage("Lining up to the ticket.");
-    hankette.move(BACK_ANGLE, 1.0, SPEED);
+void goToTicket(Robot hankette) {
+    reportMessage("Going to ticket");
+    hankette.move(FRONT_ANGLE+75.0, 18.0/IPS_SPEED, SPEED);
     hankette.turn(150.0/DPS_SPEED, -SPEED);
-    hankette.move(FRONT_ANGLE-60.0, 2.5, SPEED);
-    reportMessage("back to ticket angle.");
-    hankette.move(RIGHT_ANGLE+30.0, 0.5, SPEED);
-    hankette.turn(38.0/DPS_SPEED, SPEED);
-    reportMessage("Going to ticket.");
-    hankette.move(FRONT_ANGLE+60.0, 20.0/IPS_SPEED, SPEED);
+
+    float xDest = 29.1;
+    float yDest = 26.3;
+    float angleDest = 150.0;
+
+    moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
 }
 
 /**
@@ -510,13 +510,15 @@ float getRPS(float *x, float *y) {
         head = RPS.Heading();
         *x = RPS.X();
         *y = RPS.Y();
+
+        // char buffer[27];
+        // snprintf(buffer, sizeof buffer, "RPS X: %.2f", *x);
+        // reportMessage(buffer);
+        // snprintf(buffer, sizeof buffer, "RPS Y: %.2f", *y);
+        // reportMessage(buffer);
+
         if (*x > 0.0 && *y > 0.0 && head > 0.0 && 
             *x < 36.0 && *y < 72.0) { // for 0.06 seconds RPS can give a value outside the course
-            // char buffer[27];
-            // snprintf(buffer, sizeof buffer, "RPS X: %.2f", *x);
-            // reportMessage(buffer);
-            // snprintf(buffer, sizeof buffer, "RPS Y: %.2f", *y);
-            // reportMessage(buffer);
             xSum += *x;
             ySum += *y;
             headSum += head;
