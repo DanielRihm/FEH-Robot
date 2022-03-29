@@ -75,8 +75,8 @@ void calibrate() {
  * @param hankette The robot.
  */
 void pushFinalButton(Robot hankette) {
-    float xDest = 22.0;
-    float yDest = 16.0;
+    float xDest = 23.0;
+    float yDest = 14.0;
     float angleDest = 315.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 2.0);
@@ -119,7 +119,7 @@ void moveToChoco(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 17.2; // 17
+    float xDest = 17.6; // 17
     float yDest = 53.8; // 54
     float angleDest = 105.0;
 
@@ -153,7 +153,7 @@ void unFlipLever(Robot hankette) {
     hankette.moveArm(30.0);
     Sleep(7.0);
     hankette.move(BACK_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
-    hankette.moveArm(100.0);
+    hankette.moveArm(120.0);
     Sleep(0.5);
 }
 
@@ -195,8 +195,8 @@ void moveToTwist(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 16.0; // 14
-    float yDest = 51.0; // 51
+    float xDest = 15.8; // 14
+    float yDest = 51.2; // 51
     float angleDest = 105.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
@@ -363,6 +363,7 @@ void moveToBurger(Robot hankette) {
  */
 void slideTicket(Robot hankette) {
     hankette.moveArm(60.0);
+    Sleep(0.2);
     hankette.move(BACK_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
     hankette.turn(150.0/DPS_SPEED, SPEED);
     hankette.turn(30.0/DPS_SPEED, -SPEED);
@@ -513,7 +514,7 @@ float getRPS(float *x, float *y) {
     const int limit = 10;
     int count = 0;
     for (int i = 0; i < limit; i++) {
-        Sleep(0.01);
+        Sleep(0.02);
         head = RPS.Heading();
         *x = RPS.X();
         *y = RPS.Y();
