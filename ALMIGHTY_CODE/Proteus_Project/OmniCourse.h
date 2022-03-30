@@ -30,11 +30,9 @@ void burgerSetup(Robot);
 void flipBurger(Robot);
 void goToSink(Robot);
 void dropTray(Robot);
-void sinkToBurger(Robot); // not needed for test 3
 void goToTicket(Robot);
 void slideTicket(Robot);
-void pushJukeButton(Robot); // not needed for test 2
-void guessToButton(Robot, float); // not needed for test 2
+void pushJukeButton(Robot);
 
 /**
  * @brief Moves the robot from the bottom of the ramp to the jukebox light.
@@ -43,7 +41,7 @@ void guessToButton(Robot, float); // not needed for test 2
  */
 void moveToJukeboxLight(Robot hankette) {
     reportMessage("Going to jukebox light.");
-    hankette.move(LEFT_ANGLE, 7.0/IPS_SPEED, SPEED);
+    hankette.move(LEFT_ANGLE, 8.0/IPS_SPEED, SPEED);
 
     float xDest = 9.0;
     float yDest = 14.0;
@@ -90,7 +88,7 @@ void pushFinalButton(Robot hankette) {
  */
 void moveDownRamp(Robot hankette) {
     reportMessage("Going down ramp.");
-    hankette.move(BACK_ANGLE, 25.0/IPS_SPEED, SPEED);
+    hankette.move(BACK_ANGLE, 27.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -101,18 +99,18 @@ void moveDownRamp(Robot hankette) {
 void goToTopRamp(Robot hankette) {
     reportMessage("Returning to ramp.");
     hankette.turn(60.0/DPS_SPEED, SPEED);
-    hankette.move(BACK_ANGLE + 30.0, 10.0/IPS_SPEED, SPEED);
+    hankette.move(BACK_ANGLE + 30.0, 11.0/IPS_SPEED, SPEED);
 
     float xDest = 18.4;
     float yDest = 45.5;
     float angleDest = 0.0;
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.5);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 1.5);
 }
 
 /**
  * @brief Moves the robot to the chocolate lever.
  * 
- * @param hankette 
+ * @param hankette The robot.
  */
 void moveToChoco(Robot hankette) {
     reportMessage("Going to chocolate.");
@@ -153,6 +151,10 @@ void unFlipLever(Robot hankette) {
     hankette.moveArm(30.0);
     Sleep(7.0);
     hankette.move(BACK_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
+    hankette.moveArm(120.0);
+    Sleep(0.2);
+    hankette.moveArm(30.0);
+    Sleep(0.2);
     hankette.moveArm(120.0);
     Sleep(0.5);
 }
@@ -212,7 +214,9 @@ void flipBurger(Robot hankette) {
     hankette.move(LEFT_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
     Sleep(0.5);
     hankette.moveArm(160.0);
-    Sleep(2.0);
+    Sleep(1.0);
+    hankette.move(BACK_ANGLE + 30.0, 1.0/IPS_SPEED, SPEED);
+    Sleep(1.0);
     hankette.move(RIGHT_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
 }
 
@@ -388,17 +392,6 @@ void goToTicket(Robot hankette) {
 }
 
 /**
- * @brief Drives the robot straight from the sink to the robot.
- * 
- * @param hankette The robot.
- */
-void sinkToBurger(Robot hankette) {
-    reportMessage("Going to burger.");
-    hankette.move(FRONT_ANGLE+60.0, 22.0/IPS_SPEED, SPEED);
-    hankette.move(FRONT_ANGLE, 1.5, SPEED);
-}
-
-/**
  * @brief Drops the tray into the sink.
  * 
  * @param hankette The robot.
@@ -426,17 +419,6 @@ void goToSink(Robot hankette) {
 }
 
 /**
- * @brief The robot moves a set distance to where the button should be.
- * 
- * @param hankette The robot.
- * @param ips Inches per second.
- */
-void guessToButton(Robot hankette, float ips) {
-    reportMessage("Driving to the button.");
-    hankette.move(BACK_ANGLE, 10.0/ips, SPEED);
-}
-
-/**
  * @brief Moves the robot from the start, up, and then back down the ramp.
  * Requires ips > 0.0
  * 
@@ -445,7 +427,7 @@ void guessToButton(Robot hankette, float ips) {
  */
 void moveUpRamp(Robot hankette) {
     reportMessage("Moving up the ramp.");
-    hankette.move(LEFT_ANGLE, 8.5/IPS_SPEED, SPEED);
+    hankette.move(LEFT_ANGLE, 9.0/IPS_SPEED, SPEED);
     hankette.move(FRONT_ANGLE, 42.0/IPS_SPEED, SPEED);
 }
 
@@ -504,7 +486,7 @@ void waitForTouch() {
  * @return The heading of the robot.
  */
 float getRPS(float *x, float *y) {
-    Sleep(0.3);
+    Sleep(0.2);
     float head = RPS.Heading();
     *x = RPS.X();
     *y = RPS.Y();
