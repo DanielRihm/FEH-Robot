@@ -14,8 +14,14 @@
 #define IPS_SPEED 8.10
 #define DPS_SPEED 138.462
 #define BUTTON_DISTANCE 2.0
-#define DEFAULT_BOT_X 4.4
-#define DEFAULT_BOT_Y 45.8
+#define DEFAULT_X_SINK 4.4
+#define DEFAULT_Y_SINK 45.8
+#define DEFAULT_X_TICKET 33.1 // 33.2
+#define DEFAULT_Y_TICKET 29.5
+#define DEFAULT_X_BURGER 33.5
+#define DEFAULT_Y_BURGER 64.6
+#define DEFAULT_X_JUKEBOX 3.0
+#define DEFAULT_Y_JUKEBOX 8.5
 
 // OmniMotor constants
 #define VOLTAGE 6.0
@@ -35,7 +41,7 @@
 #define ROBOARM_MAX 2300
 
 //OmniSensors constants
-#define RED_LIGHT_CUTOFF 0.5
+#define RED_LIGHT_CUTOFF 0.4
 #define BLUE_LIGHT_CUTOFF 1.0
 #define RED_LIGHT 1
 #define BLUE_LIGHT 2

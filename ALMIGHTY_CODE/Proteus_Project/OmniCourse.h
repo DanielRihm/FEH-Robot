@@ -4,9 +4,16 @@
 #include <OmniSensors.h>
 #include <stdio.h>
 
-float xOffset = 0.0;
-float yOffset = 0.0;
+float xSinkOffset = 0.0;
+float ySinkOffset = 0.0;
+float xTickOffset = 0.0;
+float yTickOffset = 0.0;
+float xBurgOffset = 0.0;
+float yBurgOffset = 0.0;
+float xJukeOffset = 0.0;
+float yJukeOffset = 0.0;
 
+float dist(float, float, float, float);
 void calibrate();
 void moveToJukeboxLight(Robot);
 void pushFinalButton(Robot);
@@ -35,13 +42,26 @@ void slideTicket(Robot);
 void pushJukeButton(Robot);
 
 /**
+ * @brief Finds the distance between two points.
+ * 
+ * @param x1 The x coordinate of the first point.
+ * @param y1 The y coordinate of the first point.
+ * @param x2 The x coordinate of the second point.
+ * @param y2 The y coordinate of the second point.
+ * @return The distance between the two points.
+ */
+float dist(float x1, float y1, float x2, float y2) {
+    return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+}
+
+/**
  * @brief Moves the robot from the bottom of the ramp to the jukebox light.
  * 
  * @param hankette The robot.
  */
 void moveToJukeboxLight(Robot hankette) {
     reportMessage("Going to jukebox light.");
-    hankette.move(LEFT_ANGLE, 8.0/IPS_SPEED, SPEED);
+    hankette.move(LEFT_ANGLE, 10.0/IPS_SPEED, SPEED);
 
     float xDest = 9.0;
     float yDest = 14.0;
@@ -50,7 +70,8 @@ void moveToJukeboxLight(Robot hankette) {
 }
 
 void calibrate() {
-    reportMessage("Touch for calibration");
+    // Jukebox
+    reportMessage("Touch for calibrationJ");
     waitForTouch();
 
     float botLeftX;
@@ -58,12 +79,54 @@ void calibrate() {
 
     getRPS(&botLeftX, &botLeftY);
 
-    xOffset = DEFAULT_BOT_X - botLeftX;
-    yOffset = DEFAULT_BOT_Y - botLeftY;
-    char buffer[64];
-    snprintf(buffer, sizeof buffer, "X Offset: %f", xOffset);
+    xJukeOffset = DEFAULT_X_JUKEBOX - botLeftX;
+    yJukeOffset = DEFAULT_Y_JUKEBOX - botLeftY;
+    char buffer[27];
+    snprintf(buffer, sizeof buffer, "X Offset: %.2f", xSinkOffset);
     reportMessage(buffer);
-    snprintf(buffer, sizeof buffer, "Y Offset: %f", yOffset);
+    snprintf(buffer, sizeof buffer, "Y Offset: %.2f", ySinkOffset);
+    reportMessage(buffer);
+
+    // sink
+    reportMessage("Touch for calibrationS");
+    waitForTouch();
+
+    getRPS(&botLeftX, &botLeftY);
+
+    xSinkOffset = DEFAULT_X_SINK - botLeftX;
+    ySinkOffset = DEFAULT_Y_SINK - botLeftY;
+
+    snprintf(buffer, sizeof buffer, "X Offset: %.2f", xSinkOffset);
+    reportMessage(buffer);
+    snprintf(buffer, sizeof buffer, "Y Offset: %.2f", ySinkOffset);
+    reportMessage(buffer);
+
+    // burger
+    reportMessage("Touch for calibrationB");
+    waitForTouch();
+
+    getRPS(&botLeftX, &botLeftY);
+
+    xBurgOffset = DEFAULT_X_BURGER - botLeftX;
+    yBurgOffset = DEFAULT_Y_BURGER - botLeftY;
+
+    snprintf(buffer, sizeof buffer, "X Offset: %.2f", xBurgOffset);
+    reportMessage(buffer);
+    snprintf(buffer, sizeof buffer, "Y Offset: %.2f", yBurgOffset);
+    reportMessage(buffer);
+
+    // ticket
+    reportMessage("Touch for calibrationT");
+    waitForTouch();
+
+    getRPS(&botLeftX, &botLeftY);
+
+    xTickOffset = DEFAULT_X_TICKET - botLeftX;
+    yTickOffset = DEFAULT_Y_TICKET - botLeftY;
+
+    snprintf(buffer, sizeof buffer, "X Offset: %.2f", xTickOffset);
+    reportMessage(buffer);
+    snprintf(buffer, sizeof buffer, "Y Offset: %.2f", yTickOffset);
     reportMessage(buffer);
 }
 
@@ -73,6 +136,10 @@ void calibrate() {
  * @param hankette The robot.
  */
 void pushFinalButton(Robot hankette) {
+    reportMessage("Moving to final button.");
+    hankette.move(BACK_ANGLE - 60.0, 8.0/IPS_SPEED, SPEED);
+    hankette.turn(150.0/DPS_SPEED, SPEED);
+
     float xDest = 23.0;
     float yDest = 14.0;
     float angleDest = 315.0;
@@ -88,7 +155,7 @@ void pushFinalButton(Robot hankette) {
  */
 void moveDownRamp(Robot hankette) {
     reportMessage("Going down ramp.");
-    hankette.move(BACK_ANGLE, 27.0/IPS_SPEED, SPEED);
+    hankette.move(BACK_ANGLE, 29.0/IPS_SPEED, SPEED);
 }
 
 /**
@@ -99,7 +166,7 @@ void moveDownRamp(Robot hankette) {
 void goToTopRamp(Robot hankette) {
     reportMessage("Returning to ramp.");
     hankette.turn(60.0/DPS_SPEED, SPEED);
-    hankette.move(BACK_ANGLE + 30.0, 11.0/IPS_SPEED, SPEED);
+    hankette.move(BACK_ANGLE + 30.0, 13.0/IPS_SPEED, SPEED);
 
     float xDest = 18.4;
     float yDest = 45.5;
@@ -265,8 +332,24 @@ bool checkHeading(float angle, float destAngle, float error) {
  * @return Negative if failed.
  */
 void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
-    x -= xOffset;
-    y -= yOffset;
+    float sinkDist = dist(x, y, DEFAULT_X_SINK, DEFAULT_Y_SINK);
+    float tickDist = dist(x, y, DEFAULT_X_TICKET, DEFAULT_Y_TICKET);
+    float burgDist = dist(x, y, DEFAULT_X_BURGER, DEFAULT_Y_BURGER);
+    float jukeDist = dist(x, y, DEFAULT_X_JUKEBOX, DEFAULT_Y_JUKEBOX);
+    if (sinkDist < tickDist && sinkDist < burgDist && sinkDist < jukeDist) {
+        x -= xSinkOffset;
+        y -= ySinkOffset;
+    } else if (tickDist < burgDist && tickDist < jukeDist) {
+        x -= xTickOffset;
+        y -= yTickOffset;
+    } else if (burgDist < jukeDist) {
+        x -= xBurgOffset;
+        y -= yBurgOffset;
+    } else {
+        x -= xJukeOffset;
+        y -= yJukeOffset;
+    }
+    
     float xCurr;
     float yCurr;
     float heading;
@@ -366,7 +449,7 @@ void moveToBurger(Robot hankette) {
  * @param hankette The robot.
  */
 void slideTicket(Robot hankette) {
-    hankette.moveArm(60.0);
+    hankette.moveArm(65.0);
     Sleep(0.2);
     hankette.move(BACK_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
     hankette.turn(150.0/DPS_SPEED, SPEED);
@@ -427,7 +510,7 @@ void goToSink(Robot hankette) {
  */
 void moveUpRamp(Robot hankette) {
     reportMessage("Moving up the ramp.");
-    hankette.move(LEFT_ANGLE, 9.0/IPS_SPEED, SPEED);
+    hankette.move(LEFT_ANGLE, 9.5/IPS_SPEED, SPEED);
     hankette.move(FRONT_ANGLE, 42.0/IPS_SPEED, SPEED);
 }
 
@@ -493,9 +576,11 @@ float getRPS(float *x, float *y) {
     float xSum = 0.0;
     float ySum = 0.0;
     float headSum = 0.0;
-    const int limit = 10;
+    const int limit = 5;
+    const int maxIter = 150;
     int count = 0;
-    for (int i = 0; i < limit; i++) {
+    int maxCount = 0;
+    while (count < limit) {
         Sleep(0.02);
         head = RPS.Heading();
         *x = RPS.X();
@@ -513,6 +598,11 @@ float getRPS(float *x, float *y) {
             ySum += *y;
             headSum += head;
             count++;
+        }
+
+        maxCount++;
+        if (maxCount > maxIter) {
+            break;
         }
     }
 
