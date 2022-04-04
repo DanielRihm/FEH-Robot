@@ -144,7 +144,7 @@ void pushFinalButton(Robot hankette) {
     float yDest = 14.0;
     float angleDest = 315.0;
 
-    moveToSetPos(hankette, xDest, yDest, angleDest, 2.0);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 5.0);
     hankette.moveUnbounded(BACK_ANGLE, SPEED);
 }
 
@@ -184,11 +184,11 @@ void moveToChoco(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 18.0; // 17
+    float xDest = 18.2; // 17
     float yDest = 53.4; // 54
     float angleDest = 105.0;
 
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
+    moveToSetPos(hankette, xDest, yDest, angleDest, ICE_CREAM_ERROR);
 }
 
 /**
@@ -205,7 +205,7 @@ void moveToVanil(Robot hankette) {
     float yDest = 47.8; // 48
     float angleDest = 105.0;
 
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
+    moveToSetPos(hankette, xDest, yDest, angleDest, ICE_CREAM_ERROR);
 }
 
 /**
@@ -268,7 +268,7 @@ void moveToTwist(Robot hankette) {
     float yDest = 51.2; // 51
     float angleDest = 105.0;
 
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
+    moveToSetPos(hankette, xDest, yDest, angleDest, ICE_CREAM_ERROR);
 }
 
 /**
@@ -405,8 +405,8 @@ void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
 
         headInError = checkHeading(heading, angle, error);
 
-        if (speed > 40) {
-            speed = 40;
+        if (speed > 30) {
+            speed = 30;
         } else if (speed > 20) {
             speed -= 5;
         }
@@ -452,6 +452,10 @@ void slideTicket(Robot hankette) {
     hankette.moveArm(65.0);
     Sleep(0.2);
     hankette.move(BACK_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
+
+    hankette.turn(1.0/IPS_SPEED, -SPEED);
+    hankette.move(BACK_ANGLE + 30.0, 2.0/IPS_SPEED, SPEED);
+
     hankette.turn(150.0/DPS_SPEED, SPEED);
     hankette.turn(30.0/DPS_SPEED, -SPEED);
     hankette.move(RIGHT_ANGLE - 60.0, 2.0/IPS_SPEED, SPEED);
@@ -467,11 +471,11 @@ void goToTicket(Robot hankette) {
     hankette.move(FRONT_ANGLE+75.0, 18.0/IPS_SPEED, SPEED);
     hankette.turn(150.0/DPS_SPEED, -SPEED);
 
-    float xDest = 28.9;
+    float xDest = 28.5;
     float yDest = 26.3;
     float angleDest = 150.0;
 
-    moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 0.5);
 }
 
 /**
@@ -581,7 +585,7 @@ float getRPS(float *x, float *y) {
     int count = 0;
     int maxCount = 0;
     while (count < limit) {
-        Sleep(0.02);
+        Sleep(0.01);
         head = RPS.Heading();
         *x = RPS.X();
         *y = RPS.Y();

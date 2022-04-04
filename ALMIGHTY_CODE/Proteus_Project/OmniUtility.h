@@ -3,6 +3,7 @@
 #include <FEHBattery.h>
 #include <FEHSD.h>
 
+#define ICE_CREAM_ERROR 0.3
 #define RPS_FRONT_ANGLE 90.0
 #define RIGHT_ANGLE 90.0
 #define FRONT_ANGLE 0.0
@@ -111,7 +112,7 @@ void reportSpeed(int motor, float speed) {
  * @param message the message to be reported.
  */
 void reportMessage(char const * message) {
-    if (currentRow < 27) {
+    if (currentRow < 15) {
         LCD.WriteRC("                          ", currentRow, 0);
         LCD.WriteRC(message, currentRow, 0);
         if (fptr != NULL) {
