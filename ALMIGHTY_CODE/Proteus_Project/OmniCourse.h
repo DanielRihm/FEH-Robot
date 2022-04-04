@@ -184,8 +184,8 @@ void moveToChoco(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 17.6; // 17
-    float yDest = 53.8; // 54
+    float xDest = 18.0; // 17
+    float yDest = 53.4; // 54
     float angleDest = 105.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 0.2);
@@ -264,7 +264,7 @@ void moveToTwist(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -SPEED);
 
-    float xDest = 15.8; // 14
+    float xDest = 15.4; // 14
     float yDest = 51.2; // 51
     float angleDest = 105.0;
 
