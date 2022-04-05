@@ -9,11 +9,11 @@
 #define FRONT_ANGLE 0.0
 #define LEFT_ANGLE 270.0
 #define BACK_ANGLE 180.0
-#define SPEED 80
+#define SPEED 95
 #define TURN_SPEED 80
 #define SLOW_SPEED 25
 #define FAST_SPEED 60
-#define IPS_SPEED 8.10
+#define IPS_SPEED 9.7083
 #define DPS_SPEED 138.462
 #define BUTTON_DISTANCE 2.0
 #define DEFAULT_X_SINK 4.4
@@ -34,9 +34,9 @@
 #define NEG_FRONT_FACTOR 1.0
 #define NEG_LEFT_FACTOR 1.0
 #define NEG_RIGHT_FACTOR 1.0
-#define POS_FRONT_FACTOR 0.9
-#define POS_LEFT_FACTOR 0.95
-#define POS_RIGHT_FACTOR 0.95
+#define POS_FRONT_FACTOR 0.93
+#define POS_LEFT_FACTOR 1.0
+#define POS_RIGHT_FACTOR 0.9
 #define RAMP_DOOR_MIN 500
 #define RAMP_DOOR_MAX 2300
 #define ROBOARM_MIN 500
