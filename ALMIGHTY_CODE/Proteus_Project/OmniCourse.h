@@ -137,12 +137,11 @@ void calibrate() {
  */
 void pushFinalButton(Robot hankette) {
     reportMessage("Moving to final button.");
-    hankette.move(BACK_ANGLE - 60.0, 12.0/IPS_SPEED, SPEED);
-    hankette.turn(150.0/DPS_SPEED, TURN_SPEED);
+    hankette.turn(90.0/DPS_SPEED, TURN_SPEED);
 
-    float xDest = 23.0;
-    float yDest = 14.0;
-    float angleDest = 315.0;
+    float xDest = 28.5;
+    float yDest = 26.3;
+    float angleDest = 0.0;
 
     moveToSetPos(hankette, xDest, yDest, angleDest, 5.0);
     hankette.moveUnbounded(BACK_ANGLE, SPEED);
