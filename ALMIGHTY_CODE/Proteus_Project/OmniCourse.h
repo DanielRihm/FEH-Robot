@@ -352,7 +352,7 @@ void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
     float xCurr;
     float yCurr;
     float heading;
-    int speed = SPEED;
+    int speed = 85;
     int turnSpeed = TURN_SPEED;
     bool headInError;
 

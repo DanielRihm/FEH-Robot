@@ -13,7 +13,7 @@
 #define TURN_SPEED 80
 #define SLOW_SPEED 25
 #define FAST_SPEED 60
-#define IPS_SPEED 9.7083
+#define IPS_SPEED 9.9
 #define DPS_SPEED 138.462
 #define BUTTON_DISTANCE 2.0
 #define DEFAULT_X_SINK 4.4
@@ -35,7 +35,7 @@
 #define NEG_LEFT_FACTOR 1.0
 #define NEG_RIGHT_FACTOR 1.0
 #define POS_FRONT_FACTOR 0.93
-#define POS_LEFT_FACTOR 1.0
+#define POS_LEFT_FACTOR 0.95
 #define POS_RIGHT_FACTOR 0.9
 #define RAMP_DOOR_MIN 500
 #define RAMP_DOOR_MAX 2300
