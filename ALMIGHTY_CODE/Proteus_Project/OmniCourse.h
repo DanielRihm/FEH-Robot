@@ -139,7 +139,7 @@ void pushFinalButton(Robot hankette) {
     reportMessage("Moving to final button.");
     hankette.turn(90.0/DPS_SPEED, TURN_SPEED);
 
-    float xDest = 28.5;
+    float xDest = 29.0; // 28.5
     float yDest = 26.3;
     float angleDest = 0.0;
 
@@ -200,7 +200,7 @@ void moveToVanil(Robot hankette) {
     hankette.move(FRONT_ANGLE + 65.0, 5.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -TURN_SPEED);
 
-    float xDest = 12.0; // 11
+    float xDest = 11.6; // 11
     float yDest = 47.8; // 48
     float angleDest = 105.0;
 
@@ -233,10 +233,10 @@ void unFlipLever(Robot hankette) {
 void fixBurger(Robot hankette) {
     hankette.moveArm(180.0);
     hankette.move(FRONT_ANGLE + 30.0, 2.5/IPS_SPEED, SPEED);
-    hankette.move(LEFT_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
+    hankette.move(LEFT_ANGLE + 30.0, 3.4/IPS_SPEED, SPEED);
     hankette.moveArm(120.0);
-    Sleep(1.0);
-    hankette.move(RIGHT_ANGLE + 30.0, 3.0/IPS_SPEED, SPEED);
+    Sleep(0.5);
+    hankette.move(RIGHT_ANGLE + 30.0, 3.4/IPS_SPEED, SPEED);
 }
 
 /**
@@ -263,7 +263,7 @@ void moveToTwist(Robot hankette) {
     hankette.move(FRONT_ANGLE + 60.0, 7.0 / IPS_SPEED, SPEED);
     hankette.turn(105.0/DPS_SPEED, -TURN_SPEED);
 
-    float xDest = 15.4; // 14
+    float xDest = 15.0; // 14
     float yDest = 51.2; // 51
     float angleDest = 105.0;
 
@@ -352,11 +352,11 @@ void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
     float xCurr;
     float yCurr;
     float heading;
-    int speed = 85;
+    int speed = 80;
     int turnSpeed = TURN_SPEED;
     bool headInError;
 
-    Sleep(0.1);
+    Sleep(0.2);
     do {
         // makes heading angle in the same frame of reference as all other angles in the code.
         heading = getRPS(&xCurr, &yCurr);
@@ -427,7 +427,7 @@ void moveToSetPos(Robot hankette, float x, float y, float angle, float error) {
 void burgerSetup(Robot hankette) {
     hankette.turn(60.0/DPS_SPEED, -TURN_SPEED);
     hankette.moveArm(25.0);
-    Sleep(0.5);
+    Sleep(0.3); // 0.5
 }
 
 /**
@@ -519,7 +519,7 @@ void goToSink(Robot hankette) {
 void moveUpRamp(Robot hankette) {
     reportMessage("Moving up the ramp.");
     hankette.move(LEFT_ANGLE, 11.0/IPS_SPEED, SPEED);
-    hankette.move(FRONT_ANGLE, 42.5/IPS_SPEED, SPEED);
+    hankette.move(FRONT_ANGLE, 42.9/IPS_SPEED, SPEED);
 }
 
 /**
