@@ -143,7 +143,7 @@ void pushFinalButton(Robot hankette) {
     float yDest = 26.3;
     float angleDest = 0.0;
 
-    moveToSetPos(hankette, xDest, yDest, angleDest, 5.0);
+    moveToSetPos(hankette, xDest, yDest, angleDest, 2.0);
     hankette.moveUnbounded(BACK_ANGLE, SPEED);
 }
 
