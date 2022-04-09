@@ -43,7 +43,7 @@
 #define ROBOARM_MAX 2300
 
 //OmniSensors constants
-#define RED_LIGHT_CUTOFF 0.4
+#define RED_LIGHT_CUTOFF 0.5
 #define BLUE_LIGHT_CUTOFF 1.0
 #define RED_LIGHT 1
 #define BLUE_LIGHT 2

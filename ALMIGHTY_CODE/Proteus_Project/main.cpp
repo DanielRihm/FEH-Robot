@@ -7,6 +7,7 @@ void testForward(Robot, float);
 void testSideToSide(Robot, float);
 void testSpin(Robot, float);
 void displayRPS();
+void displayLight();
 
 int main(void)
 {
@@ -45,6 +46,26 @@ int main(void)
     slideTicket(hankette);
     pushFinalButton(hankette);
     ceaseDebug();
+}
+
+/**
+ * @brief Displays the currently detected light.
+ * 
+ */
+void displayLight() {
+    LCD.Clear();
+    while (true) {
+        int light = detectLight();
+        if (light == RED_LIGHT) {
+            LCD.WriteRC("RED LIGHT ", 0, 0);
+        } else if (light == BLUE_LIGHT) {
+            LCD.WriteRC("BLUE LIGHT", 0, 0);
+        } else {
+            LCD.WriteRC("NOTHING   ", 0, 0);
+        }
+
+        LCD.WriteRC(cds.Value(), 1, 0);
+    }
 }
 
 /**
