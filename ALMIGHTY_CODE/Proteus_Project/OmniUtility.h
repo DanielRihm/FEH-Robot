@@ -10,7 +10,6 @@
 #define LEFT_ANGLE 270.0
 #define BACK_ANGLE 180.0
 #define SPEED 80
-#define TURN_SPEED 80
 #define SLOW_SPEED 25
 #define FAST_SPEED 60
 #define IPS_SPEED 8.10
@@ -113,7 +112,7 @@ void reportSpeed(int motor, float speed) {
  * @param message the message to be reported.
  */
 void reportMessage(char const * message) {
-    if (currentRow < 14) {
+    if (currentRow < 15) {
         LCD.WriteRC("                          ", currentRow, 0);
         LCD.WriteRC(message, currentRow, 0);
         if (fptr != NULL) {

@@ -70,10 +70,10 @@ void displayRPS() {
 void testSpin(Robot hankette, float time) {
     reportMessage("Waiting...");
     waitForTouch();
-    hankette.turn(time, TURN_SPEED);
+    hankette.turn(time, SPEED);
     reportMessage("Waiting again...");
     waitForTouch();
-    hankette.turn(time, -TURN_SPEED);
+    hankette.turn(time, -SPEED);
     reportMessage("Done");
 }
 
@@ -117,7 +117,7 @@ void testSideToSide(Robot hankette, float time) {
  * @param hankette The robot.
  */
 void test(Robot hankette) {
-    hankette.turn(5.0, TURN_SPEED);
+    hankette.turn(5.0, SPEED);
     for (int i = 0; i < 360; i++) {
         hankette.moveUnbounded(i, SPEED);
         if (i % 5 == 0) {
