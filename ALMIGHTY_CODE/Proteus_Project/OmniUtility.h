@@ -113,7 +113,7 @@ void reportSpeed(int motor, float speed) {
  * @param message the message to be reported.
  */
 void reportMessage(char const * message) {
-    if (currentRow < 14) {
+    if (currentRow < 15) {
         LCD.WriteRC("                          ", currentRow, 0);
         LCD.WriteRC(message, currentRow, 0);
         if (fptr != NULL) {
